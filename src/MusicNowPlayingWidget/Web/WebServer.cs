@@ -1,10 +1,10 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using ObsNowPlaying.Media;
-using ObsNowPlaying.Settings;
+using MusicNowPlayingWidget.Media;
+using MusicNowPlayingWidget.Settings;
 
-namespace ObsNowPlaying.Web;
+namespace MusicNowPlayingWidget.Web;
 
 public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?> art, SettingsHost settings, string widgetFileUrl) : IDisposable
 {

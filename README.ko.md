@@ -1,4 +1,4 @@
-# OBS 지금 재생 중 위젯
+# Music Now Playing Widget (지금 재생 중 위젯)
 
 [English](README.md) | **한국어** | [日本語](README.ja.md)
 
@@ -13,13 +13,13 @@ Windows가 알고 있는 "지금 재생 중" 정보를 그대로 읽어 오기 �
 
 ## 사용 방법
 
-1. `ObsNowPlaying-v0.1.0.zip`을 받아 원하는 폴더에 압축을 풀어요.
-2. `ObsNowPlaying.exe`를 더블클릭해요.
+1. `MusicNowPlayingWidget-v0.1.0.zip`을 받아 원하는 폴더에 압축을 풀어요.
+2. `MusicNowPlayingWidget.exe`를 더블클릭해요.
    - **"Windows의 PC 보호" 파란 창이 뜨면**: `추가 정보` → `실행`을 눌러요.
      개인이 만든 무료 프로그램이라 마이크로소프트 인증서가 없어서 뜨는 경고예요.
    - 처음 실행하면 브라우저에 설정 페이지가 열려요. 그 뒤로는 작업 표시줄 오른쪽 아래 초록 음표 아이콘에서 열 수 있어요.
 3. 설정 페이지의 **OBS에 넣을 주소**에서 원하는 모양의 `복사`를 눌러요. 트레이 아이콘 → `위젯 주소 복사`를 써도 돼요.
-   주소는 `file:///C:/Users/.../ObsNowPlaying/widget/widget.html?style=A`처럼 생겼어요(내 PC에 저장된 위젯 파일이에요).
+   주소는 `file:///C:/Users/.../MusicNowPlayingWidget/widget/widget.html?style=A`처럼 생겼어요(내 PC에 저장된 위젯 파일이에요).
 4. OBS에서 `소스 추가(+)` → `브라우저`를 고르고, URL 칸에 복사한 주소를 붙여 넣어요.
 
    | 모양 | 주소 끝 | 권장 너비 × 높이 |
@@ -81,7 +81,7 @@ Windows의 "지금 재생 중" 정보에 곡을 올리는 플레이어라면 동
 ## 문제 해결
 
 - **"8976번 포트를 다른 프로그램이 쓰고 있어요"**:
-  `%APPDATA%\ObsNowPlaying\settings.json`을 메모장으로 열어 `"port": 8976`의 숫자를 바꾸고(예: 8977) 프로그램을 다시 켜요. OBS에 넣은 파일 주소는 그대로 둬도 돼요.
+  `%APPDATA%\MusicNowPlayingWidget\settings.json`을 메모장으로 열어 `"port": 8976`의 숫자를 바꾸고(예: 8977) 프로그램을 다시 켜요. OBS에 넣은 파일 주소는 그대로 둬도 돼요.
 - **주소는 `localhost`로 써 주세요.** `127.0.0.1`로 바꾸면 열리지 않아요(Windows가 관리자 권한 없이는 `localhost`만 허락해요).
 - **위젯이 안 보여요**: 음악이 실제로 재생 중인지, 설정 → 표시할 앱에서 그 플레이어가 켜져 있는지 확인해요.
 - **뭔가 이상할 때**: 트레이 아이콘 → `다시 시작`. OBS 위젯은 알아서 다시 연결돼요.

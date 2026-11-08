@@ -1,4 +1,4 @@
-using ObsNowPlaying.Media;
+using MusicNowPlayingWidget.Media;
 using Xunit;
 
 public class SessionPickerTests

@@ -1,5 +1,5 @@
-using ObsNowPlaying.Settings;
-using ObsNowPlaying.Web;
+using MusicNowPlayingWidget.Settings;
+using MusicNowPlayingWidget.Web;
 using Xunit;
 
 public class SettingsHostTests : IDisposable

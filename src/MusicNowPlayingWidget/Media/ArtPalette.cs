@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace ObsNowPlaying.Media;
+namespace MusicNowPlayingWidget.Media;
 
 /// Widget colors picked from an album cover. Text is always readable on Background (WCAG 4.5:1), Accent stands out (3:1).
 public sealed record ArtPalette(string Background, string Accent, string Text)

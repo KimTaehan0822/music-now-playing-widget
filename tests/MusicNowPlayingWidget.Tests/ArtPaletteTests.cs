@@ -1,6 +1,6 @@
 using System.Drawing;
 using System.Drawing.Imaging;
-using ObsNowPlaying.Media;
+using MusicNowPlayingWidget.Media;
 using Xunit;
 
 public class ArtPaletteTests

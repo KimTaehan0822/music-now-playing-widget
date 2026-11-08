@@ -1,14 +1,31 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
-namespace ObsNowPlaying.Settings;
+namespace MusicNowPlayingWidget.Settings;
 
 public sealed class SettingsStore(string path)
 {
     public static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web) { WriteIndented = true };
 
     public static string DefaultPath => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MusicNowPlayingWidget", "settings.json");
+
+    /// Where versions before the rename (called "ObsNowPlaying") kept their settings.
+    public static string LegacyPath => Path.Combine(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ObsNowPlaying", "settings.json");
+
+    /// Copies settings from an older location once, never over existing ones. The old file stays.
+    public static bool Migrate(string oldPath, string newPath)
+    {
+        if (File.Exists(newPath) || !File.Exists(oldPath)) return false;
+        try
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(newPath)!);
+            File.Copy(oldPath, newPath);
+            return true;
+        }
+        catch { return false; } // unreadable old file: start fresh rather than fail to launch
+    }
 
     public AppSettings Load()
     {

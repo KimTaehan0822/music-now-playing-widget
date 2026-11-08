@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text.Json;
 
-namespace ObsNowPlaying.Localization;
+namespace MusicNowPlayingWidget.Localization;
 
 public static class Strings
 {

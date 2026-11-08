@@ -1,5 +1,5 @@
 using System.Globalization;
-using ObsNowPlaying.Localization;
+using MusicNowPlayingWidget.Localization;
 using Xunit;
 
 public class StringsTests

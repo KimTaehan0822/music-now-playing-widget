@@ -1,4 +1,4 @@
-# OBS Now Playing widget
+# Music Now Playing Widget
 
 **English** | [한국어](README.ko.md) | [日本語](README.ja.md)
 
@@ -13,13 +13,13 @@ It reads the "now playing" info that Windows already knows. That is the same inf
 
 ## How to use
 
-1. Download `ObsNowPlaying-v0.1.0.zip` and unzip it anywhere.
-2. Double-click `ObsNowPlaying.exe`.
+1. Download `MusicNowPlayingWidget-v0.1.0.zip` and unzip it anywhere.
+2. Double-click `MusicNowPlayingWidget.exe`.
    - **If a blue "Windows protected your PC" window appears**, click `More info` → `Run anyway`.
      The warning appears because this free, personal project has no paid Microsoft certificate.
    - On first launch the settings page opens in your browser. After that, open it from the green music-note icon at the bottom right of the taskbar.
 3. On the settings page, under **URLs for OBS**, press `Copy` next to the style you want. You can also use tray icon → `Copy widget URL`.
-   The address looks like `file:///C:/Users/.../ObsNowPlaying/widget/widget.html?style=A`. It points to a widget file saved on your PC.
+   The address looks like `file:///C:/Users/.../MusicNowPlayingWidget/widget/widget.html?style=A`. It points to a widget file saved on your PC.
 4. In OBS, choose `Add Source (+)` → `Browser`, and paste the address into the URL field.
 
    | Style | End of the address | Suggested width × height |
@@ -81,7 +81,7 @@ Tell us how it went and we'll update this table.
 ## Troubleshooting
 
 - **"Port 8976 is already used by another program"**:
-  Open `%APPDATA%\ObsNowPlaying\settings.json` in Notepad and change the number in `"port": 8976` (for example to 8977). Then restart the app. The file address in OBS can stay as it is.
+  Open `%APPDATA%\MusicNowPlayingWidget\settings.json` in Notepad and change the number in `"port": 8976` (for example to 8977). Then restart the app. The file address in OBS can stay as it is.
 - **Use `localhost`, not `127.0.0.1`.** Without admin rights, Windows only lets the app answer on `localhost`.
 - **The widget doesn't show**: check that music is actually playing, and that the player is turned on under Settings → Apps to show.
 - **Something looks off**: tray icon → `Restart`. OBS widgets reconnect by themselves.

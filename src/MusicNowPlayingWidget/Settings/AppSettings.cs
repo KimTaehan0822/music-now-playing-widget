@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace ObsNowPlaying.Settings;
+namespace MusicNowPlayingWidget.Settings;
 
 public sealed class AppSettings
 {

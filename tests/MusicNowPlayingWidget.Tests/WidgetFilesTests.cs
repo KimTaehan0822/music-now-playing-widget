@@ -1,4 +1,4 @@
-using ObsNowPlaying.Web;
+using MusicNowPlayingWidget.Web;
 using Xunit;
 
 public class WidgetFilesTests : IDisposable

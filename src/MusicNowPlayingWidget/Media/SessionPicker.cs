@@ -1,4 +1,4 @@
-namespace ObsNowPlaying.Media;
+namespace MusicNowPlayingWidget.Media;
 
 public static class SessionPicker
 {

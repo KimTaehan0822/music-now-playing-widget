@@ -1,9 +1,9 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using ObsNowPlaying.Media;
-using ObsNowPlaying.Settings;
-using ObsNowPlaying.Web;
+using MusicNowPlayingWidget.Media;
+using MusicNowPlayingWidget.Settings;
+using MusicNowPlayingWidget.Web;
 using Xunit;
 
 public class WebServerTests : IDisposable

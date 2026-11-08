@@ -5,11 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DC1144D-DB31-43C0-BDA1-38842673A2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsNowPlaying", "src\ObsNowPlaying\ObsNowPlaying.csproj", "{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicNowPlayingWidget", "src\MusicNowPlayingWidget\MusicNowPlayingWidget.csproj", "{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8496ABB7-0424-490E-BC4C-A67367645309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsNowPlaying.Tests", "tests\ObsNowPlaying.Tests\ObsNowPlaying.Tests.csproj", "{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicNowPlayingWidget.Tests", "tests\MusicNowPlayingWidget.Tests\MusicNowPlayingWidget.Tests.csproj", "{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

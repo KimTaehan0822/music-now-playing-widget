@@ -1,12 +1,12 @@
-# Builds dist/ObsNowPlaying-v<version>.zip: a single self-contained exe plus docs and licenses.
+# Builds dist/MusicNowPlayingWidget-v<version>.zip: a single self-contained exe plus docs and licenses.
 param([string]$Version = "0.1.0")
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
-$out = Join-Path $root "dist\ObsNowPlaying"
-$zip = Join-Path $root "dist\ObsNowPlaying-v$Version.zip"
+$out = Join-Path $root "dist\MusicNowPlayingWidget"
+$zip = Join-Path $root "dist\MusicNowPlayingWidget-v$Version.zip"
 
 if (Test-Path $out) { Remove-Item $out -Recurse -Force }
-dotnet publish (Join-Path $root "src\ObsNowPlaying") -c Release -r win-x64 --self-contained true `
+dotnet publish (Join-Path $root "src\MusicNowPlayingWidget") -c Release -r win-x64 --self-contained true `
   -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true `
   -p:DebugType=none -p:Version=$Version -o $out
 if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed" }

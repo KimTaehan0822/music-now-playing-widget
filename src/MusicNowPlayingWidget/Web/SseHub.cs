@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Channels;
 using Timer = System.Threading.Timer;
 
-namespace ObsNowPlaying.Web;
+namespace MusicNowPlayingWidget.Web;
 
 /// Server-sent events. Each browser has its own queue and writer, so one stalled reader never blocks the others.
 public sealed class SseHub : IDisposable

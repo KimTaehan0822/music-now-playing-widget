@@ -5,7 +5,7 @@ using GsmtcManager = Windows.Media.Control.GlobalSystemMediaTransportControlsSes
 using GsmtcProps = Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties;
 using GsmtcSession = Windows.Media.Control.GlobalSystemMediaTransportControlsSession;
 
-namespace ObsNowPlaying.Media;
+namespace MusicNowPlayingWidget.Media;
 
 /// Reads the Windows media sessions (GSMTC) and reports the one the widget should show.
 public sealed class MediaWatcher(Func<string, bool> isAppEnabled)

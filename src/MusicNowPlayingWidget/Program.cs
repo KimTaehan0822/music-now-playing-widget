@@ -1,12 +1,12 @@
 using System.Globalization;
 using System.Net;
-using ObsNowPlaying.Localization;
-using ObsNowPlaying.Media;
-using ObsNowPlaying.Settings;
-using ObsNowPlaying.Tray;
-using ObsNowPlaying.Web;
+using MusicNowPlayingWidget.Localization;
+using MusicNowPlayingWidget.Media;
+using MusicNowPlayingWidget.Settings;
+using MusicNowPlayingWidget.Tray;
+using MusicNowPlayingWidget.Web;
 
-namespace ObsNowPlaying;
+namespace MusicNowPlayingWidget;
 
 static class Program
 {
@@ -16,12 +16,13 @@ static class Program
     static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
+        SettingsStore.Migrate(SettingsStore.LegacyPath, SettingsStore.DefaultPath);
         var firstRun = !File.Exists(SettingsStore.DefaultPath);
         var store = new SettingsStore(SettingsStore.DefaultPath);
         var settings = new SettingsHost(store, store.Load());
         var port = settings.Get().Port;
 
-        using var single = new Mutex(false, @"Local\ObsNowPlaying");
+        using var single = new Mutex(false, @"Local\MusicNowPlayingWidget");
         bool isFirstInstance;
         // A restart waits for the old copy to let go of the mutex (and the port) instead of giving up.
         try { isFirstInstance = single.WaitOne(args.Contains(RestartArg) ? TimeSpan.FromSeconds(15) : TimeSpan.Zero); }
@@ -47,7 +48,7 @@ static class Program
         {
             var lang = Strings.ResolveLanguage(settings.Get().Language, CultureInfo.CurrentUICulture);
             MessageBox.Show(Strings.Load(lang)["error.portInUse"].Replace("{port}", port.ToString()),
-                "OBS Now Playing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                "Music Now Playing Widget", MessageBoxButtons.OK, MessageBoxIcon.Error);
             return;
         }
 

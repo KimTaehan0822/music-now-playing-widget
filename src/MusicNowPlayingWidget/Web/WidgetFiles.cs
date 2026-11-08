@@ -1,10 +1,10 @@
-namespace ObsNowPlaying.Web;
+namespace MusicNowPlayingWidget.Web;
 
 /// Writes a copy of the widget to disk so OBS can open it as a file even before this app starts.
 public static class WidgetFiles
 {
     public static string DefaultDir => Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ObsNowPlaying", "widget");
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MusicNowPlayingWidget", "widget");
 
     /// Changes whenever the widget's files change, so OBS never keeps running an older copy.
     public static string Build { get; } = Convert.ToHexString(System.Security.Cryptography.SHA1.HashData(

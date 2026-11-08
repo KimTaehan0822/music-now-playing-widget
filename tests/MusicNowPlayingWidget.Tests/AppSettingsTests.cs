@@ -1,4 +1,4 @@
-using ObsNowPlaying.Settings;
+using MusicNowPlayingWidget.Settings;
 using Xunit;
 
 public class AppSettingsTests

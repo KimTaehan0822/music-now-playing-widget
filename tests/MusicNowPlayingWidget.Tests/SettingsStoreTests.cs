@@ -1,4 +1,4 @@
-using ObsNowPlaying.Settings;
+using MusicNowPlayingWidget.Settings;
 using Xunit;
 
 public class SettingsStoreTests : IDisposable
@@ -69,4 +69,29 @@ public class SettingsStoreTests : IDisposable
         store.Save(s);
         Assert.True(new SettingsStore(FilePath).Load().AutoColors);
     }
+
+    [Fact]
+    public void Migrate_CopiesOldSettings_WhenNewOnesAreMissing()
+    {
+        var old = Path.Combine(_dir, "old", "settings.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(old)!);
+        File.WriteAllText(old, "{\"accentColor\":\"#112233\"}");
+        Assert.True(SettingsStore.Migrate(old, FilePath));
+        Assert.Equal("#112233", new SettingsStore(FilePath).Load().AccentColor);
+        Assert.True(File.Exists(old)); // the old copy stays, so going back to an old version still works
+    }
+
+    [Fact]
+    public void Migrate_KeepsNewSettings()
+    {
+        var old = Path.Combine(_dir, "old", "settings.json");
+        Directory.CreateDirectory(Path.GetDirectoryName(old)!);
+        File.WriteAllText(old, "{\"accentColor\":\"#112233\"}");
+        File.WriteAllText(FilePath, "{\"accentColor\":\"#445566\"}");
+        Assert.False(SettingsStore.Migrate(old, FilePath));
+        Assert.Equal("#445566", new SettingsStore(FilePath).Load().AccentColor);
+    }
+
+    [Fact]
+    public void Migrate_NothingToCopy() => Assert.False(SettingsStore.Migrate(Path.Combine(_dir, "none.json"), FilePath));
 }

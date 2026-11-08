@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Nodes;
-using ObsNowPlaying.Settings;
+using MusicNowPlayingWidget.Settings;
 
-namespace ObsNowPlaying.Web;
+namespace MusicNowPlayingWidget.Web;
 
 public sealed record AppEntry(string AppId, bool Enabled);
 

@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
-using ObsNowPlaying.Localization;
+using MusicNowPlayingWidget.Localization;
 
-namespace ObsNowPlaying.Tray;
+namespace MusicNowPlayingWidget.Tray;
 
 /// The tray icon is the app's only window: open settings, copy the widget URL, restart, quit.
 public sealed class TrayApp : ApplicationContext
@@ -29,7 +29,7 @@ public sealed class TrayApp : ApplicationContext
         {
             Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? SystemIcons.Application,
             ContextMenuStrip = menu,
-            Text = "OBS Now Playing",
+            Text = "Music Now Playing Widget",
             Visible = true,
         };
         _icon.DoubleClick += (_, _) => OpenSettings();
@@ -56,7 +56,7 @@ public sealed class TrayApp : ApplicationContext
     void CopyWidgetUrl()
     {
         Clipboard.SetText(_widgetUrl);
-        _icon.ShowBalloonTip(4000, "OBS Now Playing", _strings["tray.urlCopied"], ToolTipIcon.Info);
+        _icon.ShowBalloonTip(4000, "Music Now Playing Widget", _strings["tray.urlCopied"], ToolTipIcon.Info);
     }
 
     protected override void Dispose(bool disposing)

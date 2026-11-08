@@ -1,4 +1,4 @@
-namespace ObsNowPlaying.Media;
+namespace MusicNowPlayingWidget.Media;
 
 public sealed record SessionInfo(
     string AppId, string Title, string Artist, string Album, bool IsPlaying,

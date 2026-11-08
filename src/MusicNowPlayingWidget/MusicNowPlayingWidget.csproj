@@ -7,13 +7,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
-    <AssemblyName>ObsNowPlaying</AssemblyName>
-    <RootNamespace>ObsNowPlaying</RootNamespace>
+    <AssemblyName>MusicNowPlayingWidget</AssemblyName>
+    <RootNamespace>MusicNowPlayingWidget</RootNamespace>
     <Version>0.1.0</Version>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**" LogicalName="wwwroot/$([System.String]::Copy('%(RecursiveDir)').Replace('\','/'))%(Filename)%(Extension)" />
-    <InternalsVisibleTo Include="ObsNowPlaying.Tests" />
+    <InternalsVisibleTo Include="MusicNowPlayingWidget.Tests" />
   </ItemGroup>
 </Project>
