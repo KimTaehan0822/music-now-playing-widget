@@ -12,7 +12,7 @@
     <Version>0.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\**" LogicalName="wwwroot/%(RecursiveDir)%(Filename)%(Extension)" />
+    <EmbeddedResource Include="wwwroot\**" LogicalName="wwwroot/$([System.String]::Copy('%(RecursiveDir)').Replace('\','/'))%(Filename)%(Extension)" />
     <InternalsVisibleTo Include="ObsNowPlaying.Tests" />
   </ItemGroup>
 </Project>
