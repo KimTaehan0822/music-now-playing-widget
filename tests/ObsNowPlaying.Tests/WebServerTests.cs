@@ -9,7 +9,7 @@ using Xunit;
 public class WebServerTests : IDisposable
 {
     readonly string _dir = Path.Combine(Path.GetTempPath(), "onp-web-" + Guid.NewGuid().ToString("N"));
-    readonly int _port = FreePort();
+    readonly int _port;
     readonly SettingsHost _settings;
     readonly WebServer _server;
     readonly HttpClient _http;
@@ -19,8 +19,14 @@ public class WebServerTests : IDisposable
     {
         var store = new SettingsStore(Path.Combine(_dir, "settings.json"));
         _settings = new SettingsHost(store, store.Load());
-        _server = new WebServer(_port, () => NowPlaying.Empty with { Title = "<b>x</b>" }, () => _art, _settings);
-        _server.Start();
+        // A free TCP port can still be reserved in http.sys (e.g. WinRM's 5986), so retry a few.
+        for (var attempt = 0; ; attempt++)
+        {
+            _port = FreePort();
+            _server = new WebServer(_port, () => NowPlaying.Empty with { Title = "<b>x</b>" }, () => _art, _settings);
+            try { _server.Start(); break; }
+            catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
+        }
         _http = new HttpClient { BaseAddress = new Uri($"http://localhost:{_port}/") };
     }
 
