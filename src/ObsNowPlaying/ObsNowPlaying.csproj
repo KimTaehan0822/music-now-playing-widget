@@ -10,6 +10,7 @@
     <AssemblyName>ObsNowPlaying</AssemblyName>
     <RootNamespace>ObsNowPlaying</RootNamespace>
     <Version>0.1.0</Version>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\**" LogicalName="wwwroot/$([System.String]::Copy('%(RecursiveDir)').Replace('\','/'))%(Filename)%(Extension)" />

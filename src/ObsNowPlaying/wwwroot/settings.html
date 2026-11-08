@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Now Playing</title>
+<link rel="stylesheet" href="/settings.css">
+</head>
+<body>
+<header class="top">
+  <h1 data-i18n="settings.title"></h1>
+  <label class="lang">
+    <span data-i18n="settings.language"></span>
+    <select id="language">
+      <option value="" data-i18n="settings.languageAuto"></option>
+      <option value="ko">한국어</option>
+      <option value="en">English</option>
+      <option value="ja">日本語</option>
+    </select>
+  </label>
+</header>
+
+<main class="layout">
+  <form id="form" class="panel" autocomplete="off">
+    <fieldset>
+      <legend data-i18n="settings.style"></legend>
+      <div class="styles">
+        <label class="style-opt"><input type="radio" name="style" value="A"><span class="glyph g-a" aria-hidden="true"><i></i><b></b></span><span data-i18n="settings.styleA"></span></label>
+        <label class="style-opt"><input type="radio" name="style" value="B"><span class="glyph g-b" aria-hidden="true"><i></i><b></b></span><span data-i18n="settings.styleB"></span></label>
+        <label class="style-opt"><input type="radio" name="style" value="C"><span class="glyph g-c" aria-hidden="true"><i></i><b></b></span><span data-i18n="settings.styleC"></span></label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend data-i18n="settings.colors"></legend>
+      <div class="colors">
+        <label class="color"><input type="color" id="textColor"><span data-i18n="settings.textColor"></span><code></code></label>
+        <label class="color"><input type="color" id="backgroundColor"><span data-i18n="settings.backgroundColor"></span><code></code></label>
+        <label class="color"><input type="color" id="accentColor"><span data-i18n="settings.accentColor"></span><code></code></label>
+      </div>
+      <label class="switch"><input type="checkbox" id="showArt"><span data-i18n="settings.showArt"></span></label>
+      <label class="switch"><input type="checkbox" id="showProgress"><span data-i18n="settings.showProgress"></span></label>
+    </fieldset>
+
+    <fieldset>
+      <legend data-i18n="settings.apps"></legend>
+      <p class="hint" data-i18n="settings.appsHint"></p>
+      <ul id="apps" class="apps"></ul>
+      <p id="appsEmpty" class="hint empty" data-i18n="settings.appsEmpty" hidden></p>
+    </fieldset>
+
+    <div class="savebar">
+      <button type="submit" id="save" data-i18n="settings.save"></button>
+      <span id="saved" class="saved" role="status"></span>
+    </div>
+  </form>
+
+  <aside class="side">
+    <section class="preview">
+      <h2 data-i18n="settings.preview"></h2>
+      <div class="stage"><iframe id="frame" title="preview"></iframe></div>
+      <p id="sampleNote" class="hint" data-i18n="settings.nothingPlaying" hidden></p>
+    </section>
+    <section class="urls">
+      <h2 data-i18n="settings.widgetUrls"></h2>
+      <ul id="urls"></ul>
+    </section>
+  </aside>
+</main>
+<script src="/settings.js"></script>
+</body>
+</html>

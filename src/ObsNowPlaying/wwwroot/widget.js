@@ -96,14 +96,16 @@
   setInterval(progress, 1000);
 
   const events = new EventSource('/events');
-  events.addEventListener('settings', e => { settings = JSON.parse(e.data); render(); });
+  let previewOverride = null; // unsaved values from the settings page win over server pushes
+  events.addEventListener('settings', e => { settings = Object.assign(JSON.parse(e.data), previewOverride); render(); });
   events.addEventListener('nowplaying', e => { state = JSON.parse(e.data); render(); });
   events.onerror = () => { if (!preview) setVisible(false); }; // EventSource reconnects by itself
 
   // The settings page previews unsaved changes by posting them into this frame.
   window.addEventListener('message', e => {
     if (e.origin === location.origin && e.data && e.data.type === 'preview-settings') {
-      settings = Object.assign({}, settings, e.data.settings);
+      previewOverride = e.data.settings;
+      settings = Object.assign({}, settings, previewOverride);
       render();
     }
   });
