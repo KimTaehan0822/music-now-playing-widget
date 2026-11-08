@@ -15,12 +15,12 @@ public sealed class TrayApp : ApplicationContext
 
     public TrayApp(int port, string? language)
     {
-        _ui = SynchronizationContext.Current ?? new WindowsFormsSynchronizationContext();
         _baseUrl = $"http://localhost:{port}";
         _open.Click += (_, _) => OpenSettings();
         _copy.Click += (_, _) => CopyWidgetUrl();
         _quit.Click += (_, _) => { _icon!.Visible = false; ExitThread(); };
-        var menu = new ContextMenuStrip();
+        var menu = new ContextMenuStrip(); // creating a control installs the WinForms sync context
+        _ui = SynchronizationContext.Current ?? new WindowsFormsSynchronizationContext();
         menu.Items.AddRange([_open, _copy, new ToolStripSeparator(), _quit]);
         _icon = new NotifyIcon
         {

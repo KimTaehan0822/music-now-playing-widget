@@ -40,18 +40,20 @@ static class Program
             return;
         }
 
-        using var tray = new TrayApp(port, settings.Get().Language);
+        TrayApp? tray = null;
         watcher.Changed += np => server.Broadcast("nowplaying", np);
         watcher.AppSeen += app => settings.Remember(app);
         settings.Changed += s =>
         {
             server.Broadcast("settings", s);
-            tray.SetLanguage(s.Language);
+            tray?.SetLanguage(s.Language);
             watcher.Refresh();
         };
 
+        // Before any WinForms control exists: blocking here with a WinForms sync context could deadlock.
         watcher.StartAsync().GetAwaiter().GetResult();
+        using var trayApp = tray = new TrayApp(port, settings.Get().Language);
         if (firstRun) tray.OpenSettings(); // first launch: show people where things are
-        Application.Run(tray);
+        Application.Run(trayApp);
     }
 }

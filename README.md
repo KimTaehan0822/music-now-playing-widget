@@ -34,7 +34,9 @@ It reads the "now playing" info that Windows already knows. That is the same inf
    Use a different URL in each scene to get a different style per scene. The background is transparent.
 4. Play some music and the widget appears. Pause and it fades out after a moment. Play again and it comes back.
 
-> It's fine to start this app after OBS. The widget reconnects by itself.
+> **Start this app before OBS.** If OBS was already open, the widget stays blank.
+> To fix that, double-click the Browser source and press `Refresh cache of current page`.
+> Restarting this app while OBS is open is fine. The widget reconnects by itself.
 
 ## Settings page
 

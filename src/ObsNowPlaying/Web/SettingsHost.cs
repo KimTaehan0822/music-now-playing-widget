@@ -39,8 +39,12 @@ public sealed class SettingsHost(SettingsStore store, AppSettings initial)
     {
         lock (_gate)
         {
-            if (!_current.RememberApp(appId)) return false;
-            store.Save(_current);
+            if (_current.Apps.ContainsKey(appId)) return false;
+            // Copy, never mutate: other threads may be serializing the published instance.
+            var next = JsonSerializer.Deserialize<AppSettings>(JsonSerializer.Serialize(_current, SettingsStore.Json), SettingsStore.Json)!.Sanitize();
+            next.RememberApp(appId);
+            store.Save(next);
+            _current = next;
         }
         Changed?.Invoke(_current);
         return true;
