@@ -10,8 +10,10 @@ namespace ObsNowPlaying;
 
 static class Program
 {
+    const string RestartArg = "--restart";
+
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
         ApplicationConfiguration.Initialize();
         var firstRun = !File.Exists(SettingsStore.DefaultPath);
@@ -19,7 +21,11 @@ static class Program
         var settings = new SettingsHost(store, store.Load());
         var port = settings.Get().Port;
 
-        using var single = new Mutex(true, @"Local\ObsNowPlaying", out var isFirstInstance);
+        using var single = new Mutex(false, @"Local\ObsNowPlaying");
+        bool isFirstInstance;
+        // A restart waits for the old copy to let go of the mutex (and the port) instead of giving up.
+        try { isFirstInstance = single.WaitOne(args.Contains(RestartArg) ? TimeSpan.FromSeconds(15) : TimeSpan.Zero); }
+        catch (AbandonedMutexException) { isFirstInstance = true; } // the old copy exited without releasing: it's ours
         if (!isFirstInstance)
         {
             TrayApp.OpenUrl($"http://localhost:{port}/settings"); // already running: just show its settings
@@ -60,5 +66,7 @@ static class Program
         using var trayApp = tray = new TrayApp(port, widgetUrl, settings.Get().Language);
         if (firstRun) tray.OpenSettings(); // first launch: show people where things are
         Application.Run(trayApp);
+        if (trayApp.RestartRequested)
+            System.Diagnostics.Process.Start(Environment.ProcessPath!, RestartArg); // waits for this copy to exit
     }
 }

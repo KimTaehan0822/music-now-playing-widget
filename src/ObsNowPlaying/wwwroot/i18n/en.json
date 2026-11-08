@@ -1,6 +1,7 @@
 {
   "tray.openSettings": "Open settings",
   "tray.copyWidgetUrl": "Copy widget URL",
+  "tray.restart": "Restart",
   "tray.quit": "Quit",
   "tray.urlCopied": "Widget URL copied. Paste it into the URL field of an OBS Browser source.",
   "error.portInUse": "Port {port} is already used by another program. Close that program or change the port in settings.json.",

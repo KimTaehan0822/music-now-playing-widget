@@ -72,6 +72,7 @@ Tell us how it went and we'll update this table.
   Open `%APPDATA%\ObsNowPlaying\settings.json` in Notepad and change the number in `"port": 8976` (for example to 8977). Then restart the app. The file address in OBS can stay as it is.
 - **Use `localhost`, not `127.0.0.1`.** Without admin rights, Windows only lets the app answer on `localhost`.
 - **The widget doesn't show**: check that music is actually playing, and that the player is turned on under Settings → Apps to show.
+- **Something looks off**: tray icon → `Restart`. OBS widgets reconnect by themselves.
 - **Quit**: tray icon → `Quit`
 
 ## License

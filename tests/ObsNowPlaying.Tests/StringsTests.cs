@@ -6,7 +6,7 @@ public class StringsTests
 {
     static readonly string[] RequiredKeys =
     [
-        "tray.openSettings", "tray.copyWidgetUrl", "tray.quit", "tray.urlCopied", "error.portInUse",
+        "tray.openSettings", "tray.copyWidgetUrl", "tray.restart", "tray.quit", "tray.urlCopied", "error.portInUse",
         "settings.title", "settings.style", "settings.styleA", "settings.styleB", "settings.styleC",
         "settings.colors", "settings.textColor", "settings.backgroundColor", "settings.accentColor",
         "settings.showArt", "settings.showProgress", "settings.apps", "settings.appsHint", "settings.appsEmpty",

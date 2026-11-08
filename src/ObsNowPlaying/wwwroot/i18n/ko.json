@@ -1,6 +1,7 @@
 {
   "tray.openSettings": "설정 열기",
   "tray.copyWidgetUrl": "위젯 주소 복사",
+  "tray.restart": "다시 시작",
   "tray.quit": "종료",
   "tray.urlCopied": "위젯 주소를 복사했어요. OBS 브라우저 소스의 URL 칸에 붙여 넣으세요.",
   "error.portInUse": "{port}번 포트를 다른 프로그램이 쓰고 있어서 시작할 수 없어요. 그 프로그램을 끄거나 settings.json에서 포트를 바꿔 주세요.",

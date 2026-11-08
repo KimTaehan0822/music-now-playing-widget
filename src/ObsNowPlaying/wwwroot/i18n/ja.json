@@ -1,6 +1,7 @@
 {
   "tray.openSettings": "設定を開く",
   "tray.copyWidgetUrl": "ウィジェットのURLをコピー",
+  "tray.restart": "再起動",
   "tray.quit": "終了",
   "tray.urlCopied": "ウィジェットのURLをコピーしました。OBSのブラウザソースのURL欄に貼り付けてください。",
   "error.portInUse": "ポート{port}は他のプログラムが使用中のため起動できません。そのプログラムを終了するか、settings.jsonでポートを変更してください。",
