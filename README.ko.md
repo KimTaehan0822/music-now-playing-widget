@@ -70,7 +70,7 @@ Windows는 "어느 브라우저에서 재생 중인지"만 알려 주고, 어느
 | 플레이어 | 상태 |
 |---|---|
 | Spotify (PC 앱) | ✅ 확인됨 |
-| YouTube Music (Chrome 앱으로 설치) | ⏳ 아직 확인 안 됨 |
+| YouTube Music (Chrome 앱으로 설치) | ✅ 확인됨 |
 | 멜론 (PC 앱) | ⏳ 아직 확인 안 됨 |
 | Apple Music (Windows 앱) | ⏳ 아직 확인 안 됨 |
 | TIDAL (PC 앱) | ⏳ 아직 확인 안 됨 |

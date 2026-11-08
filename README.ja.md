@@ -70,7 +70,7 @@ YouTube Musicを**Chromeアプリとしてインストール**すると、Window
 | プレイヤー | 状況 |
 |---|---|
 | Spotify（デスクトップアプリ） | ✅ 確認済み |
-| YouTube Music（Chromeアプリとしてインストール） | ⏳ 未確認 |
+| YouTube Music（Chromeアプリとしてインストール） | ✅ 確認済み |
 | Melon（デスクトップアプリ） | ⏳ 未確認 |
 | Apple Music（Windowsアプリ） | ⏳ 未確認 |
 | TIDAL（デスクトップアプリ） | ⏳ 未確認 |

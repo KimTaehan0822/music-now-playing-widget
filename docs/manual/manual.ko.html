@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Music Now Playing Widget 사용설명서</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<h1>Music Now Playing Widget 사용설명서</h1>
+<p><time datetime="2026-11-09">2026-11-09</time> · v0.1.0</p>
+<p>방송 화면(OBS)에 지금 듣고 있는 곡의 제목, 가수, 앨범 사진, 재생 시간을 띄워 주는 위젯 프로그램입니다. Spotify, YouTube Music, 멜론, Apple Music, TIDAL 등 어떤 플레이어로 듣든 상관없습니다. Windows가 알고 있는 "지금 재생 중" 정보(볼륨 키를 누르면 뜨는 그 정보)를 그대로 읽어 오기 때문입니다.</p>
+<p>만든 사람: <strong>닥터고블린 김탄2</strong></p>
+
+<section><h2>준비물</h2>
+<p>아래 네 가지가 갖춰져 있어야 합니다.</p>
+<table><thead><tr><th>항목</th><th>필요한 것</th></tr></thead><tbody>
+<tr><td>컴퓨터</td><td>Windows 10(1809 이상) 또는 Windows 11</td></tr>
+<tr><td>OBS</td><td>브라우저 소스를 쓸 수 있는 OBS Studio (OBS Studio 32에서 확인)</td></tr>
+<tr><td>음악 플레이어</td><td>Windows의 "지금 재생 중"에 곡을 알려 주는 플레이어 (Spotify PC 앱 등)</td></tr>
+<tr><td>설치 파일</td><td><code>MusicNowPlayingWidget-v0.1.0.zip</code></td></tr>
+</tbody></table>
+<p>따로 설치할 프로그램은 없습니다. 압축을 푼 폴더의 exe 하나만 실행하면 됩니다.</p>
+</section>
+
+<section><h2>1단계: 프로그램 실행</h2>
+<ol>
+<li><p><code>MusicNowPlayingWidget-v0.1.0.zip</code>을 원하는 폴더에 압축을 풉니다.</p></li>
+<li><p><code>MusicNowPlayingWidget.exe</code>를 더블클릭합니다.</p></li>
+<li><p><strong>"Windows의 PC 보호"</strong> 파란 창이 뜨면 <strong>추가 정보 → 실행</strong>을 누릅니다. 개인이 만든 무료 프로그램이라 마이크로소프트 유료 인증서가 없어서 뜨는 경고입니다.</p></li>
+<li><p>처음 실행하면 브라우저에 <strong>설정 페이지</strong>가 열립니다. 작업 표시줄 오른쪽 아래에 <strong>초록 음표 아이콘</strong>이 생기면 실행된 것입니다.</p></li>
+</ol>
+<p>프로그램은 창 없이 트레이 아이콘으로만 돌아갑니다. 두 번 실행해도 하나만 켜집니다.</p>
+</section>
+
+<section><h2>2단계: OBS에 위젯 넣기</h2>
+<ol>
+<li><p>설정 페이지의 <strong>OBS에 넣을 주소</strong>에서 원하는 모양 옆의 <strong>복사</strong>를 누릅니다. 트레이 아이콘 → <strong>위젯 주소 복사</strong>를 써도 됩니다.</p></li>
+<li><p>OBS에서 <strong>소스 추가(+) → 브라우저</strong>를 고르고 이름을 정합니다.</p></li>
+<li><p><strong>URL</strong> 칸에 복사한 주소를 붙여 넣습니다. 주소는 <code>file:///C:/Users/.../MusicNowPlayingWidget/widget/widget.html?style=A</code>처럼 생겼습니다(내 PC에 저장된 위젯 파일입니다).</p></li>
+<li><p><strong>너비</strong>와 <strong>높이</strong>를 아래 표대로 맞추고 <strong>확인</strong>을 누릅니다. 설정 페이지에서도 각 이름 아래에 크기가 적혀 있습니다.</p></li>
+</ol>
+<table class="sizes"><thead><tr><th>모양</th><th>주소 끝</th><th>너비 × 높이</th><th>생김새</th></tr></thead><tbody>
+<tr><td>카드형</td><td><code>?style=A</code></td><td>430 × 110</td><td>앨범 사진, 제목, 가수, 진행 막대가 있는 카드. 뒤로 앨범 색이 은은하게 번집니다.</td></tr>
+<tr><td>한 줄 알약형</td><td><code>?style=B</code></td><td>450 × 70</td><td>둥근 알약 모양 한 줄. 작은 앨범 사진과 움직이는 음표 막대가 있습니다.</td></tr>
+<tr><td>큰 글씨형</td><td><code>?style=C</code></td><td>560 × 140</td><td>배경 상자 없이 큰 앨범 사진과 큰 글씨만 보입니다.</td></tr>
+</tbody></table>
+<p>장면마다 다른 주소를 넣으면 장면별로 다른 모양을 쓸 수 있습니다. 위젯 배경은 투명합니다.</p>
+<p>OBS와 이 프로그램 중 <strong>어느 쪽을 먼저 켜도</strong> 괜찮습니다. 위젯이 프로그램을 기다렸다가 알아서 연결합니다.</p>
+</section>
+
+<section><h2>3단계: 곡 틀어 확인하기</h2>
+<ol>
+<li><p>음악 플레이어에서 곡을 재생합니다. 위젯에 제목, 가수, 앨범 사진이 나타납니다.</p></li>
+<li><p>일시정지하면 1.5초 뒤 위젯이 사라지고, 다시 재생하면 나타납니다.</p></li>
+<li><p>곡을 넘기면 이전 곡이 사라졌다가 새 곡이 나타납니다. 빠르게 연달아 넘기면(2초 안에 다시 넘기면) 기다리지 않고 바로바로 바뀝니다.</p></li>
+</ol>
+<p>위젯이 안 나오면 맨 뒤의 <strong>문제 해결</strong>을 확인해 주세요.</p>
+</section>
+
+<section><h2>설정 페이지</h2>
+<p>트레이 아이콘 → <strong>설정 열기</strong>를 누르거나, 브라우저에서 <code>http://localhost:8976/settings</code>를 엽니다. 바꾼 뒤 <strong>저장</strong>을 누르면 OBS 위젯에 바로 반영되고, OBS를 새로고침할 필요는 없습니다. 오른쪽 미리보기에서 저장 전에 모습을 볼 수 있습니다.</p>
+<table><thead><tr><th>항목</th><th>설명</th></tr></thead><tbody>
+<tr><td>모양</td><td>주소에 <code>?style=</code>를 붙이지 않은 위젯의 기본 모양</td></tr>
+<tr><td>색</td><td>글자색, 배경색, 포인트색(진행 막대, 음표 막대)</td></tr>
+<tr><td>곡마다 자동 변경 (앨범 사진 색)</td><td>켜면 곡이 바뀔 때마다 위젯 색이 앨범 사진 색으로 약 3초에 걸쳐 부드럽게 바뀝니다. 글자색은 배경에 맞춰 항상 잘 보이는 색(흰색 또는 검정)으로 정해집니다. 앨범 사진이 없는 곡은 위에서 고른 색을 쓰고, 큰 글씨형은 포인트색만 바뀝니다.</td></tr>
+<tr><td>앨범 사진 / 진행 막대 / 재생 시간</td><td>각각 보이기·숨기기. 재생 시간은 <code>1:12 / 3:20</code>처럼 표시됩니다.</td></tr>
+<tr><td>표시할 앱</td><td>한 번이라도 재생된 앱이 목록에 나타납니다. 체크를 끄면 그 앱의 곡은 위젯에 나오지 않습니다.</td></tr>
+<tr><td>언어</td><td>자동(Windows 언어) / 한국어 / English / 日本語. 설정 페이지와 트레이 메뉴의 글자가 바뀝니다.</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>브라우저가 처음에 꺼져 있는 이유</h2>
+<p>Chrome, Edge, Whale 같은 브라우저는 유튜브 영상이나 인터넷 방송 소리도 "재생 중"으로 잡힙니다. 그래서 방송 중에 영상 제목이 뜨지 않도록 브라우저는 처음에 꺼져 있습니다.</p>
+<p>Windows는 "어느 브라우저에서 재생 중인지"만 알려 주고, 어느 사이트인지는 알려 주지 않습니다. 그래서 <strong>Chrome</strong>을 켜면 YouTube Music뿐 아니라 Chrome에서 트는 방송과 영상도 모두 위젯에 나옵니다. YouTube Music만 보이게 하려면 다음 항목대로 설정해 주세요.</p>
+</section>
+
+<section><h2>YouTube Music만 표시하기 (방송·영상 소리는 빼고)</h2>
+<p>YouTube Music을 <strong>Chrome 앱으로 설치</strong>하면 Windows가 일반 Chrome과 따로 알려 줍니다. 그러면 YouTube Music만 켜고 Chrome은 꺼 둘 수 있습니다.</p>
+<ol>
+<li><p>Chrome에서 <code>music.youtube.com</code>을 엽니다.</p></li>
+<li><p>주소창 오른쪽 끝의 <strong>설치 아이콘</strong>(모니터에 아래 화살표 모양)을 누르고 <strong>설치</strong>를 누릅니다. 아이콘이 안 보이면 오른쪽 위 <strong>점 세 개 모양 메뉴 → 전송, 저장, 공유 → 페이지를 앱으로 설치</strong>를 누릅니다.</p></li>
+<li><p>새로 열린 <strong>YouTube Music 창</strong>에서 곡을 재생합니다. 다음부터는 바탕화면이나 시작 메뉴의 <strong>YouTube Music 아이콘</strong>으로 열면 됩니다.</p></li>
+<li><p>설정 페이지의 <strong>표시할 앱</strong>에 <strong>YouTube Music (Chrome 앱)</strong>이 생기면 체크를 켜고, <strong>Chrome</strong>은 끈 채로 <strong>저장</strong>합니다.</p></li>
+</ol>
+<p>이렇게 하면 YouTube Music 창에서 트는 곡은 커버곡처럼 앨범 정보가 없는 곡도 위젯에 나오고, 일반 Chrome 탭의 방송과 영상은 나오지 않습니다.</p>
+</section>
+
+<section><h2>트레이 메뉴</h2>
+<p>작업 표시줄 오른쪽 아래의 초록 음표 아이콘을 오른쪽 클릭하면 나오는 메뉴입니다. 아이콘을 더블클릭하면 바로 설정 페이지가 열립니다.</p>
+<table><thead><tr><th>메뉴</th><th>하는 일</th></tr></thead><tbody>
+<tr><td>설정 열기</td><td>브라우저에 설정 페이지를 엽니다.</td></tr>
+<tr><td>위젯 주소 복사</td><td>OBS에 넣을 위젯 주소(기본 모양)를 복사합니다.</td></tr>
+<tr><td>다시 시작</td><td>프로그램을 껐다가 다시 켭니다. OBS 위젯은 알아서 다시 연결됩니다.</td></tr>
+<tr><td>종료</td><td>프로그램을 끕니다. 위젯은 곡 정보가 없어 보이지 않게 됩니다.</td></tr>
+</tbody></table>
+<p>새 버전으로 바꿔서 실행하면 OBS 위젯도 스스로 한 번 새로고침해서 새 버전으로 바뀝니다.</p>
+</section>
+
+<section><h2>플레이어별 확인 현황</h2>
+<table><thead><tr><th>플레이어</th><th>상태</th></tr></thead><tbody>
+<tr><td>Spotify (PC 앱)</td><td>확인됨</td></tr>
+<tr><td>YouTube Music (Chrome 앱으로 설치)</td><td>확인됨</td></tr>
+<tr><td>멜론 (PC 앱)</td><td>아직 확인 안 됨</td></tr>
+<tr><td>Apple Music (Windows 앱)</td><td>아직 확인 안 됨</td></tr>
+<tr><td>TIDAL (PC 앱)</td><td>아직 확인 안 됨</td></tr>
+</tbody></table>
+<p>볼륨 키를 눌렀을 때 Windows에 곡 정보가 보이는 플레이어라면 거의 확실히 동작합니다.</p>
+</section>
+
+<section><h2>문제 해결</h2>
+<table><thead><tr><th>증상</th><th>원인</th><th>해결</th></tr></thead><tbody>
+<tr><td>위젯이 안 보임</td><td>곡이 일시정지 상태이거나, 그 플레이어가 꺼져 있음</td><td>곡이 실제로 재생 중인지, 설정 → 표시할 앱에서 그 플레이어가 켜져 있는지 확인</td></tr>
+<tr><td>Chrome의 방송이나 영상 제목이 뜸</td><td>표시할 앱에서 Chrome이 켜져 있음</td><td>Chrome 체크를 끄고 저장. YouTube Music은 앞의 방법대로 Chrome 앱으로 설치</td></tr>
+<tr><td>"8976번 포트를 다른 프로그램이 쓰고 있어서 시작할 수 없어요" 창이 뜸</td><td>다른 프로그램이 같은 번호를 씀</td><td><code>%APPDATA%\MusicNowPlayingWidget\settings.json</code>을 메모장으로 열어 <code>"port": 8976</code>의 숫자를 바꾸고(예: 8977) 프로그램을 다시 켬. OBS에 넣은 주소는 그대로 둬도 됨</td></tr>
+<tr><td>설정 페이지가 안 열림</td><td>주소를 <code>127.0.0.1</code>로 씀</td><td><code>localhost</code>로 열기. Windows가 관리자 권한 없이는 <code>localhost</code>만 허락함</td></tr>
+<tr><td>앨범 사진이 안 나옴</td><td>플레이어가 사진을 보내지 않음, 또는 앨범 사진 보이기가 꺼짐</td><td>설정에서 앨범 사진이 켜져 있는지 확인. 사진은 곡이 바뀐 뒤 몇 초 늦게 올 수도 있음</td></tr>
+<tr><td>뭔가 이상하게 동작함</td><td>-</td><td>트레이 아이콘 → 다시 시작. 그래도 안 되면 OBS의 브라우저 소스 속성에서 "현재 페이지의 캐시 새로 고침"</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>문의하기</h2>
+<p>사용 중 문제가 있거나 궁금한 점이 있으면 만든 사람(김탄2)에게 문의해 주세요.</p>
+<ul>
+<li><p>Discord: kimtan2</p></li>
+<li><p>치지직(Chzzk): 김탄2</p></li>
+</ul>
+<p>이 프로그램은 개인이 만든 무료 프로그램이며, OBS Project, Spotify, Google(YouTube Music), 카카오엔터테인먼트(멜론), Apple, TIDAL과 관계없는 비공식 프로젝트입니다. OBS, Spotify, YouTube Music, 멜론, Apple Music, TIDAL은 각 회사의 상표입니다.</p>
+</section>
+</body>
+</html>
