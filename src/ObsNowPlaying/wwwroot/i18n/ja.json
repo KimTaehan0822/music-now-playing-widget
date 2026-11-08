@@ -17,7 +17,7 @@
   "settings.showArt": "アルバムアートを表示",
   "settings.showProgress": "再生バーを表示",
   "settings.apps": "表示するアプリ",
-  "settings.appsHint": "ブラウザ（Chromeなど）は動画の音も拾うため、最初はオフになっています。YouTube Musicをブラウザで聴く場合はオンにしてください。",
+  "settings.appsHint": "ブラウザ（Chromeなど）は動画や配信の音も拾うため、最初はオフになっています。YouTube Musicを聴く場合は、下の手順でYouTube Musicだけをオンにできます。",
   "settings.appsEmpty": "まだアプリが見つかっていません。音楽を再生するとここに表示されます。",
   "settings.language": "言語",
   "settings.languageAuto": "自動（Windowsの言語）",
@@ -31,5 +31,11 @@
   "settings.showTime": "再生時間を表示（1:12 / 3:20）",
   "settings.autoColors": "曲ごとに自動で色を変える（アルバムアートの色）",
   "settings.autoColorsHint": "アルバムアートがない曲は上で選んだ色を使います。大きな文字スタイルはアクセント色だけが変わります。",
-  "settings.widgetUrlsHint": "OBSで ソースを追加 → ブラウザ → URL欄に貼り付け、幅×高さは名前の下のサイズに合わせてください。このアプリをOBSより後に起動しても、ウィジェットは自動で接続します。"
+  "settings.widgetUrlsHint": "OBSで ソースを追加 → ブラウザ → URL欄に貼り付け、幅×高さは名前の下のサイズに合わせてください。このアプリをOBSより後に起動しても、ウィジェットは自動で接続します。",
+  "settings.webApp": "{browser} アプリ",
+  "settings.ytmHowTo": "YouTube Musicだけを表示する方法（動画・配信の音は除く）",
+  "settings.ytmStep1": "Chromeで music.youtube.com を開きます。",
+  "settings.ytmStep2": "アドレスバー右端のインストールアイコン（モニターに下向き矢印）を押し、「インストール」を押します。見当たらない場合は、右上の ⋮ メニュー → キャスト、保存、共有 → ページをアプリとしてインストール を押します。",
+  "settings.ytmStep3": "新しく開いたYouTube Musicのウィンドウで曲を再生します。次回からはデスクトップやスタートメニューのYouTube Musicアイコンから開いてください。",
+  "settings.ytmStep4": "この一覧に「YouTube Music (Chrome アプリ)」が出たらオンにし、「Chrome」はオフのまま保存します。"
 }

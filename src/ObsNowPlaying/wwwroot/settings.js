@@ -29,10 +29,17 @@
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     document.title = t('settings.title');
     renderUrls();
+    if (saved) renderApps(saved.apps, readForm().apps); // app names are translated too
   }
 
   // "SpotifyAB.SpotifyMusic_zpdnekdrzrea0!Spotify" -> "Spotify", "C:\\x\\whale.exe" -> "whale"
   function friendlyName(appId) {
+    // A site installed as an app, e.g. "Chrome._crx_cinhimbnkk…" is YouTube Music installed from Chrome.
+    const web = appId.match(/^(.+?)\._crx_(.+)$/);
+    if (web) {
+      const label = t('settings.webApp').replace('{browser}', web[1]);
+      return web[2].startsWith('cinhimbnkk') ? `YouTube Music (${label})` : label;
+    }
     const tail = appId.includes('!') ? appId.split('!').pop() : appId.split(/[\\/]/).pop();
     return tail.replace(/\.exe$/i, '') || appId;
   }

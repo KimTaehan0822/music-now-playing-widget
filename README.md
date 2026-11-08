@@ -50,16 +50,27 @@ Saving updates your OBS widgets right away, with no refresh needed.
 ### Why browsers start turned off
 
 Browsers such as Chrome, Edge and Whale also report YouTube videos as "playing". So they start turned off, to keep video titles off your stream.
-**If you listen to YouTube Music in a browser**, turn that browser on under Settings → Apps to show.
 
-Tabs inside the same browser can't be told apart, so a YouTube Music tab and a regular YouTube tab count as the same app. Windows only reports which browser is playing, not which tab.
+Windows only reports which browser is playing, not which site. So if you turn Chrome on, everything you play in Chrome shows up, including live streams and videos, not just YouTube Music.
+
+### Show only YouTube Music (without video or stream sound)
+
+If you **install YouTube Music as a Chrome app**, Windows reports it separately from regular Chrome. Then you can turn on YouTube Music and leave Chrome off.
+
+1. Open `music.youtube.com` in Chrome.
+2. Click the **install icon** at the right end of the address bar (a monitor with a down arrow), then **Install**.
+   If you don't see it, open the **⋮ menu at the top right → Cast, save, and share → Install page as app**.
+3. Play a song in the new **YouTube Music window**. From now on, open it from the **YouTube Music icon** on your desktop or Start menu.
+4. When **YouTube Music (Chrome app)** appears under Settings → Apps to show, turn it on, leave **Chrome** off, and **Save**.
+
+Songs you play in the YouTube Music window then show up, even ones without album info such as covers, while streams and videos in regular Chrome tabs don't.
 
 ## Player status
 
 | Player | Status |
 |---|---|
 | Spotify (desktop app) | ✅ Confirmed |
-| YouTube Music (browser) | ⏳ Not confirmed yet |
+| YouTube Music (installed as a Chrome app) | ⏳ Not confirmed yet |
 | Melon (desktop app) | ⏳ Not confirmed yet |
 | Apple Music (Windows app) | ⏳ Not confirmed yet |
 | TIDAL (desktop app) | ⏳ Not confirmed yet |

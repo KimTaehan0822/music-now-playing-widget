@@ -17,7 +17,7 @@
   "settings.showArt": "Show album art",
   "settings.showProgress": "Show progress bar",
   "settings.apps": "Apps to show",
-  "settings.appsHint": "Browsers (Chrome and others) also pick up video sound, so they start turned off. Turn yours on if you listen to YouTube Music in a browser.",
+  "settings.appsHint": "Browsers (Chrome and others) also pick up video and live-stream sound, so they start turned off. If you listen to YouTube Music, follow the steps below to turn on just YouTube Music.",
   "settings.appsEmpty": "No apps found yet. Play some music and it will show up here.",
   "settings.language": "Language",
   "settings.languageAuto": "Automatic (Windows language)",
@@ -31,5 +31,11 @@
   "settings.showTime": "Show play time (1:12 / 3:20)",
   "settings.autoColors": "Change colors with each song (from album art)",
   "settings.autoColorsHint": "Songs without album art use the colors above. The big text style only changes the accent color.",
-  "settings.widgetUrlsHint": "In OBS: Add Source → Browser → paste into the URL field, and set Width × Height to the size under each name. The widget connects by itself even if this app starts after OBS."
+  "settings.widgetUrlsHint": "In OBS: Add Source → Browser → paste into the URL field, and set Width × Height to the size under each name. The widget connects by itself even if this app starts after OBS.",
+  "settings.webApp": "{browser} app",
+  "settings.ytmHowTo": "Show only YouTube Music (without video or stream sound)",
+  "settings.ytmStep1": "Open music.youtube.com in Chrome.",
+  "settings.ytmStep2": "Click the install icon at the right end of the address bar (a monitor with a down arrow), then \"Install\". If you don't see it, open the ⋮ menu at the top right → Cast, save, and share → Install page as app.",
+  "settings.ytmStep3": "Play a song in the new YouTube Music window. From now on, open it from the YouTube Music icon on your desktop or Start menu.",
+  "settings.ytmStep4": "When \"YouTube Music (Chrome app)\" appears in this list, turn it on, leave \"Chrome\" off, and save."
 }

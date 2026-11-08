@@ -17,7 +17,7 @@
   "settings.showArt": "앨범 사진 보이기",
   "settings.showProgress": "재생 진행 막대 보이기",
   "settings.apps": "표시할 앱",
-  "settings.appsHint": "브라우저(크롬 등)는 영상 소리까지 잡혀서 처음엔 꺼져 있어요. 유튜브 뮤직을 브라우저로 듣는다면 켜 주세요.",
+  "settings.appsHint": "브라우저(크롬 등)는 영상과 방송 소리까지 잡혀서 처음엔 꺼져 있어요. 유튜브 뮤직을 들으신다면 아래 방법대로 하면 유튜브 뮤직만 따로 켤 수 있어요.",
   "settings.appsEmpty": "아직 감지된 앱이 없어요. 음악을 한 번 재생하면 여기에 나타나요.",
   "settings.language": "언어",
   "settings.languageAuto": "자동 (Windows 언어)",
@@ -31,5 +31,11 @@
   "settings.showTime": "재생 시간 보이기 (1:12 / 3:20)",
   "settings.autoColors": "곡마다 자동 변경 (앨범 사진 색)",
   "settings.autoColorsHint": "앨범 사진이 없을 때는 위에서 고른 색을 써요. 큰 글씨형은 포인트색만 바뀌어요.",
-  "settings.widgetUrlsHint": "OBS에서 소스 추가 → 브라우저 → URL 칸에 붙여 넣고, 너비·높이는 이름 아래 크기로 맞추세요. 이 프로그램을 OBS보다 늦게 켜도 위젯이 알아서 연결돼요."
+  "settings.widgetUrlsHint": "OBS에서 소스 추가 → 브라우저 → URL 칸에 붙여 넣고, 너비·높이는 이름 아래 크기로 맞추세요. 이 프로그램을 OBS보다 늦게 켜도 위젯이 알아서 연결돼요.",
+  "settings.webApp": "{browser} 앱",
+  "settings.ytmHowTo": "유튜브 뮤직만 표시하는 방법 (방송·영상 소리는 빼고)",
+  "settings.ytmStep1": "크롬에서 music.youtube.com 을 열어요.",
+  "settings.ytmStep2": "주소창 오른쪽 끝의 설치 아이콘(모니터에 아래 화살표 모양)을 누르고 \"설치\"를 눌러요. 아이콘이 안 보이면 오른쪽 위 ⋮ 메뉴 → 전송, 저장, 공유 → 페이지를 앱으로 설치를 눌러요.",
+  "settings.ytmStep3": "새로 열린 YouTube Music 창에서 곡을 틀어요. 다음부터는 바탕화면이나 시작 메뉴의 YouTube Music 아이콘으로 열면 돼요.",
+  "settings.ytmStep4": "이 목록에 \"YouTube Music (Chrome 앱)\"이 생기면 켜고, \"Chrome\"은 끈 채로 저장해요."
 }
