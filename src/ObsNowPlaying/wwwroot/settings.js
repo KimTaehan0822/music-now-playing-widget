@@ -3,6 +3,7 @@
   const form = $('form');
   const frame = $('frame');
   const COLOR_IDS = ['textColor', 'backgroundColor', 'accentColor'];
+  const SIZES = { A: '430 × 110', B: '450 × 70', C: '560 × 140' }; // same as the README
 
   let saved = null;      // last settings the server confirmed
   let strings = {};
@@ -97,6 +98,9 @@
       const name = document.createElement('span');
       name.className = 'name';
       name.textContent = t(`settings.style${style}`);
+      const size = document.createElement('small');
+      size.textContent = SIZES[style]; // OBS browser source width × height
+      name.append(size);
       const code = document.createElement('code');
       code.textContent = url;
       const btn = document.createElement('button');

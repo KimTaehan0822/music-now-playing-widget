@@ -2,6 +2,8 @@
   const HIDE_DELAY_MS = 1500;
   const RECONNECT_MS = 3000;
   const ART_WAIT_MS = 5000; // same as the server's ArtSettleTime
+  const FADE_MS = 450;      // matches the .fading transition in widget.css
+  const RAPID_MS = 2000;    // a song change sooner than this after the last one swaps at once
   const params = new URLSearchParams(location.search);
   const urlStyle = /^[ABC]$/.test(params.get('style') || '') ? params.get('style') : null;
   const preview = params.get('preview') === '1';
@@ -26,6 +28,7 @@
   let lastPalette = null;
   let keyChangedAt = 0;
   let artWaitTimer = null;
+  let fadeTimer = null;
   let previewOverride = null; // unsaved values from the settings page win over server pushes
 
   function hexToRgb(hex) {
@@ -83,7 +86,9 @@
     const style = urlStyle || settings.defaultStyle;
     const root = document.documentElement.style;
     const key = `${shown.title}\n${shown.artist}`;
-    if (key !== lastKey) keyChangedAt = Date.now();
+    const changed = key !== lastKey;
+    const sinceLastChange = Date.now() - keyChangedAt;
+    if (changed) keyChangedAt = Date.now();
     // Auto colors: the server picked them from the cover. Style C has no box, so its text keeps the user's color.
     // Some players send the cover a moment after the title: keep the old colors meanwhile instead of fading twice.
     if (shown.palette) lastPalette = shown.palette;
@@ -103,8 +108,32 @@
       + (hasArt ? '' : ' no-art')
       + (settings.showProgress && hasDuration ? '' : ' no-progress')
       + (settings.showTime !== false && hasDuration ? '' : ' no-time')
-      + (w.classList.contains('hidden') ? ' hidden' : '');
+      + (w.classList.contains('hidden') ? ' hidden' : '')
+      + (fadeTimer ? ' fading' : '');
 
+    if (!changed) {
+      if (!fadeTimer) showContent(); // same song (e.g. its cover arrived); mid-fade the timer shows it
+    } else if (!lastKey || w.classList.contains('hidden')) {
+      showContent(); // nothing on screen to fade from
+    } else if (fadeTimer || sinceLastChange < RAPID_MS) {
+      // Skipping fast: swap at once, as a fade would lag behind.
+      clearTimeout(fadeTimer);
+      fadeTimer = null;
+      w.classList.remove('fading');
+      showContent();
+      w.classList.remove('swap');
+      void w.offsetWidth; // restart the animation
+      w.classList.add('swap');
+    } else {
+      w.classList.add('fading'); // fade the old song out, then the new one in
+      fadeTimer = setTimeout(() => { fadeTimer = null; showContent(); w.classList.remove('fading'); }, FADE_MS);
+    }
+    lastKey = key;
+    setVisible(true);
+    progress();
+  }
+
+  function showContent() {
     titleLine.firstElementChild.textContent = shown.title;
     artistLine.firstElementChild.textContent = shown.artist;
     art.classList.toggle('sample', !!shown.sample);
@@ -115,14 +144,6 @@
     } else {
       artImg.hidden = backdropImg.hidden = true;
     }
-    if (key !== lastKey && lastKey) {
-      w.classList.remove('swap');
-      void w.offsetWidth; // restart the animation
-      w.classList.add('swap');
-    }
-    lastKey = key;
-    setVisible(true);
-    progress();
     requestAnimationFrame(() => { fitLine(titleLine); fitLine(artistLine); });
   }
 

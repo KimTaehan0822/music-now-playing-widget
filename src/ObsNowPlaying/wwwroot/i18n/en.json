@@ -31,5 +31,5 @@
   "settings.showTime": "Show play time (1:12 / 3:20)",
   "settings.autoColors": "Change colors with each song (from album art)",
   "settings.autoColorsHint": "Songs without album art use the colors above. The big text style only changes the accent color.",
-  "settings.widgetUrlsHint": "In OBS: Add Source → Browser → paste into the URL field. The widget connects by itself even if this app starts after OBS."
+  "settings.widgetUrlsHint": "In OBS: Add Source → Browser → paste into the URL field, and set Width × Height to the size under each name. The widget connects by itself even if this app starts after OBS."
 }
