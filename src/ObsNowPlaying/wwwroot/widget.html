@@ -1,2 +1,21 @@
-<!doctype html><meta charset="utf-8"><title>Now Playing</title><pre id="o"></pre>
-<script>const es=new EventSource('/events');es.addEventListener('nowplaying',e=>o.textContent=e.data);</script>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Now Playing</title>
+<link rel="stylesheet" href="/widget.css">
+</head>
+<body>
+<div id="w" class="w hidden" aria-live="polite">
+  <div class="backdrop"><img alt=""></div>
+  <div class="art"><img alt=""></div>
+  <div class="eq" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="meta">
+    <div class="line title"><span></span></div>
+    <div class="line artist"><span></span></div>
+    <div class="bar"><i></i></div>
+  </div>
+</div>
+<script src="/widget.js"></script>
+</body>
+</html>
