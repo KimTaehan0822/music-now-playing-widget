@@ -26,5 +26,7 @@
   "settings.save": "저장",
   "settings.saved": "저장했어요. OBS 위젯에도 바로 반영돼요.",
   "settings.preview": "미리보기",
-  "settings.nothingPlaying": "재생 중인 곡이 없어서 예시 곡으로 보여드려요."
+  "settings.nothingPlaying": "재생 중인 곡이 없어서 예시 곡으로 보여드려요.",
+  "settings.showTime": "재생 시간 보이기 (1:12 / 3:20)",
+  "settings.widgetUrlsHint": "OBS에서 소스 추가 → 브라우저 → URL 칸에 붙여 넣으세요. 이 프로그램을 OBS보다 늦게 켜도 위젯이 알아서 연결돼요."
 }

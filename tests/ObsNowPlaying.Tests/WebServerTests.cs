@@ -13,7 +13,7 @@ public class WebServerTests : IDisposable
     readonly SettingsHost _settings;
     readonly WebServer _server;
     readonly HttpClient _http;
-    (byte[]?, string?) _art = (null, null);
+    AlbumArt? _art;
 
     public WebServerTests()
     {
@@ -23,7 +23,7 @@ public class WebServerTests : IDisposable
         for (var attempt = 0; ; attempt++)
         {
             _port = FreePort();
-            _server = new WebServer(_port, () => NowPlaying.Empty with { Title = "<b>x</b>" }, () => _art, _settings);
+            _server = new WebServer(_port, () => NowPlaying.Empty with { Title = "<b>x</b>" }, () => _art, _settings, "file:///C:/w/widget.html");
             try { _server.Start(); break; }
             catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
         }
@@ -73,7 +73,7 @@ public class WebServerTests : IDisposable
     [Fact]
     public async Task Art_ServesImage()
     {
-        _art = ([1, 2, 3], "image/png");
+        _art = new AlbumArt([1, 2, 3], "image/png", "1");
         var r = await _http.GetAsync("art?v=1");
         Assert.Equal("image/png", r.Content.Headers.ContentType?.MediaType);
         Assert.Equal(new byte[] { 1, 2, 3 }, await r.Content.ReadAsByteArrayAsync());
@@ -131,7 +131,35 @@ public class WebServerTests : IDisposable
     [Fact]
     public void PortInUse_Throws()
     {
-        using var second = new WebServer(_port, () => NowPlaying.Empty, () => (null, null), _settings);
+        using var second = new WebServer(_port, () => NowPlaying.Empty, () => null, _settings, "");
         Assert.Throws<HttpListenerException>(second.Start);
+    }
+
+    [Fact]
+    public async Task Art_StaleVersion_404()
+    {
+        _art = new AlbumArt([1, 2, 3], "image/png", "NEW");
+        Assert.Equal(HttpStatusCode.NotFound, (await _http.GetAsync("art?v=OLD")).StatusCode);
+    }
+
+    [Fact]
+    public async Task ConfigJs_CarriesPort() =>
+        Assert.Contains($"window.ONP_PORT = {_port};", await _http.GetStringAsync("config.js"));
+
+    [Fact]
+    public async Task Info_GivesWidgetFileUrl() =>
+        Assert.Contains("file:///C:/w/widget.html", await _http.GetStringAsync("api/info"));
+
+    [Theory]
+    [InlineData("null", "null")]               // a widget opened as file:///
+    [InlineData("http://absolute", "http://absolute")] // OBS "Local file" mode
+    [InlineData("https://evil.example", null)]
+    public async Task Events_CorsOnlyForLocalFiles(string origin, string? expected)
+    {
+        var req = new HttpRequestMessage(HttpMethod.Get, "events");
+        req.Headers.Add("Origin", origin);
+        using var r = await _http.SendAsync(req, HttpCompletionOption.ResponseHeadersRead);
+        r.Headers.TryGetValues("Access-Control-Allow-Origin", out var values);
+        Assert.Equal(expected, values?.Single());
     }
 }

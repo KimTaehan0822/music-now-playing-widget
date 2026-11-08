@@ -18,25 +18,21 @@ It reads the "now playing" info that Windows already knows. That is the same inf
    - **If a blue "Windows protected your PC" window appears**, click `More info` → `Run anyway`.
      The warning appears because this free, personal project has no paid Microsoft certificate.
    - On first launch the settings page opens in your browser. After that, open it from the green music-note icon at the bottom right of the taskbar.
-3. In OBS, choose `Add Source (+)` → `Browser`, and put this in the URL field:
+3. On the settings page, under **URLs for OBS**, press `Copy` next to the style you want. You can also use tray icon → `Copy widget URL`.
+   The address looks like `file:///C:/Users/.../ObsNowPlaying/widget/widget.html?style=A`. It points to a widget file saved on your PC.
+4. In OBS, choose `Add Source (+)` → `Browser`, and paste the address into the URL field.
 
-   ```
-   http://localhost:8976/widget
-   ```
-
-   | Style | URL | Suggested width × height |
+   | Style | End of the address | Suggested width × height |
    |---|---|---|
-   | The default style from settings | `http://localhost:8976/widget` | depends on style |
-   | Card | `http://localhost:8976/widget?style=A` | 430 × 110 |
-   | Pill | `http://localhost:8976/widget?style=B` | 450 × 70 |
-   | Big text | `http://localhost:8976/widget?style=C` | 560 × 140 |
+   | Card | `?style=A` | 430 × 110 |
+   | Pill | `?style=B` | 450 × 70 |
+   | Big text | `?style=C` | 560 × 140 |
 
-   Use a different URL in each scene to get a different style per scene. The background is transparent.
-4. Play some music and the widget appears. Pause and it fades out after a moment. Play again and it comes back.
+   Use a different address in each scene to get a different style per scene. The background is transparent.
+5. Play some music and the widget appears. Pause and it fades out after a moment. Play again and it comes back.
 
-> **Start this app before OBS.** If OBS was already open, the widget stays blank.
-> To fix that, double-click the Browser source and press `Refresh cache of current page`.
-> Restarting this app while OBS is open is fine. The widget reconnects by itself.
+> You can start OBS and this app in any order. The widget waits for the app and connects by itself.
+> If you used `http://localhost:8976/widget` with the very first v0.1.0, switch to the new address above. The old one only works when the app is already running.
 
 ## Settings page
 
@@ -44,7 +40,7 @@ Tray icon → `Open settings` (or `http://localhost:8976/settings` in a browser)
 
 - **Style**: the style used by widget URLs without `?style=`
 - **Colors**: text, background and accent (progress bar and so on)
-- **Album art / progress bar** on or off
+- **Album art / progress bar / play time (1:12 / 3:20)** on or off
 - **Apps to show**: every app that has played something shows up here. Untick one and its songs never appear on the widget.
 - **Language**: automatic (Windows language), 한국어, English, 日本語
 
@@ -73,7 +69,8 @@ Tell us how it went and we'll update this table.
 ## Troubleshooting
 
 - **"Port 8976 is already used by another program"**:
-  Open `%APPDATA%\ObsNowPlaying\settings.json` in Notepad and change the number in `"port": 8976` (for example to 8977). Change the number in your OBS URL to match.
+  Open `%APPDATA%\ObsNowPlaying\settings.json` in Notepad and change the number in `"port": 8976` (for example to 8977). Then restart the app. The file address in OBS can stay as it is.
+- **Use `localhost`, not `127.0.0.1`.** Without admin rights, Windows only lets the app answer on `localhost`.
 - **The widget doesn't show**: check that music is actually playing, and that the player is turned on under Settings → Apps to show.
 - **Quit**: tray icon → `Quit`
 

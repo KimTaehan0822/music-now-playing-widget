@@ -9,6 +9,7 @@
   let currentLang = null;
   let previewStyle = null;
   let anyPlaying = false;
+  let widgetUrl = `${location.origin}/widget`; // replaced by the file:/// address from /api/info
 
   const t = key => strings[key] || key;
 
@@ -46,6 +47,7 @@
       accentColor: $('accentColor').value,
       showArt: $('showArt').checked,
       showProgress: $('showProgress').checked,
+      showTime: $('showTime').checked,
       apps,
     };
   }
@@ -56,6 +58,7 @@
     COLOR_IDS.forEach(id => { $(id).value = s[id].toLowerCase(); });
     $('showArt').checked = s.showArt;
     $('showProgress').checked = s.showProgress;
+    $('showTime').checked = s.showTime;
     renderApps(s.apps, {});
   }
 
@@ -87,7 +90,7 @@
     const list = $('urls');
     list.replaceChildren();
     for (const style of ['A', 'B', 'C']) {
-      const url = `${location.origin}/widget?style=${style}`;
+      const url = `${widgetUrl}?style=${style}`;
       const li = document.createElement('li');
       const name = document.createElement('span');
       name.className = 'name';
@@ -137,6 +140,8 @@
     updatePreview();
     $('saved').textContent = t('settings.saved');
   });
+
+  fetch('/api/info').then(r => r.json()).then(info => { widgetUrl = info.widgetUrl; renderUrls(); });
 
   const events = new EventSource('/events');
   events.addEventListener('settings', async e => {

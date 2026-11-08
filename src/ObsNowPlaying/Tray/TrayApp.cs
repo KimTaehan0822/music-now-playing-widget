@@ -11,11 +11,13 @@ public sealed class TrayApp : ApplicationContext
     readonly SynchronizationContext _ui;
     readonly ToolStripMenuItem _open = new(), _copy = new(), _quit = new();
     readonly string _baseUrl;
+    readonly string _widgetUrl;
     IReadOnlyDictionary<string, string> _strings = new Dictionary<string, string>();
 
-    public TrayApp(int port, string? language)
+    public TrayApp(int port, string widgetUrl, string? language)
     {
         _baseUrl = $"http://localhost:{port}";
+        _widgetUrl = widgetUrl;
         _open.Click += (_, _) => OpenSettings();
         _copy.Click += (_, _) => CopyWidgetUrl();
         _quit.Click += (_, _) => { _icon!.Visible = false; ExitThread(); };
@@ -48,7 +50,7 @@ public sealed class TrayApp : ApplicationContext
 
     void CopyWidgetUrl()
     {
-        Clipboard.SetText($"{_baseUrl}/widget");
+        Clipboard.SetText(_widgetUrl);
         _icon.ShowBalloonTip(4000, "OBS Now Playing", _strings["tray.urlCopied"], ToolTipIcon.Info);
     }
 

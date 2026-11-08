@@ -26,8 +26,13 @@ static class Program
             return;
         }
 
+        // OBS opens this file, which loads even while the app is off and connects once it starts.
+        string widgetUrl;
+        try { widgetUrl = WidgetFiles.Extract(WidgetFiles.DefaultDir, port); }
+        catch { widgetUrl = $"http://localhost:{port}/widget"; } // can't write the file: the web address still works
+
         var watcher = new MediaWatcher(app => settings.Get().IsAppEnabled(app));
-        using var server = new WebServer(port, () => watcher.Current, () => (watcher.ArtBytes, watcher.ArtContentType), settings);
+        using var server = new WebServer(port, () => watcher.Current, () => watcher.Art, settings, widgetUrl);
         try
         {
             server.Start();
@@ -52,7 +57,7 @@ static class Program
 
         // Before any WinForms control exists: blocking here with a WinForms sync context could deadlock.
         watcher.StartAsync().GetAwaiter().GetResult();
-        using var trayApp = tray = new TrayApp(port, settings.Get().Language);
+        using var trayApp = tray = new TrayApp(port, widgetUrl, settings.Get().Language);
         if (firstRun) tray.OpenSettings(); // first launch: show people where things are
         Application.Run(trayApp);
     }

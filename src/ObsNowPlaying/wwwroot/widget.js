@@ -1,8 +1,11 @@
 (() => {
   const HIDE_DELAY_MS = 1500;
+  const RECONNECT_MS = 3000;
   const params = new URLSearchParams(location.search);
   const urlStyle = /^[ABC]$/.test(params.get('style') || '') ? params.get('style') : null;
   const preview = params.get('preview') === '1';
+  // Opened as a file (file:///...) the page still loads when the app is off, then connects once it starts.
+  const server = location.protocol === 'http:' ? '' : `http://localhost:${window.ONP_PORT || 8976}`;
   const SAMPLE = { playing: true, title: 'Sample Song Title', artist: 'Sample Artist', artVersion: null, positionMs: 72000, durationMs: 200000, positionAtMs: 0, sample: true };
 
   const w = document.getElementById('w');
@@ -12,15 +15,26 @@
   const titleLine = w.querySelector('.title');
   const artistLine = w.querySelector('.artist');
   const barFill = w.querySelector('.bar i');
+  const timeText = w.querySelector('.time');
 
   let settings = null;
   let state = null;
+  let shown = null;
   let hideTimer = null;
   let lastKey = '';
+  let previewOverride = null; // unsaved values from the settings page win over server pushes
 
   function hexToRgb(hex) {
     const n = parseInt(hex.slice(1), 16);
     return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+  }
+
+  function clock(ms) {
+    const s = Math.floor(ms / 1000);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const ss = String(s % 60).padStart(2, '0');
+    return h ? `${h}:${String(m).padStart(2, '0')}:${ss}` : `${m}:${ss}`;
   }
 
   function fitLine(line) {
@@ -45,38 +59,43 @@
     }
   }
 
-  let shown = null;
-
   function progress() {
     if (!shown || !shown.durationMs || shown.positionMs == null) return;
     const elapsed = shown.playing && !shown.sample ? Date.now() - shown.positionAtMs : 0;
     const pos = Math.min(shown.durationMs, Math.max(0, shown.positionMs + elapsed));
     barFill.style.width = `${(pos / shown.durationMs) * 100}%`;
+    timeText.textContent = `${clock(pos)} / ${clock(shown.durationMs)}`;
   }
 
   function render() {
     if (!settings) return;
-    shown = state && state.playing ? state : (preview ? SAMPLE : state);
+    const next = state && state.playing ? state : (preview ? SAMPLE : null);
+    if (!next) {
+      // Keep showing the last track exactly as it was while it fades out.
+      setVisible(false);
+      return;
+    }
+    shown = next;
     const style = urlStyle || settings.defaultStyle;
     const root = document.documentElement.style;
     root.setProperty('--text', settings.textColor);
     root.setProperty('--bg-rgb', hexToRgb(settings.backgroundColor));
     root.setProperty('--accent', settings.accentColor);
 
-    const hasArt = settings.showArt && shown && (shown.artVersion || shown.sample);
+    const hasArt = settings.showArt && (shown.artVersion || shown.sample);
+    const hasDuration = !!shown.durationMs;
     w.className = `w style-${style}`
       + (hasArt ? '' : ' no-art')
-      + (settings.showProgress && shown && shown.durationMs ? '' : ' no-progress')
+      + (settings.showProgress && hasDuration ? '' : ' no-progress')
+      + (settings.showTime !== false && hasDuration ? '' : ' no-time')
       + (w.classList.contains('hidden') ? ' hidden' : '');
-
-    if (!shown || !shown.playing) { setVisible(false); return; }
 
     const key = `${shown.title}\n${shown.artist}`;
     titleLine.firstElementChild.textContent = shown.title;
     artistLine.firstElementChild.textContent = shown.artist;
     art.classList.toggle('sample', !!shown.sample);
     if (shown.artVersion) {
-      const src = `/art?v=${encodeURIComponent(shown.artVersion)}`;
+      const src = `${server}/art?v=${encodeURIComponent(shown.artVersion)}`;
       if (artImg.getAttribute('src') !== src) { artImg.src = src; backdropImg.src = src; }
       artImg.hidden = backdropImg.hidden = false;
     } else {
@@ -95,11 +114,17 @@
 
   setInterval(progress, 1000);
 
-  const events = new EventSource('/events');
-  let previewOverride = null; // unsaved values from the settings page win over server pushes
-  events.addEventListener('settings', e => { settings = Object.assign(JSON.parse(e.data), previewOverride); render(); });
-  events.addEventListener('nowplaying', e => { state = JSON.parse(e.data); render(); });
-  events.onerror = () => { if (!preview) setVisible(false); }; // EventSource reconnects by itself
+  function connect() {
+    const events = new EventSource(`${server}/events`);
+    events.addEventListener('settings', e => { settings = Object.assign(JSON.parse(e.data), previewOverride); render(); });
+    events.addEventListener('nowplaying', e => { state = JSON.parse(e.data); render(); });
+    events.onerror = () => {
+      if (!preview) { state = null; render(); }
+      // The browser retries by itself unless it gave up (CLOSED); then start over.
+      if (events.readyState === EventSource.CLOSED) setTimeout(connect, RECONNECT_MS);
+    };
+  }
+  connect();
 
   // The settings page previews unsaved changes by posting them into this frame.
   window.addEventListener('message', e => {

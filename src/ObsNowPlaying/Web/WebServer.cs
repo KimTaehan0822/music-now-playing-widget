@@ -6,7 +6,7 @@ using ObsNowPlaying.Settings;
 
 namespace ObsNowPlaying.Web;
 
-public sealed class WebServer(int port, Func<NowPlaying> current, Func<(byte[]? Bytes, string? Type)> art, SettingsHost settings) : IDisposable
+public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?> art, SettingsHost settings, string widgetFileUrl) : IDisposable
 {
     static readonly Dictionary<string, string> Types = new()
     {
@@ -63,14 +63,24 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<(byte[]? 
                     Resource(res, "settings.html");
                     break;
                 case ("GET", "/events"):
-                    _hub.Add(res, [SseHub.Format("settings", Json(settings.Get())), SseHub.Format("nowplaying", Json(current()))]);
+                    // Widgets opened as a local file send Origin "null" (file:///) or "http://absolute" (OBS "Local file").
+                    if (req.Headers["Origin"] is "null" or "http://absolute") res.Headers["Access-Control-Allow-Origin"] = req.Headers["Origin"];
+                    _hub.Add(res, () => [SseHub.Format("settings", Json(settings.Get())), SseHub.Format("nowplaying", Json(current()))]);
                     return; // stays open
+                case ("GET", "/config.js"):
+                    res.ContentType = "text/javascript; charset=utf-8";
+                    res.OutputStream.Write(Encoding.UTF8.GetBytes(WidgetFiles.ConfigJs(port)));
+                    break;
+                case ("GET", "/api/info"):
+                    Text(res, Json(new { widgetUrl = widgetFileUrl }));
+                    break;
                 case ("GET", "/art"):
-                    var (bytes, type) = art();
-                    if (bytes is null) { res.StatusCode = 404; break; }
-                    res.ContentType = type ?? "image/jpeg";
+                    var a = art();
+                    // Only the current cover: an old ?v= must never get (and cache) a newer image.
+                    if (a is null || req.QueryString["v"] != a.Version) { res.StatusCode = 404; break; }
+                    res.ContentType = a.ContentType;
                     res.Headers["Cache-Control"] = "max-age=86400"; // URL carries ?v=<hash>
-                    res.OutputStream.Write(bytes);
+                    res.OutputStream.Write(a.Bytes);
                     break;
                 case ("GET", "/api/settings"):
                     Text(res, Json(settings.Get()));

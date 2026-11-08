@@ -16,6 +16,7 @@ public sealed class AppSettings
     public string AccentColor { get; set; } = "#1DB954";
     public bool ShowArt { get; set; } = true;
     public bool ShowProgress { get; set; } = true;
+    public bool ShowTime { get; set; } = true;
     public Dictionary<string, bool> Apps { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     public static bool IsKnownBrowser(string appId) =>
