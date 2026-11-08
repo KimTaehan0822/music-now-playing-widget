@@ -8,6 +8,7 @@
 /* Colors arrive from settings; --bg-rgb lets us use the background with transparency (OBS's browser lacks color-mix). */
 :root {
   --text: #ffffff;
+  --text-rgb: 255, 255, 255;
   --bg-rgb: 20, 22, 28;
   --accent: #1db954;
 }
@@ -22,6 +23,7 @@ body {
   font-family: "Pretendard", "Yu Gothic UI", "Meiryo UI", "Microsoft YaHei UI", sans-serif;
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+  transition: color 1.2s ease;
   padding: 12px;
 }
 
@@ -30,7 +32,7 @@ body {
   display: flex;
   align-items: center;
   max-width: calc(100vw - 24px);
-  transition: opacity .6s ease, transform .6s ease;
+  transition: opacity .6s ease, transform .6s ease, background-color 1.2s ease;
 }
 .w.hidden { opacity: 0; transform: translateY(6px); }
 
@@ -56,11 +58,11 @@ body {
 .artist { opacity: .72; }
 
 .progress { display: flex; align-items: center; gap: 10px; }
-.bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(255, 255, 255, .18); overflow: hidden; }
+.bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(var(--text-rgb), .18); overflow: hidden; transition: background-color 1.2s ease; }
 .time { flex: none; font-size: 12px; font-variant-numeric: tabular-nums; opacity: .72; }
 .no-time .time { display: none; }
 .no-progress.no-time .progress { display: none; }
-.bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; transition: width 1s linear; }
+.bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 2px; transition: width 1s linear, background-color 1.2s ease; }
 .no-progress .bar { display: none; }
 
 .backdrop, .eq { display: none; }
@@ -111,7 +113,7 @@ body {
 .no-art.style-B { padding-left: 16px; }
 .style-B .art { width: 34px; height: 34px; border-radius: 50%; }
 .style-B .eq { display: flex; gap: 2px; align-items: flex-end; height: 14px; flex: none; }
-.style-B .eq i { width: 3px; border-radius: 1px; background: var(--accent); animation: eq 1s ease-in-out infinite; }
+.style-B .eq i { width: 3px; border-radius: 1px; background: var(--accent); animation: eq 1s ease-in-out infinite; transition: background-color 1.2s ease; }
 .style-B .eq i:nth-child(1) { animation-delay: -.3s; }
 .style-B .eq i:nth-child(2) { animation-delay: -.7s; }
 .style-B .eq i:nth-child(3) { animation-delay: -.1s; }

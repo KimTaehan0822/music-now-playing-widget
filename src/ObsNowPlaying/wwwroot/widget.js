@@ -78,9 +78,13 @@
     shown = next;
     const style = urlStyle || settings.defaultStyle;
     const root = document.documentElement.style;
-    root.setProperty('--text', settings.textColor);
-    root.setProperty('--bg-rgb', hexToRgb(settings.backgroundColor));
-    root.setProperty('--accent', settings.accentColor);
+    // Auto colors: the server picked them from the cover. Style C has no box, so its text keeps the user's color.
+    const p = settings.autoColors && shown.palette;
+    const text = p && style !== 'C' ? p.text : settings.textColor;
+    root.setProperty('--text', text);
+    root.setProperty('--text-rgb', hexToRgb(text));
+    root.setProperty('--bg-rgb', hexToRgb(p ? p.background : settings.backgroundColor));
+    root.setProperty('--accent', p ? p.accent : settings.accentColor);
 
     const hasArt = settings.showArt && (shown.artVersion || shown.sample);
     const hasDuration = !!shown.durationMs;
