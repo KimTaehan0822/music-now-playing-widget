@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7DC1144D-DB31-43C0-BDA1-38842673A2B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsNowPlaying", "src\ObsNowPlaying\ObsNowPlaying.csproj", "{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8496ABB7-0424-490E-BC4C-A67367645309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObsNowPlaying.Tests", "tests\ObsNowPlaying.Tests\ObsNowPlaying.Tests.csproj", "{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{766FB1D4-CB0D-438B-A2CB-AB9899A0B459}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{766FB1D4-CB0D-438B-A2CB-AB9899A0B459} = {7DC1144D-DB31-43C0-BDA1-38842673A2B6}
+		{AFDFA9A5-B2FE-49FA-856E-B4A2E0831A34} = {8496ABB7-0424-490E-BC4C-A67367645309}
+	EndGlobalSection
+EndGlobal
