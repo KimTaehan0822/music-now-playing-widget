@@ -143,6 +143,19 @@ public class WebServerTests : IDisposable
     }
 
     [Fact]
+    public async Task Events_SendBuild_SoOldWidgetsReload()
+    {
+        using var r = await _http.GetAsync("events", HttpCompletionOption.ResponseHeadersRead);
+        using var reader = new StreamReader(await r.Content.ReadAsStreamAsync());
+        var text = new StringBuilder();
+        using var cts = new CancellationTokenSource(3000);
+        while (!text.ToString().Contains("event: build"))
+            text.AppendLine(await reader.ReadLineAsync(cts.Token));
+        text.AppendLine(await reader.ReadLineAsync(cts.Token));
+        Assert.Contains($"data: \"{WidgetFiles.Build}\"", text.ToString());
+    }
+
+    [Fact]
     public void PortInUse_Throws()
     {
         using var second = new WebServer(_port, () => NowPlaying.Empty, () => null, _settings, "");

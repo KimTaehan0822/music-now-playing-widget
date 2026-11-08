@@ -153,6 +153,16 @@
     const events = new EventSource(`${server}/events`);
     events.addEventListener('settings', e => { settings = Object.assign(JSON.parse(e.data), previewOverride); render(); });
     events.addEventListener('nowplaying', e => { state = JSON.parse(e.data); render(); });
+    // The app was updated while OBS kept this page open: reload once to pick up the new widget files.
+    events.addEventListener('build', e => {
+      const build = JSON.parse(e.data);
+      if (!window.ONP_BUILD || build === window.ONP_BUILD) return;
+      try {
+        if (sessionStorage.getItem('onp-reloaded-for') === build) return; // already tried; avoid a reload loop
+        sessionStorage.setItem('onp-reloaded-for', build);
+      } catch { return; }
+      location.reload();
+    });
     events.onerror = () => {
       if (!preview) { state = null; render(); }
       // The browser retries by itself unless it gave up (CLOSED); then start over.

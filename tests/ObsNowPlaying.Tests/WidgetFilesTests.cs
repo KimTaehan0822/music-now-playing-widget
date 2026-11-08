@@ -26,4 +26,19 @@ public class WidgetFilesTests : IDisposable
         WidgetFiles.Extract(_dir, 2222);
         Assert.Contains("2222", File.ReadAllText(Path.Combine(_dir, "config.js")));
     }
+
+    [Fact]
+    public void Build_IsShortHex() => Assert.Matches("^[0-9A-F]{8}$", WidgetFiles.Build);
+
+    [Fact]
+    public void Extract_VersionsAssetUrls_SoOldCopiesAreNotReused()
+    {
+        WidgetFiles.Extract(_dir, 9123);
+        var html = File.ReadAllText(Path.Combine(_dir, "widget.html"));
+        var v = $"?v={WidgetFiles.Build}-9123";
+        Assert.Contains($"widget.css{v}", html);
+        Assert.Contains($"config.js{v}", html);
+        Assert.Contains($"widget.js{v}", html);
+        Assert.Contains($"window.ONP_BUILD = \"{WidgetFiles.Build}\";", File.ReadAllText(Path.Combine(_dir, "config.js")));
+    }
 }

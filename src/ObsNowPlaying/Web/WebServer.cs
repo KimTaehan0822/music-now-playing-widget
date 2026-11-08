@@ -65,7 +65,8 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?
                 case ("GET", "/events"):
                     // Widgets opened as a local file send Origin "null" (file:///) or "http://absolute" (OBS "Local file").
                     if (req.Headers["Origin"] is "null" or "http://absolute") res.Headers["Access-Control-Allow-Origin"] = req.Headers["Origin"];
-                    _hub.Add(res, () => [SseHub.Format("settings", Json(settings.Get())), SseHub.Format("nowplaying", Json(current()))]);
+                    _hub.Add(res, () => [SseHub.Format("settings", Json(settings.Get())), SseHub.Format("nowplaying", Json(current())),
+                        SseHub.Format("build", Json(WidgetFiles.Build))]);
                     return; // stays open
                 case ("GET", "/config.js"):
                     res.ContentType = "text/javascript; charset=utf-8";
