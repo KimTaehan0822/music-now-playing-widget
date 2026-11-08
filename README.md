@@ -40,6 +40,7 @@ Tray icon → `Open settings` (or `http://localhost:8976/settings` in a browser)
 
 - **Style**: the style used by widget URLs without `?style=`
 - **Colors**: text, background and accent (progress bar and so on)
+- **Change colors with each song**: when on, the widget fades to colors taken from the album art at every song change. Text always gets a readable color. Songs without album art use the colors above, and the big text style (C) only changes the accent.
 - **Album art / progress bar / play time (1:12 / 3:20)** on or off
 - **Apps to show**: every app that has played something shows up here. Untick one and its songs never appear on the widget.
 - **Language**: automatic (Windows language), 한국어, English, 日本語

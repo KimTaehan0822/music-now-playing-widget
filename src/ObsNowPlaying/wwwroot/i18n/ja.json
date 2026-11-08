@@ -29,5 +29,7 @@
   "settings.preview": "プレビュー",
   "settings.nothingPlaying": "再生中の曲がないため、サンプル曲で表示しています。",
   "settings.showTime": "再生時間を表示（1:12 / 3:20）",
+  "settings.autoColors": "曲ごとに自動で色を変える（アルバムアートの色）",
+  "settings.autoColorsHint": "アルバムアートがない曲は上で選んだ色を使います。大きな文字スタイルはアクセント色だけが変わります。",
   "settings.widgetUrlsHint": "OBSで ソースを追加 → ブラウザ → URL欄に貼り付けてください。このアプリをOBSより後に起動しても、ウィジェットは自動で接続します。"
 }

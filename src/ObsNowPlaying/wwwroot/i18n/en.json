@@ -29,5 +29,7 @@
   "settings.preview": "Preview",
   "settings.nothingPlaying": "Nothing is playing, so the preview shows a sample track.",
   "settings.showTime": "Show play time (1:12 / 3:20)",
+  "settings.autoColors": "Change colors with each song (from album art)",
+  "settings.autoColorsHint": "Songs without album art use the colors above. The big text style only changes the accent color.",
   "settings.widgetUrlsHint": "In OBS: Add Source → Browser → paste into the URL field. The widget connects by itself even if this app starts after OBS."
 }

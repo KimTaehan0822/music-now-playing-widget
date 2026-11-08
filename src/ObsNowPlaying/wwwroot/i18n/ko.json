@@ -29,5 +29,7 @@
   "settings.preview": "미리보기",
   "settings.nothingPlaying": "재생 중인 곡이 없어서 예시 곡으로 보여드려요.",
   "settings.showTime": "재생 시간 보이기 (1:12 / 3:20)",
+  "settings.autoColors": "곡마다 자동 변경 (앨범 사진 색)",
+  "settings.autoColorsHint": "앨범 사진이 없을 때는 위에서 고른 색을 써요. 큰 글씨형은 포인트색만 바뀌어요.",
   "settings.widgetUrlsHint": "OBS에서 소스 추가 → 브라우저 → URL 칸에 붙여 넣으세요. 이 프로그램을 OBS보다 늦게 켜도 위젯이 알아서 연결돼요."
 }

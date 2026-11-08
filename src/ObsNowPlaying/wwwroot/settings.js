@@ -48,6 +48,7 @@
       showArt: $('showArt').checked,
       showProgress: $('showProgress').checked,
       showTime: $('showTime').checked,
+      autoColors: $('autoColors').checked,
       apps,
     };
   }
@@ -59,6 +60,7 @@
     $('showArt').checked = s.showArt;
     $('showProgress').checked = s.showProgress;
     $('showTime').checked = s.showTime;
+    $('autoColors').checked = s.autoColors;
     renderApps(s.apps, {});
   }
 
