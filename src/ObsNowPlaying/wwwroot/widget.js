@@ -157,10 +157,10 @@
     events.addEventListener('build', e => {
       const build = JSON.parse(e.data);
       if (!window.ONP_BUILD || build === window.ONP_BUILD) return;
-      try {
-        if (sessionStorage.getItem('onp-reloaded-for') === build) return; // already tried; avoid a reload loop
-        sessionStorage.setItem('onp-reloaded-for', build);
-      } catch { return; }
+      // The mark in the address stops a reload loop if the files on disk could not be updated (no storage needed).
+      const mark = `#reloaded-${build}`;
+      if (location.hash === mark) return;
+      location.replace(location.href.split('#')[0] + mark);
       location.reload();
     });
     events.onerror = () => {
