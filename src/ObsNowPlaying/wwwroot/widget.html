@@ -1,0 +1,2 @@
+<!doctype html><meta charset="utf-8"><title>Now Playing</title><pre id="o"></pre>
+<script>const es=new EventSource('/events');es.addEventListener('nowplaying',e=>o.textContent=e.data);</script>
