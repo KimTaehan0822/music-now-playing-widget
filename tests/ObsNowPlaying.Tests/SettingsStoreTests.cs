@@ -58,4 +58,15 @@ public class SettingsStoreTests : IDisposable
 
     [Fact]
     public void ShowTime_DefaultsOn() => Assert.True(new SettingsStore(FilePath).Load().ShowTime);
+
+    [Fact]
+    public void AutoColors_DefaultsOff_AndRoundTrips()
+    {
+        var store = new SettingsStore(FilePath);
+        var s = store.Load();
+        Assert.False(s.AutoColors);
+        s.AutoColors = true;
+        store.Save(s);
+        Assert.True(new SettingsStore(FilePath).Load().AutoColors);
+    }
 }

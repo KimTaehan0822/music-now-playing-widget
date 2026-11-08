@@ -119,7 +119,7 @@ public sealed class MediaWatcher(Func<string, bool> isAppEnabled)
             await LoadArtAsync(picked, infos.First(i => i.Info == picked).Props);
             next = new NowPlaying(true, picked.Title, picked.Artist, picked.Album, picked.AppId, Art?.Version,
                 (long?)picked.Position?.TotalMilliseconds, (long?)picked.Duration?.TotalMilliseconds,
-                picked.PositionAt.ToUnixTimeMilliseconds());
+                picked.PositionAt.ToUnixTimeMilliseconds(), Art?.Palette);
         }
 
         if (next != Current)
@@ -153,7 +153,8 @@ public sealed class MediaWatcher(Func<string, bool> isAppEnabled)
             var bytes = ms.ToArray();
             var version = Convert.ToHexString(SHA1.HashData(bytes))[..8];
             if (version != Art?.Version)
-                Art = new AlbumArt(bytes, string.IsNullOrEmpty(stream.ContentType) ? "image/jpeg" : stream.ContentType, version);
+                Art = new AlbumArt(bytes, string.IsNullOrEmpty(stream.ContentType) ? "image/jpeg" : stream.ContentType, version,
+                    ArtPalette.From(bytes)); // once per cover
         }
         catch { } // keep what we have (text only if nothing); the next change tries again
     }

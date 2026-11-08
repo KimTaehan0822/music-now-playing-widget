@@ -17,6 +17,7 @@ public sealed class AppSettings
     public bool ShowArt { get; set; } = true;
     public bool ShowProgress { get; set; } = true;
     public bool ShowTime { get; set; } = true;
+    public bool AutoColors { get; set; } // follow each album cover's colors; off until the user opts in
     public Dictionary<string, bool> Apps { get; set; } = new(StringComparer.OrdinalIgnoreCase);
 
     public static bool IsKnownBrowser(string appId) =>

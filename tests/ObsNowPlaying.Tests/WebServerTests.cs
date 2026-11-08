@@ -14,6 +14,7 @@ public class WebServerTests : IDisposable
     readonly WebServer _server;
     readonly HttpClient _http;
     AlbumArt? _art;
+    NowPlaying _now = NowPlaying.Empty with { Title = "<b>x</b>" };
 
     public WebServerTests()
     {
@@ -23,7 +24,7 @@ public class WebServerTests : IDisposable
         for (var attempt = 0; ; attempt++)
         {
             _port = FreePort();
-            _server = new WebServer(_port, () => NowPlaying.Empty with { Title = "<b>x</b>" }, () => _art, _settings, "file:///C:/w/widget.html");
+            _server = new WebServer(_port, () => _now, () => _art, _settings, "file:///C:/w/widget.html");
             try { _server.Start(); break; }
             catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
         }
@@ -73,7 +74,7 @@ public class WebServerTests : IDisposable
     [Fact]
     public async Task Art_ServesImage()
     {
-        _art = new AlbumArt([1, 2, 3], "image/png", "1");
+        _art = new AlbumArt([1, 2, 3], "image/png", "1", null);
         var r = await _http.GetAsync("art?v=1");
         Assert.Equal("image/png", r.Content.Headers.ContentType?.MediaType);
         Assert.Equal(new byte[] { 1, 2, 3 }, await r.Content.ReadAsByteArrayAsync());
@@ -129,6 +130,19 @@ public class WebServerTests : IDisposable
     }
 
     [Fact]
+    public async Task Events_NowPlayingCarriesPalette()
+    {
+        _now = _now with { Title = "t", Palette = new ArtPalette("#112233", "#FF8800", "#FFFFFF") };
+        using var r = await _http.GetAsync("events", HttpCompletionOption.ResponseHeadersRead);
+        using var reader = new StreamReader(await r.Content.ReadAsStreamAsync());
+        var text = new StringBuilder();
+        using var cts = new CancellationTokenSource(3000);
+        while (!text.ToString().Contains("\"title\""))
+            text.AppendLine(await reader.ReadLineAsync(cts.Token));
+        Assert.Contains("\"palette\":{\"background\":\"#112233\",\"accent\":\"#FF8800\",\"text\":\"#FFFFFF\"}", text.ToString());
+    }
+
+    [Fact]
     public void PortInUse_Throws()
     {
         using var second = new WebServer(_port, () => NowPlaying.Empty, () => null, _settings, "");
@@ -138,7 +152,7 @@ public class WebServerTests : IDisposable
     [Fact]
     public async Task Art_StaleVersion_404()
     {
-        _art = new AlbumArt([1, 2, 3], "image/png", "NEW");
+        _art = new AlbumArt([1, 2, 3], "image/png", "NEW", null);
         Assert.Equal(HttpStatusCode.NotFound, (await _http.GetAsync("art?v=OLD")).StatusCode);
     }
 
