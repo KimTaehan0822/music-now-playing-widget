@@ -89,4 +89,11 @@ Windowsの「再生中」情報に曲を出すプレイヤーなら動作しま�
 
 ## ライセンス
 
-MIT。同梱のPretendardフォントはSIL Open Font License 1.1に従います（`licenses/Pretendard-OFL.txt`）。
+MIT。同梱しているコンポーネントのライセンスは `licenses` フォルダーにあります。
+- Pretendardフォント：SIL Open Font License 1.1（`licenses/Pretendard-OFL.txt`）
+- .NETランタイム：MIT（`licenses/dotnet-LICENSE.txt`、`licenses/dotnet-THIRD-PARTY-NOTICES.txt`）
+
+## ご注意
+
+このソフトは個人が作った無料ソフトです。OBS Project、Spotify、Google（YouTube Music）、Kakao Entertainment（Melon）、Apple、TIDALとは関係がなく、これらの会社が作成・保証したものではありません。
+OBS、Spotify、YouTube Music、Melon、Apple Music、TIDALは各社の商標です。

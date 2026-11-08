@@ -16,7 +16,7 @@
 - Windows 미디어 세션(GSMTC, `GlobalSystemMediaTransportControlsSessionManager`)에 정보를 올리는 앱이면
   플레이어 종류와 상관없이 동작한다.
 - 위젯 모양 3가지를 모두 제공하고, 설정 페이지에서 고른다.
-  - A. 카드형: 앨범 사진, 제목/가수, 재생 진행 막대. 뒤에 앨범 색이 흐리게 번진다(Amuse 느낌).
+  - A. 카드형: 앨범 사진, 제목/가수, 재생 진행 막대. 뒤에 앨범 색이 흐리게 번진다.
   - B. 한 줄 알약형: 작은 원형 앨범 사진, 재생 중 표시, 제목 + 가수가 한 줄로 나온다.
   - C. 배경 없는 큰 글씨형: 큰 앨범 사진과 그림자 있는 글씨만 나온다.
   - 시안: `.superpowers/brainstorm/*/content/widget-style.html`
@@ -65,7 +65,6 @@
 - Windows 10(1809 이상)/11.
 - OBS 브라우저 소스(CEF/크로미움)에서 투명 배경으로 렌더링되어야 한다.
 - 이 PC에는 .NET 런타임만 있고 SDK는 없다. 개발 중에 .NET SDK를 설치한다.
-- 이 저장소는 `companion-module-rme-totalmix`와 별개다: `obs-now-playing`.
 
 ## 만드는 방식 (검토한 방법)
 

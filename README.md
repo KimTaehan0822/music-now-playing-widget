@@ -89,4 +89,11 @@ Tell us how it went and we'll update this table.
 
 ## License
 
-MIT. The bundled Pretendard font is under the SIL Open Font License 1.1 (`licenses/Pretendard-OFL.txt`).
+MIT. Licenses for bundled components are in the `licenses` folder.
+- Pretendard font: SIL Open Font License 1.1 (`licenses/Pretendard-OFL.txt`)
+- .NET runtime: MIT (`licenses/dotnet-LICENSE.txt`, `licenses/dotnet-THIRD-PARTY-NOTICES.txt`)
+
+## Notice
+
+This is a free program made by an individual. It is not affiliated with, made by, or endorsed by the OBS Project, Spotify, Google (YouTube Music), Kakao Entertainment (Melon), Apple or TIDAL.
+OBS, Spotify, YouTube Music, Melon, Apple Music and TIDAL are trademarks of their respective owners.

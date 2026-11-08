@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- 저장소 위치: `obs-now-playing`. `companion-module-rme-totalmix` 파일은 건드리지 않는다.
+- 이 프로젝트는 독립된 저장소에서 만든다.
 - Windows 10(1809 이상)/11 전용. 게시는 `win-x64`, self-contained, single-file로 한다. 받는 사람은 아무것도 설치하지 않는다.
 - 서버는 `http://localhost:{port}/`에서만 받는다. 기본 포트는 **8976**이고 settings.json에서만 바꾼다.
 - 경로: `/widget`, `/widget?style=A|B|C`, `/settings`, `/events`(SSE), `/art`, `/api/settings`(GET/POST), `/api/apps`(GET).

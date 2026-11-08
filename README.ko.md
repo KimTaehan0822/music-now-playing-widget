@@ -89,4 +89,11 @@ Windows의 "지금 재생 중" 정보에 곡을 올리는 플레이어라면 동
 
 ## 라이선스
 
-MIT. 포함된 Pretendard 글꼴은 SIL Open Font License 1.1을 따라요(`licenses/Pretendard-OFL.txt`).
+MIT. 함께 들어 있는 구성 요소의 라이선스는 `licenses` 폴더에 있어요.
+- Pretendard 글꼴: SIL Open Font License 1.1 (`licenses/Pretendard-OFL.txt`)
+- .NET 실행 환경: MIT (`licenses/dotnet-LICENSE.txt`, `licenses/dotnet-THIRD-PARTY-NOTICES.txt`)
+
+## 안내
+
+이 프로그램은 개인이 만든 무료 프로그램이에요. OBS Project, Spotify, Google(YouTube Music), 카카오엔터테인먼트(멜론), Apple, TIDAL과 관계가 없고, 이 회사들이 만들거나 보증한 것이 아니에요.
+OBS, Spotify, YouTube Music, 멜론, Apple Music, TIDAL은 각 회사의 상표예요.
