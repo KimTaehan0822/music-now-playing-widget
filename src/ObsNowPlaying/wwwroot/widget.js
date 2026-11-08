@@ -1,6 +1,7 @@
 (() => {
   const HIDE_DELAY_MS = 1500;
   const RECONNECT_MS = 3000;
+  const ART_WAIT_MS = 5000; // same as the server's ArtSettleTime
   const params = new URLSearchParams(location.search);
   const urlStyle = /^[ABC]$/.test(params.get('style') || '') ? params.get('style') : null;
   const preview = params.get('preview') === '1';
@@ -22,6 +23,9 @@
   let shown = null;
   let hideTimer = null;
   let lastKey = '';
+  let lastPalette = null;
+  let keyChangedAt = 0;
+  let artWaitTimer = null;
   let previewOverride = null; // unsaved values from the settings page win over server pushes
 
   function hexToRgb(hex) {
@@ -78,8 +82,14 @@
     shown = next;
     const style = urlStyle || settings.defaultStyle;
     const root = document.documentElement.style;
+    const key = `${shown.title}\n${shown.artist}`;
+    if (key !== lastKey) keyChangedAt = Date.now();
     // Auto colors: the server picked them from the cover. Style C has no box, so its text keeps the user's color.
-    const p = settings.autoColors && shown.palette;
+    // Some players send the cover a moment after the title: keep the old colors meanwhile instead of fading twice.
+    if (shown.palette) lastPalette = shown.palette;
+    const waitingForArt = !shown.palette && !shown.artVersion && !shown.sample && Date.now() - keyChangedAt < ART_WAIT_MS;
+    if (waitingForArt) { clearTimeout(artWaitTimer); artWaitTimer = setTimeout(render, ART_WAIT_MS); }
+    const p = settings.autoColors && (shown.palette || (waitingForArt && lastPalette));
     const text = p && style !== 'C' ? p.text : settings.textColor;
     root.setProperty('--text', text);
     root.setProperty('--text-rgb', hexToRgb(text));
@@ -89,12 +99,12 @@
     const hasArt = settings.showArt && (shown.artVersion || shown.sample);
     const hasDuration = !!shown.durationMs;
     w.className = `w style-${style}`
+      + (p ? ' auto' : '')
       + (hasArt ? '' : ' no-art')
       + (settings.showProgress && hasDuration ? '' : ' no-progress')
       + (settings.showTime !== false && hasDuration ? '' : ' no-time')
       + (w.classList.contains('hidden') ? ' hidden' : '');
 
-    const key = `${shown.title}\n${shown.artist}`;
     titleLine.firstElementChild.textContent = shown.title;
     artistLine.firstElementChild.textContent = shown.artist;
     art.classList.toggle('sample', !!shown.sample);

@@ -93,6 +93,8 @@ body {
   opacity: .55;
 }
 .style-A { isolation: isolate; }
+/* Album colors are checked against the flat card color, so let less of the blurred cover show through. */
+.style-A.auto { background: rgba(var(--bg-rgb), .92); }
 .style-A .art { width: 72px; height: 72px; border-radius: 10px; }
 .style-A .title { font-size: 18px; line-height: 1.3; }
 .style-A .artist { font-size: 14px; line-height: 1.4; margin-top: 1px; }
