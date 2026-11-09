@@ -6,6 +6,7 @@
   const SIZES = { A: '430 × 110', B: '450 × 70', C: '560 × 140' }; // same as the README
 
   let saved = null;      // last settings the server confirmed
+let startupOn = null;  // last "start with Windows" state the server confirmed; null until known
   let strings = {};
   let currentLang = null;
   let previewStyle = null;
@@ -151,17 +152,32 @@
     saved = await res.json();
     fillForm(saved);
     updatePreview();
-    // Lives in the Windows registry, not settings.json; the reply is what Windows actually holds.
-    const startup = await fetch('/api/startup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ enabled: $('startWithWindows').checked }),
-    });
-    if (startup.ok) $('startWithWindows').checked = (await startup.json()).enabled;
+    // Lives in the Windows registry, not settings.json. Sent only when the user changed it,
+    // so a stale or half-loaded tab never overwrites it; the reply is what Windows actually holds.
+    const wanted = $('startWithWindows').checked;
+    if (startupOn !== null && wanted !== startupOn) {
+      try {
+        const r = await fetch('/api/startup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enabled: wanted }),
+        });
+        if (r.ok) startupOn = (await r.json()).enabled;
+        $('startWithWindows').checked = startupOn;
+        if (!r.ok || startupOn !== wanted) { $('saved').textContent = `Error ${r.status}`; return; }
+      } catch {
+        $('startWithWindows').checked = startupOn;
+        $('saved').textContent = 'Error';
+        return;
+      }
+    }
     $('saved').textContent = t('settings.saved');
   });
 
-  fetch('/api/startup').then(r => r.json()).then(s => { $('startWithWindows').checked = s.enabled; });
+  fetch('/api/startup').then(r => r.json()).then(s => {
+    startupOn = s.enabled;
+    $('startWithWindows').checked = s.enabled;
+  }).catch(() => { $('startWithWindows').disabled = true; }); // unknown state: don't let Save guess
   fetch('/api/info').then(r => r.json()).then(info => { widgetUrl = info.widgetUrl; renderUrls(); });
 
   const events = new EventSource('/events');
