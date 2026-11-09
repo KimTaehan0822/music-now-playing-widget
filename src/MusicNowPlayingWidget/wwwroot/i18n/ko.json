@@ -37,5 +37,8 @@
   "settings.ytmStep1": "크롬에서 music.youtube.com 을 열어요.",
   "settings.ytmStep2": "주소창 오른쪽 끝의 설치 아이콘(모니터에 아래 화살표 모양)을 누르고 \"설치\"를 눌러요. 아이콘이 안 보이면 오른쪽 위 ⋮ 메뉴 → 전송, 저장, 공유 → 페이지를 앱으로 설치를 눌러요.",
   "settings.ytmStep3": "새로 열린 YouTube Music 창에서 곡을 틀어요. 다음부터는 바탕화면이나 시작 메뉴의 YouTube Music 아이콘으로 열면 돼요.",
-  "settings.ytmStep4": "이 목록에 \"YouTube Music (Chrome 앱)\"이 생기면 켜고, \"Chrome\"은 끈 채로 저장해요."
+  "settings.ytmStep4": "이 목록에 \"YouTube Music (Chrome 앱)\"이 생기면 켜고, \"Chrome\"은 끈 채로 저장해요.",
+  "settings.program": "프로그램",
+  "settings.startWithWindows": "Windows 시작 시 자동 실행",
+  "settings.startWithWindowsHint": "프로그램 폴더를 옮기면 자동 실행이 안 될 수 있어요. 옮긴 뒤에는 새 위치에서 한 번 직접 실행해 주세요."
 }

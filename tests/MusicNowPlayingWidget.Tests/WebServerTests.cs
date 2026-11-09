@@ -13,7 +13,7 @@ public class WebServerTests : IDisposable
     readonly SettingsHost _settings;
     readonly WebServer _server;
     readonly HttpClient _http;
-    readonly string _runKey = @"Software\MusicNowPlayingWidgetTests\" + Guid.NewGuid().ToString("N");
+    readonly string _runKey = @"Software\MusicNowPlayingWidgetTests" + Guid.NewGuid().ToString("N");
     AlbumArt? _art;
     NowPlaying _now = NowPlaying.Empty with { Title = "<b>x</b>" };
 

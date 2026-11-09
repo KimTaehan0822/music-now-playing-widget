@@ -12,6 +12,7 @@ public class StringsTests
         "settings.showArt", "settings.showProgress", "settings.apps", "settings.appsHint", "settings.appsEmpty",
         "settings.language", "settings.languageAuto", "settings.widgetUrls", "settings.copy", "settings.copied",
         "settings.save", "settings.saved", "settings.preview", "settings.nothingPlaying", "settings.showTime", "settings.widgetUrlsHint",
+        "settings.program", "settings.startWithWindows", "settings.startWithWindowsHint",
     ];
 
     [Fact]

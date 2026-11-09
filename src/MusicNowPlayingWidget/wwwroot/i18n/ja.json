@@ -37,5 +37,8 @@
   "settings.ytmStep1": "Chromeで music.youtube.com を開きます。",
   "settings.ytmStep2": "アドレスバー右端のインストールアイコン（モニターに下向き矢印）を押し、「インストール」を押します。見当たらない場合は、右上の ⋮ メニュー → キャスト、保存、共有 → ページをアプリとしてインストール を押します。",
   "settings.ytmStep3": "新しく開いたYouTube Musicのウィンドウで曲を再生します。次回からはデスクトップやスタートメニューのYouTube Musicアイコンから開いてください。",
-  "settings.ytmStep4": "この一覧に「YouTube Music (Chrome アプリ)」が出たらオンにし、「Chrome」はオフのまま保存します。"
+  "settings.ytmStep4": "この一覧に「YouTube Music (Chrome アプリ)」が出たらオンにし、「Chrome」はオフのまま保存します。",
+  "settings.program": "プログラム",
+  "settings.startWithWindows": "Windows の起動時に自動で実行",
+  "settings.startWithWindowsHint": "プログラムのフォルダーを移動すると、自動で起動しなくなることがあります。移動したら、新しい場所から一度手動で起動してください。"
 }

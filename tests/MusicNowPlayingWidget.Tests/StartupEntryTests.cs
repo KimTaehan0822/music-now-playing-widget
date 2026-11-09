@@ -5,7 +5,7 @@ using Xunit;
 public class StartupEntryTests : IDisposable
 {
     const string Root = @"Software\MusicNowPlayingWidgetTests";
-    readonly string _key = Root + @"\" + Guid.NewGuid().ToString("N");
+    readonly string _key = Root + Guid.NewGuid().ToString("N");
 
     public void Dispose() => Registry.CurrentUser.DeleteSubKeyTree(_key, throwOnMissingSubKey: false);
 

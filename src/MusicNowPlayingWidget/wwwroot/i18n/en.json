@@ -37,5 +37,8 @@
   "settings.ytmStep1": "Open music.youtube.com in Chrome.",
   "settings.ytmStep2": "Click the install icon at the right end of the address bar (a monitor with a down arrow), then \"Install\". If you don't see it, open the ⋮ menu at the top right → Cast, save, and share → Install page as app.",
   "settings.ytmStep3": "Play a song in the new YouTube Music window. From now on, open it from the YouTube Music icon on your desktop or Start menu.",
-  "settings.ytmStep4": "When \"YouTube Music (Chrome app)\" appears in this list, turn it on, leave \"Chrome\" off, and save."
+  "settings.ytmStep4": "When \"YouTube Music (Chrome app)\" appears in this list, turn it on, leave \"Chrome\" off, and save.",
+  "settings.program": "Program",
+  "settings.startWithWindows": "Start with Windows",
+  "settings.startWithWindowsHint": "If you move the program folder, it may stop starting with Windows. After moving it, run it once from the new place."
 }

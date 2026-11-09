@@ -151,9 +151,17 @@
     saved = await res.json();
     fillForm(saved);
     updatePreview();
+    // Lives in the Windows registry, not settings.json; the reply is what Windows actually holds.
+    const startup = await fetch('/api/startup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ enabled: $('startWithWindows').checked }),
+    });
+    if (startup.ok) $('startWithWindows').checked = (await startup.json()).enabled;
     $('saved').textContent = t('settings.saved');
   });
 
+  fetch('/api/startup').then(r => r.json()).then(s => { $('startWithWindows').checked = s.enabled; });
   fetch('/api/info').then(r => r.json()).then(info => { widgetUrl = info.widgetUrl; renderUrls(); });
 
   const events = new EventSource('/events');
