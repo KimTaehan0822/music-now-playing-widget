@@ -26,7 +26,7 @@ public class WebServerTests : IDisposable
         {
             _port = FreePort();
             _server = new WebServer(_port, () => _now, () => _art, _settings, "file:///C:/w/widget.html",
-                new StartupEntry(_runKey, "MusicNowPlayingWidget", @"C:\w\w.exe"));
+                new StartupEntry(_runKey, "MusicNowPlayingWidget", @"C:\w\MusicNowPlayingWidget.exe", _runKey + @"\approved"));
             try { _server.Start(); break; }
             catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
         }

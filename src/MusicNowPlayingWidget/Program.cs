@@ -39,7 +39,9 @@ static class Program
         catch { widgetUrl = $"http://localhost:{port}/widget"; } // can't write the file: the web address still works
 
         var startup = StartupEntry.ForCurrentUser(Environment.ProcessPath!);
+#if !DEBUG // a debug build in bin\ must not take over the entry the released copy set
         startup.Repair(); // the folder may have moved since the user turned this on
+#endif
 
         var watcher = new MediaWatcher(app => settings.Get().IsAppEnabled(app));
         using var server = new WebServer(port, () => watcher.Current, () => watcher.Art, settings, widgetUrl, startup);
