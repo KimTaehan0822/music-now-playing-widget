@@ -38,8 +38,11 @@ static class Program
         try { widgetUrl = WidgetFiles.Extract(WidgetFiles.DefaultDir, port); }
         catch { widgetUrl = $"http://localhost:{port}/widget"; } // can't write the file: the web address still works
 
+        var startup = StartupEntry.ForCurrentUser(Environment.ProcessPath!);
+        startup.Repair(); // the folder may have moved since the user turned this on
+
         var watcher = new MediaWatcher(app => settings.Get().IsAppEnabled(app));
-        using var server = new WebServer(port, () => watcher.Current, () => watcher.Art, settings, widgetUrl);
+        using var server = new WebServer(port, () => watcher.Current, () => watcher.Art, settings, widgetUrl, startup);
         try
         {
             server.Start();

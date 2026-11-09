@@ -13,6 +13,7 @@ public class WebServerTests : IDisposable
     readonly SettingsHost _settings;
     readonly WebServer _server;
     readonly HttpClient _http;
+    readonly string _runKey = @"Software\MusicNowPlayingWidgetTests\" + Guid.NewGuid().ToString("N");
     AlbumArt? _art;
     NowPlaying _now = NowPlaying.Empty with { Title = "<b>x</b>" };
 
@@ -24,7 +25,8 @@ public class WebServerTests : IDisposable
         for (var attempt = 0; ; attempt++)
         {
             _port = FreePort();
-            _server = new WebServer(_port, () => _now, () => _art, _settings, "file:///C:/w/widget.html");
+            _server = new WebServer(_port, () => _now, () => _art, _settings, "file:///C:/w/widget.html",
+                new StartupEntry(_runKey, "MusicNowPlayingWidget", @"C:\w\w.exe"));
             try { _server.Start(); break; }
             catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
         }
@@ -35,6 +37,7 @@ public class WebServerTests : IDisposable
     {
         _http.Dispose();
         _server.Dispose();
+        Microsoft.Win32.Registry.CurrentUser.DeleteSubKeyTree(_runKey, throwOnMissingSubKey: false);
         if (Directory.Exists(_dir)) Directory.Delete(_dir, true);
     }
 
@@ -103,6 +106,49 @@ public class WebServerTests : IDisposable
         req.Headers.Add("Origin", "https://evil.example");
         Assert.Equal(HttpStatusCode.Forbidden, (await _http.SendAsync(req)).StatusCode);
         Assert.Equal("A", _settings.Get().DefaultStyle);
+    }
+
+    Task<HttpResponseMessage> PostStartup(string body, string? origin = null)
+    {
+        var req = new HttpRequestMessage(HttpMethod.Post, "api/startup")
+        { Content = new StringContent(body, Encoding.UTF8, "application/json") };
+        if (origin is not null) req.Headers.Add("Origin", origin);
+        return _http.SendAsync(req);
+    }
+
+    [Fact]
+    public async Task Startup_DefaultsOff() =>
+        Assert.Equal("{\"enabled\":false}", await _http.GetStringAsync("api/startup"));
+
+    [Fact]
+    public async Task Startup_PostOn_ThenGetOn()
+    {
+        var r = await PostStartup("{\"enabled\":true}");
+        Assert.Equal("{\"enabled\":true}", await r.Content.ReadAsStringAsync());
+        Assert.Equal("{\"enabled\":true}", await _http.GetStringAsync("api/startup"));
+    }
+
+    [Fact]
+    public async Task Startup_RejectsForeignOrigin()
+    {
+        Assert.Equal(HttpStatusCode.Forbidden, (await PostStartup("{\"enabled\":true}", "https://evil.example")).StatusCode);
+        Assert.Equal("{\"enabled\":false}", await _http.GetStringAsync("api/startup"));
+    }
+
+    [Fact]
+    public async Task Startup_BadJson_400()
+    {
+        Assert.Equal(HttpStatusCode.BadRequest, (await PostStartup("not json")).StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, (await PostStartup("{\"enabled\":\"yes\"}")).StatusCode);
+    }
+
+    [Fact]
+    public async Task Startup_NotInSettingsJson()
+    {
+        await PostStartup("{\"enabled\":true}");
+        var json = await _http.GetStringAsync("api/settings");
+        Assert.DoesNotContain("startup", json, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("startWithWindows", json, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

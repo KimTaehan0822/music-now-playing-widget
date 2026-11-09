@@ -1,12 +1,14 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using MusicNowPlayingWidget.Media;
 using MusicNowPlayingWidget.Settings;
 
 namespace MusicNowPlayingWidget.Web;
 
-public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?> art, SettingsHost settings, string widgetFileUrl) : IDisposable
+public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?> art, SettingsHost settings, string widgetFileUrl,
+    StartupEntry? startup = null) : IDisposable
 {
     static readonly Dictionary<string, string> Types = new()
     {
@@ -99,6 +101,22 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?
                     catch (JsonException) { res.StatusCode = 400; break; }
                     Text(res, Json(settings.Get()));
                     break;
+                case ("GET", "/api/startup") when startup is not null:
+                    Text(res, StartupJson(startup.IsEnabled));
+                    break;
+                case ("POST", "/api/startup") when startup is not null:
+                    if (!IsLocalOrigin(req.Headers["Origin"])) { res.StatusCode = 403; break; }
+                    bool on;
+                    try
+                    {
+                        using var reader = new StreamReader(req.InputStream, Encoding.UTF8);
+                        on = JsonNode.Parse(reader.ReadToEnd())?["enabled"]?.GetValue<bool>()
+                            ?? throw new JsonException("Missing enabled");
+                    }
+                    catch (Exception e) when (e is JsonException or InvalidOperationException or FormatException)
+                    { res.StatusCode = 400; break; }
+                    Text(res, StartupJson(startup.Set(on)));
+                    break;
                 case ("GET", _):
                     Resource(res, path.TrimStart('/'));
                     break;
@@ -117,6 +135,8 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?
     // Blocks other websites open in the streamer's browser from rewriting settings.
     static bool IsLocalOrigin(string? origin) =>
         origin is null || (Uri.TryCreate(origin, UriKind.Absolute, out var u) && u.IsLoopback);
+
+    static string StartupJson(bool enabled) => enabled ? "{\"enabled\":true}" : "{\"enabled\":false}";
 
     static void Text(HttpListenerResponse res, string json)
     {
