@@ -3,7 +3,7 @@
   const RECONNECT_MS = 3000;
   const ART_WAIT_MS = 5000; // same as the server's ArtSettleTime
   const FADE_MS = 450;      // matches the .fading transition in widget.css
-  const RAPID_MS = 2000;    // a song change sooner than this after the last one swaps at once
+  const RAPID_MS = 800;     // a song change sooner than this after the last one swaps at once
   const params = new URLSearchParams(location.search);
   const urlStyle = /^[ABC]$/.test(params.get('style') || '') ? params.get('style') : null;
   const preview = params.get('preview') === '1';
