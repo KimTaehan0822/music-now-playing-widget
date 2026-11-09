@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Music Now Playing Widget 取扱説明書</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<h1>Music Now Playing Widget 取扱説明書</h1>
+<p><time datetime="2026-11-09">2026-11-09</time> · v0.1.0</p>
+<p>配信画面(OBS)に、いま聴いている曲のタイトル、アーティスト、アルバムアート、再生時間を表示するウィジェットプログラムです。Spotify、YouTube Music、Melon、Apple Music、TIDAL など、どのプレイヤーで聴いても使えます。Windows が持っている「再生中」の情報(音量キーを押したときに表示される情報)をそのまま読み取るためです。</p>
+<p>作者: <strong>ドクターゴブリン(닥터고블린)の Kimtan2(김탄2)</strong></p>
+
+<section><h2>必要なもの</h2>
+<p>次の 4 つが必要です。</p>
+<table><thead><tr><th>項目</th><th>必要なもの</th></tr></thead><tbody>
+<tr><td>パソコン</td><td>Windows 10(1809 以降)または Windows 11</td></tr>
+<tr><td>OBS</td><td>ブラウザソースが使える OBS Studio(OBS Studio 32 で確認)</td></tr>
+<tr><td>音楽プレイヤー</td><td>Windows の「再生中」に曲を知らせるプレイヤー(Spotify のデスクトップアプリなど)</td></tr>
+<tr><td>ダウンロードファイル</td><td><code>MusicNowPlayingWidget-v0.1.0.zip</code></td></tr>
+</tbody></table>
+<p>別途インストールするものはありません。展開したフォルダーの exe を 1 つ実行するだけです。</p>
+</section>
+
+<section><h2>ステップ 1: プログラムを起動する</h2>
+<ol>
+<li><p><code>MusicNowPlayingWidget-v0.1.0.zip</code> を好きなフォルダーに展開します。</p></li>
+<li><p><code>MusicNowPlayingWidget.exe</code> をダブルクリックします。</p></li>
+<li><p>青い<strong>「Windows によって PC が保護されました」</strong>画面が出たら、<strong>詳細情報 → 実行</strong>を押します。個人が作った無料ソフトで、Microsoft の有料証明書がないために表示される警告です。</p></li>
+<li><p>初回起動時はブラウザで<strong>設定ページ</strong>が開きます。タスクバー右下に<strong>緑の音符アイコン</strong>が出れば起動しています。</p></li>
+</ol>
+<p>プログラムにはウィンドウがなく、トレイアイコンだけで動きます。2 回起動しても 1 つだけ動きます。</p>
+</section>
+
+<section><h2>ステップ 2: OBS にウィジェットを入れる</h2>
+<ol>
+<li><p>設定ページの <strong>OBSに入れるURL</strong> で、使いたいデザインの横の<strong>コピー</strong>を押します。トレイアイコン → <strong>ウィジェットのURLをコピー</strong>でも構いません。</p></li>
+<li><p>OBS で<strong>ソースを追加(+) → ブラウザ</strong>を選び、名前を付けます。</p></li>
+<li><p><strong>URL</strong> 欄にコピーしたアドレスを貼り付けます。アドレスは <code>file:///C:/Users/.../MusicNowPlayingWidget/widget/widget.html?style=A</code> のような形です(PC に保存されたウィジェットファイルです)。</p></li>
+<li><p><strong>幅</strong>と<strong>高さ</strong>を下の表のとおりに合わせて <strong>OK</strong> を押します。設定ページでも各名前の下にサイズが書かれています。</p></li>
+</ol>
+<table class="sizes"><thead><tr><th>デザイン</th><th>URLの末尾</th><th>幅 × 高さ</th><th>見た目</th></tr></thead><tbody>
+<tr><td>カード</td><td><code>?style=A</code></td><td>430 × 110</td><td>アルバムアート、タイトル、アーティスト、再生バーのあるカード。後ろにアルバムの色がやわらかくにじみます。</td></tr>
+<tr><td>ピル(1行)</td><td><code>?style=B</code></td><td>450 × 70</td><td>丸いピル型の 1 行。小さなアルバムアートと動くイコライザーがあります。</td></tr>
+<tr><td>大きな文字</td><td><code>?style=C</code></td><td>560 × 140</td><td>背景の箱がなく、大きなアルバムアートと大きな文字だけが表示されます。</td></tr>
+</tbody></table>
+<p>シーンごとに違うアドレスを入れれば、シーンごとに違うデザインを使えます。ウィジェットの背景は透明です。</p>
+<p>OBS とこのプログラムは<strong>どちらを先に起動しても</strong>大丈夫です。ウィジェットがプログラムを待って自動で接続します。</p>
+</section>
+
+<section><h2>ステップ 3: 曲を再生して確認する</h2>
+<ol>
+<li><p>音楽プレイヤーで曲を再生します。ウィジェットにタイトル、アーティスト、アルバムアートが表示されます。</p></li>
+<li><p>一時停止すると 1.5 秒後にウィジェットが消え、再生すると再び表示されます。</p></li>
+<li><p>曲を送ると、前の曲が消えてから新しい曲が表示されます。続けて素早く送ると(2 秒以内にもう一度送ると)、待たずにすぐ切り替わります。</p></li>
+</ol>
+<p>ウィジェットが表示されないときは、最後の<strong>トラブルシューティング</strong>を確認してください。</p>
+</section>
+
+<section><h2>設定ページ</h2>
+<p>トレイアイコン → <strong>設定を開く</strong>を押すか、ブラウザで <code>http://localhost:8976/settings</code> を開きます。変更して<strong>保存</strong>を押すと OBS のウィジェットにすぐ反映され、OBS を更新する必要はありません。右側のプレビューで保存前の見た目を確認できます。</p>
+<table><thead><tr><th>項目</th><th>説明</th></tr></thead><tbody>
+<tr><td>デザイン</td><td>URL に <code>?style=</code> を付けていないウィジェットの標準デザイン</td></tr>
+<tr><td>色</td><td>文字色、背景色、アクセント色(再生バー、イコライザー)</td></tr>
+<tr><td>曲ごとに自動で色を変える(アルバムアートの色)</td><td>オンにすると、曲が変わるたびにウィジェットの色がアルバムアートの色へ約 3 秒かけてなめらかに変わります。文字色は背景に合わせて常に読みやすい色(白または黒)になります。アルバムアートがない曲は上で選んだ色を使い、大きな文字デザインはアクセント色だけが変わります。</td></tr>
+<tr><td>アルバムアート / 再生バー / 再生時間</td><td>それぞれ表示・非表示。再生時間は <code>1:12 / 3:20</code> のように表示されます。</td></tr>
+<tr><td>表示するアプリ</td><td>一度でも再生したアプリが一覧に出ます。チェックを外すと、そのアプリの曲はウィジェットに出ません。</td></tr>
+<tr><td>言語</td><td>自動(Windows の言語) / 한국어 / English / 日本語。設定ページとトレイメニューの文字が変わります。</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>ブラウザが最初オフになっている理由</h2>
+<p>Chrome、Edge、Whale などのブラウザは、YouTube の動画やネット配信の音も「再生中」として扱われます。配信中に動画のタイトルが出ないよう、ブラウザは最初オフになっています。</p>
+<p>Windows は「どのブラウザで再生中か」だけを伝え、どのサイトかは伝えません。そのため <strong>Chrome</strong> をオンにすると、YouTube Music だけでなく Chrome で流す配信や動画もすべてウィジェットに出ます。YouTube Music だけを表示するには、次の項目のとおりに設定してください。</p>
+</section>
+
+<section><h2>YouTube Music だけを表示する(動画・配信の音は除く)</h2>
+<p>YouTube Music を <strong>Chrome アプリとしてインストール</strong>すると、Windows は通常の Chrome とは別に伝えます。これで YouTube Music だけをオンにし、Chrome はオフにしておけます。</p>
+<ol>
+<li><p>Chrome で <code>music.youtube.com</code> を開きます。</p></li>
+<li><p>アドレスバー右端の<strong>インストールアイコン</strong>(モニターに下向き矢印)を押し、<strong>インストール</strong>を押します。見当たらない場合は、<strong>右上の縦に点が 3 つ並んだメニュー → キャスト、保存、共有 → ページをアプリとしてインストール</strong>を押します。</p></li>
+<li><p>新しく開いた <strong>YouTube Music のウィンドウ</strong>で曲を再生します。次回からはデスクトップやスタートメニューの <strong>YouTube Music アイコン</strong>から開いてください。</p></li>
+<li><p>設定ページの<strong>表示するアプリ</strong>に <strong>YouTube Music (Chrome アプリ)</strong> が出たらオンにし、<strong>Chrome</strong> はオフのまま<strong>保存</strong>します。</p></li>
+</ol>
+<p>これで YouTube Music のウィンドウで流す曲は、カバー曲のようにアルバム情報がない曲も表示され、通常の Chrome タブの配信や動画は表示されません。</p>
+</section>
+
+<section><h2>トレイメニュー</h2>
+<p>タスクバー右下の緑の音符アイコンを右クリックすると出るメニューです。アイコンをダブルクリックすると、設定ページがすぐに開きます。</p>
+<table><thead><tr><th>メニュー</th><th>動作</th></tr></thead><tbody>
+<tr><td>設定を開く</td><td>ブラウザで設定ページを開きます。</td></tr>
+<tr><td>ウィジェットのURLをコピー</td><td>OBS に入れるウィジェットのアドレス(標準デザイン)をコピーします。</td></tr>
+<tr><td>再起動</td><td>プログラムを終了して再び起動します。OBS のウィジェットは自動で再接続します。</td></tr>
+<tr><td>終了</td><td>プログラムを終了します。ウィジェットは曲の情報がなくなり表示されなくなります。</td></tr>
+</tbody></table>
+<p>新しいバージョンに替えて起動すると、OBS のウィジェットも自動で 1 回再読み込みして新しいバージョンになります。</p>
+</section>
+
+<section><h2>プレイヤー別の確認状況</h2>
+<table><thead><tr><th>プレイヤー</th><th>状況</th></tr></thead><tbody>
+<tr><td>Spotify(デスクトップアプリ)</td><td>確認済み</td></tr>
+<tr><td>YouTube Music(Chrome アプリとしてインストール)</td><td>確認済み</td></tr>
+<tr><td>Melon(デスクトップアプリ)</td><td>未確認</td></tr>
+<tr><td>Apple Music(Windows アプリ)</td><td>未確認</td></tr>
+<tr><td>TIDAL(デスクトップアプリ)</td><td>未確認</td></tr>
+</tbody></table>
+<p>音量キーを押したときに Windows に曲の情報が表示されるプレイヤーなら、ほぼ確実に動作します。</p>
+</section>
+
+<section><h2>トラブルシューティング</h2>
+<table><thead><tr><th>症状</th><th>原因</th><th>対処</th></tr></thead><tbody>
+<tr><td>ウィジェットが表示されない</td><td>曲が一時停止中、またはそのプレイヤーがオフ</td><td>曲が実際に再生中か、設定 → 表示するアプリでそのプレイヤーがオンかを確認</td></tr>
+<tr><td>Chrome の配信や動画のタイトルが出る</td><td>表示するアプリで Chrome がオン</td><td>Chrome のチェックを外して保存。YouTube Music は前述の方法で Chrome アプリとしてインストール</td></tr>
+<tr><td>「ポート8976は他のプログラムが使用中のため起動できません」と出る</td><td>他のプログラムが同じ番号を使用</td><td><code>%APPDATA%\MusicNowPlayingWidget\settings.json</code> をメモ帳で開き、<code>"port": 8976</code> の数字を変えて(例: 8977)プログラムを再起動。OBS に入れたアドレスはそのままで構いません</td></tr>
+<tr><td>設定ページが開かない</td><td>アドレスに <code>127.0.0.1</code> を使っている</td><td><code>localhost</code> で開く。Windows は管理者権限なしでは <code>localhost</code> だけを許可します</td></tr>
+<tr><td>アルバムアートが出ない</td><td>プレイヤーが画像を送っていない、またはアルバムアート表示がオフ</td><td>設定でアルバムアート表示がオンか確認。画像は曲が変わってから数秒遅れて届くこともあります</td></tr>
+<tr><td>何かおかしい</td><td>-</td><td>トレイアイコン → 再起動。それでも直らなければ、OBS のブラウザソースのプロパティで「現在のページのキャッシュを更新」</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>お問い合わせ</h2>
+<p>使用中に問題や疑問があれば、作者(Kimtan2 / 김탄2)にお問い合わせください。</p>
+<ul>
+<li><p><strong>Discord:</strong> kimtan2</p></li>
+<li><p><strong>Chzzk(치지직):</strong> 김탄2</p></li>
+</ul>
+<p>このプログラムは個人が作った無料ソフトで、OBS Project、Spotify、Google(YouTube Music)、Kakao Entertainment(Melon)、Apple、TIDAL とは関係のない非公式プロジェクトです。OBS、Spotify、YouTube Music、Melon、Apple Music、TIDAL は各社の商標です。</p>
+</section>
+</body>
+</html>

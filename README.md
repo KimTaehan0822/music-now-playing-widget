@@ -10,6 +10,7 @@ It reads the "now playing" info that Windows already knows. That is the same inf
 - Nothing to install: just run one exe
 - Three styles: card, pill and big text
 - Change colors, what is shown, and the language (한국어/English/日本語) on a settings page
+- The zip includes PDF manuals (한국어/English/日本語). Their sources are in the [`docs/manual`](docs/manual) folder
 
 ## How to use
 

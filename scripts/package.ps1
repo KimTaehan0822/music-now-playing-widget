@@ -13,6 +13,7 @@ if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed" }
 
 Copy-Item (Join-Path $root "README.md"), (Join-Path $root "README.ko.md"), (Join-Path $root "README.ja.md"), (Join-Path $root "LICENSE") $out
 Copy-Item (Join-Path $root "licenses") $out -Recurse
+Copy-Item (Join-Path $root "docs\manual\*.pdf") $out
 if (Test-Path $zip) { Remove-Item $zip -Force }
 Compress-Archive -Path (Join-Path $out "*") -DestinationPath $zip
 Get-ChildItem $out | Format-Table Name, Length

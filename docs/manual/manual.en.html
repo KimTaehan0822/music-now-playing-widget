@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Music Now Playing Widget Manual</title>
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+<h1>Music Now Playing Widget Manual</h1>
+<p><time datetime="2026-11-09">2026-11-09</time> · v0.1.0</p>
+<p>A widget program that shows the title, artist, album art and play time of the song you are listening to on your stream (OBS). It works with any player: Spotify, YouTube Music, Melon, Apple Music, TIDAL and more, because it reads the "now playing" information Windows already has (the same information that pops up when you press a volume key).</p>
+<p>Made by <strong>Kimtan2 (김탄2) of Doctor Goblin (닥터고블린)</strong>.</p>
+
+<section><h2>What you need</h2>
+<p>You need these four things.</p>
+<table><thead><tr><th>Item</th><th>What you need</th></tr></thead><tbody>
+<tr><td>Computer</td><td>Windows 10 (1809 or later) or Windows 11</td></tr>
+<tr><td>OBS</td><td>OBS Studio with Browser sources (confirmed on OBS Studio 32)</td></tr>
+<tr><td>Music player</td><td>A player that reports songs to Windows' "now playing" (for example the Spotify desktop app)</td></tr>
+<tr><td>Download</td><td><code>MusicNowPlayingWidget-v0.1.0.zip</code></td></tr>
+</tbody></table>
+<p>There is nothing to install. You only run one exe from the unzipped folder.</p>
+</section>
+
+<section><h2>Step 1: Start the program</h2>
+<ol>
+<li><p>Unzip <code>MusicNowPlayingWidget-v0.1.0.zip</code> into any folder.</p></li>
+<li><p>Double-click <code>MusicNowPlayingWidget.exe</code>.</p></li>
+<li><p>If a blue <strong>"Windows protected your PC"</strong> window appears, click <strong>More info → Run anyway</strong>. This warning appears because it is a free program made by an individual, without a paid Microsoft certificate.</p></li>
+<li><p>On the first run, the <strong>settings page</strong> opens in your browser. When a <strong>green music note icon</strong> appears at the bottom right of the taskbar, the program is running.</p></li>
+</ol>
+<p>The program has no window; it runs as a tray icon only. Starting it twice still runs only one copy.</p>
+</section>
+
+<section><h2>Step 2: Add the widget to OBS</h2>
+<ol>
+<li><p>On the settings page, under <strong>URLs for OBS</strong>, click <strong>Copy</strong> next to the style you want. You can also use the tray icon → <strong>Copy widget URL</strong>.</p></li>
+<li><p>In OBS, choose <strong>Add Source (+) → Browser</strong> and name it.</p></li>
+<li><p>Paste the copied address into the <strong>URL</strong> field. It looks like <code>file:///C:/Users/.../MusicNowPlayingWidget/widget/widget.html?style=A</code> (a widget file saved on your PC).</p></li>
+<li><p>Set <strong>Width</strong> and <strong>Height</strong> as in the table below and click <strong>OK</strong>. The settings page also shows the size under each name.</p></li>
+</ol>
+<table class="sizes"><thead><tr><th>Style</th><th>URL ending</th><th>Width × Height</th><th>Looks like</th></tr></thead><tbody>
+<tr><td>Card</td><td><code>?style=A</code></td><td>430 × 110</td><td>A card with album art, title, artist and progress bar. The album colors glow softly behind it.</td></tr>
+<tr><td>Pill</td><td><code>?style=B</code></td><td>450 × 70</td><td>A single rounded line with small album art and moving equalizer bars.</td></tr>
+<tr><td>Big text</td><td><code>?style=C</code></td><td>560 × 140</td><td>No background box, just large album art and large text.</td></tr>
+</tbody></table>
+<p>Put a different address in each scene to use a different style per scene. The widget background is transparent.</p>
+<p>You can start OBS and this program <strong>in either order</strong>. The widget waits for the program and connects by itself.</p>
+</section>
+
+<section><h2>Step 3: Play a song to check</h2>
+<ol>
+<li><p>Play a song in your music player. The title, artist and album art appear in the widget.</p></li>
+<li><p>When you pause, the widget disappears after 1.5 seconds. It comes back when you play again.</p></li>
+<li><p>When you skip, the old song fades out and the new one fades in. If you skip quickly in a row (again within 2 seconds), it switches right away without waiting.</p></li>
+</ol>
+<p>If the widget doesn't appear, see <strong>Troubleshooting</strong> at the end.</p>
+</section>
+
+<section><h2>Settings page</h2>
+<p>Use the tray icon → <strong>Open settings</strong>, or open <code>http://localhost:8976/settings</code> in a browser. Click <strong>Save</strong> after a change and the OBS widget updates right away; you don't need to refresh OBS. The preview on the right shows the result before you save.</p>
+<table><thead><tr><th>Item</th><th>What it does</th></tr></thead><tbody>
+<tr><td>Style</td><td>The default style for widget URLs without <code>?style=</code></td></tr>
+<tr><td>Colors</td><td>Text, Background and Accent (progress bar, equalizer bars)</td></tr>
+<tr><td>Change colors with each song (from album art)</td><td>When on, the widget colors fade to colors taken from the album art over about 3 seconds at every song change. The text color always follows the background so it stays readable (white or black). Songs without album art use the colors above, and the Big text style only changes the accent.</td></tr>
+<tr><td>Album art / progress bar / play time</td><td>Show or hide each one. The play time looks like <code>1:12 / 3:20</code>.</td></tr>
+<tr><td>Apps to show</td><td>Every app that has played something appears in this list. Turn an app off and its songs no longer show in the widget.</td></tr>
+<tr><td>Language</td><td>Automatic (Windows language) / 한국어 / English / 日本語. Changes the settings page and tray menu text.</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>Why browsers start turned off</h2>
+<p>Browsers such as Chrome, Edge and Whale also report YouTube videos and live streams as "playing". So browsers start turned off, to keep video titles off your stream.</p>
+<p>Windows only reports which browser is playing, not which site. So if you turn <strong>Chrome</strong> on, everything you play in Chrome shows up, including live streams and videos, not just YouTube Music. To show only YouTube Music, follow the next section.</p>
+</section>
+
+<section><h2>Show only YouTube Music (without video or stream sound)</h2>
+<p>If you <strong>install YouTube Music as a Chrome app</strong>, Windows reports it separately from regular Chrome. Then you can turn on YouTube Music and leave Chrome off.</p>
+<ol>
+<li><p>Open <code>music.youtube.com</code> in Chrome.</p></li>
+<li><p>Click the <strong>install icon</strong> at the right end of the address bar (a monitor with a down arrow), then <strong>Install</strong>. If you don't see it, open the <strong>three-dot menu at the top right → Cast, save, and share → Install page as app</strong>.</p></li>
+<li><p>Play a song in the new <strong>YouTube Music window</strong>. From now on, open it from the <strong>YouTube Music icon</strong> on your desktop or Start menu.</p></li>
+<li><p>When <strong>YouTube Music (Chrome app)</strong> appears under <strong>Apps to show</strong> on the settings page, turn it on, leave <strong>Chrome</strong> off, and click <strong>Save</strong>.</p></li>
+</ol>
+<p>Songs you play in the YouTube Music window then show up, even ones without album info such as covers, while streams and videos in regular Chrome tabs don't.</p>
+</section>
+
+<section><h2>Tray menu</h2>
+<p>Right-click the green music note icon at the bottom right of the taskbar to open this menu. Double-click the icon to open the settings page directly.</p>
+<table><thead><tr><th>Menu</th><th>What it does</th></tr></thead><tbody>
+<tr><td>Open settings</td><td>Opens the settings page in your browser.</td></tr>
+<tr><td>Copy widget URL</td><td>Copies the widget address for OBS (default style).</td></tr>
+<tr><td>Restart</td><td>Closes the program and starts it again. The OBS widget reconnects by itself.</td></tr>
+<tr><td>Quit</td><td>Closes the program. The widget has no song to show and stays hidden.</td></tr>
+</tbody></table>
+<p>When you run a new version, the OBS widget also reloads itself once and switches to the new version.</p>
+</section>
+
+<section><h2>Player status</h2>
+<table><thead><tr><th>Player</th><th>Status</th></tr></thead><tbody>
+<tr><td>Spotify (desktop app)</td><td>Confirmed</td></tr>
+<tr><td>YouTube Music (installed as a Chrome app)</td><td>Confirmed</td></tr>
+<tr><td>Melon (desktop app)</td><td>Not confirmed yet</td></tr>
+<tr><td>Apple Music (Windows app)</td><td>Not confirmed yet</td></tr>
+<tr><td>TIDAL (desktop app)</td><td>Not confirmed yet</td></tr>
+</tbody></table>
+<p>If Windows shows the song when you press a volume key, the player almost certainly works.</p>
+</section>
+
+<section><h2>Troubleshooting</h2>
+<table><thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead><tbody>
+<tr><td>The widget doesn't appear</td><td>The song is paused, or that player is turned off</td><td>Check that the song is really playing, and that the player is on under Settings → Apps to show</td></tr>
+<tr><td>Chrome stream or video titles appear</td><td>Chrome is on under Apps to show</td><td>Turn Chrome off and save. Install YouTube Music as a Chrome app as described above</td></tr>
+<tr><td>"Port 8976 is already used by another program" appears</td><td>Another program uses the same number</td><td>Open <code>%APPDATA%\MusicNowPlayingWidget\settings.json</code> in Notepad, change the number in <code>"port": 8976</code> (for example to 8977) and start the program again. The address in OBS can stay as it is</td></tr>
+<tr><td>The settings page doesn't open</td><td>The address uses <code>127.0.0.1</code></td><td>Open it with <code>localhost</code>. Without admin rights, Windows only allows <code>localhost</code></td></tr>
+<tr><td>No album art</td><td>The player sends no picture, or Show album art is off</td><td>Check that Show album art is on. The picture can arrive a few seconds after a song change</td></tr>
+<tr><td>Something behaves oddly</td><td>-</td><td>Tray icon → Restart. If that doesn't help, click "Refresh cache of current page" in the OBS Browser source properties</td></tr>
+</tbody></table>
+</section>
+
+<section><h2>Contact</h2>
+<p>If you have a problem or a question, contact the author (Kimtan2 / 김탄2).</p>
+<ul>
+<li><p><strong>Discord:</strong> kimtan2</p></li>
+<li><p><strong>Chzzk (치지직):</strong> 김탄2</p></li>
+</ul>
+<p>This is a free program made by an individual. It is an unofficial project, not affiliated with the OBS Project, Spotify, Google (YouTube Music), Kakao Entertainment (Melon), Apple or TIDAL. OBS, Spotify, YouTube Music, Melon, Apple Music and TIDAL are trademarks of their respective owners.</p>
+</section>
+</body>
+</html>
