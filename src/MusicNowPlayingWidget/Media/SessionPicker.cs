@@ -8,4 +8,8 @@ public static class SessionPicker
         return playing.FirstOrDefault(s => s.AppId == currentAppId)
             ?? playing.MaxBy(s => s.LastPlayStarted);
     }
+
+    /// A song Windows reports wins; a window title only fills in when nothing there is playing.
+    public static NowPlaying Prefer(NowPlaying windows, NowPlaying title) =>
+        windows.Playing || !title.Playing ? windows : title;
 }

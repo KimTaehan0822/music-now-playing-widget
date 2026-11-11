@@ -34,4 +34,18 @@ public class SessionPickerTests
     [Fact]
     public void NothingPlaying_ReturnsNull() =>
         Assert.Null(SessionPicker.Pick([S("Spotify.exe", false), S("Melon.exe", false)], "Spotify.exe", AllButChrome));
+
+    static NowPlaying NP(string title) => new(true, title, "artist", "", "app", null, null, null, 0, null);
+
+    [Fact]
+    public void Prefer_WindowsPlayingWins() =>
+        Assert.Equal("win", SessionPicker.Prefer(NP("win"), NP("title")).Title);
+
+    [Fact]
+    public void Prefer_TitleWhenWindowsIdle() =>
+        Assert.Equal("title", SessionPicker.Prefer(NowPlaying.Empty, NP("title")).Title);
+
+    [Fact]
+    public void Prefer_EmptyWhenBothIdle() =>
+        Assert.Equal(NowPlaying.Empty, SessionPicker.Prefer(NowPlaying.Empty, NowPlaying.Empty));
 }
