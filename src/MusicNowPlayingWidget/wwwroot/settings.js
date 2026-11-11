@@ -34,7 +34,15 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
   }
 
   // "SpotifyAB.SpotifyMusic_zpdnekdrzrea0!Spotify" -> "Spotify", "C:\\x\\whale.exe" -> "whale"
+  // IDs that don't read as the player's name.
+  const KNOWN_APPS = {
+    'com.kakaoent.melon.player': 'Melon',
+    'com.squirrel.TIDAL.TIDAL': 'TIDAL',
+    'AppleInc.AppleMusicWin_nzyj5cx40ttqa!App': 'Apple Music',
+  };
+
   function friendlyName(appId) {
+    if (KNOWN_APPS[appId]) return KNOWN_APPS[appId];
     // A site installed as an app, e.g. "Chrome._crx_cinhimbnkk…" is YouTube Music installed from Chrome.
     const web = appId.match(/^(.+?)\._crx_(.+)$/);
     if (web) {

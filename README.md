@@ -73,7 +73,7 @@ Songs you play in the YouTube Music window then show up, even ones without album
 |---|---|
 | Spotify (desktop app) | ✅ Confirmed |
 | YouTube Music (installed as a Chrome app) | ✅ Confirmed |
-| Melon (desktop app) | ⏳ Not confirmed yet |
+| Melon (desktop app) | ✅ Confirmed |
 | Apple Music (Windows app) | ⏳ Not confirmed yet |
 | TIDAL (desktop app) | ⏳ Not confirmed yet |
 
