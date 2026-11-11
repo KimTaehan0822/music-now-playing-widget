@@ -40,5 +40,14 @@
   "settings.ytmStep4": "When \"YouTube Music (Chrome app)\" appears in this list, turn it on, leave \"Chrome\" off, and save.",
   "settings.program": "Program",
   "settings.startWithWindows": "Start with Windows",
-  "settings.startWithWindowsHint": "If you move the program folder, it may stop starting with Windows. After moving it, run it once from the new place."
+  "settings.startWithWindowsHint": "If you move the program folder, it may stop starting with Windows. After moving it, run it once from the new place.",
+  "settings.addProgram": "Add a running program",
+  "settings.programsNone": "No programs with an open window.",
+  "settings.modeWindows": "Windows media info",
+  "settings.modeTitle": "Window title",
+  "settings.orderTitleArtist": "Title - Artist",
+  "settings.orderArtistTitle": "Artist - Title",
+  "settings.windowsModeHint": "Once this program plays a song, it joins the list above.",
+  "settings.titleModeHint": "Album art and playback time won't show.",
+  "settings.removeProgram": "Remove"
 }

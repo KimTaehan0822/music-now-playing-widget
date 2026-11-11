@@ -13,6 +13,9 @@ public class StringsTests
         "settings.language", "settings.languageAuto", "settings.widgetUrls", "settings.copy", "settings.copied",
         "settings.save", "settings.saved", "settings.preview", "settings.nothingPlaying", "settings.showTime", "settings.widgetUrlsHint",
         "settings.program", "settings.startWithWindows", "settings.startWithWindowsHint",
+        "settings.addProgram", "settings.programsNone", "settings.modeWindows", "settings.modeTitle",
+        "settings.orderTitleArtist", "settings.orderArtistTitle", "settings.windowsModeHint", "settings.titleModeHint",
+        "settings.removeProgram",
     ];
 
     [Fact]

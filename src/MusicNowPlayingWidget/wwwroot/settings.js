@@ -11,6 +11,8 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
   let currentLang = null;
   let previewStyle = null;
   let anyPlaying = false;
+  let programs = {};          // picked programs being edited: name -> { enabled, mode, order }
+  let programsDirty = false;  // edited here and not saved yet: server pushes must not wipe the edits
   let widgetUrl = `${location.origin}/widget`; // replaced by the file:/// address from /api/info
 
   const t = key => strings[key] || key;
@@ -30,7 +32,7 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
     document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
     document.title = t('settings.title');
     renderUrls();
-    if (saved) renderApps(saved.apps, readForm().apps); // app names are translated too
+    if (saved) { renderApps(saved.apps, readForm().apps); renderPrograms(); } // app names are translated too
   }
 
   // "SpotifyAB.SpotifyMusic_zpdnekdrzrea0!Spotify" -> "Spotify", "C:\\x\\whale.exe" -> "whale"
@@ -67,6 +69,7 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
       showTime: $('showTime').checked,
       autoColors: $('autoColors').checked,
       apps,
+      programs: structuredClone(programs),
     };
   }
 
@@ -79,7 +82,110 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
     $('showTime').checked = s.showTime;
     $('autoColors').checked = s.autoColors;
     renderApps(s.apps, {});
+    programs = structuredClone(s.programs || {});
+    programsDirty = false;
+    renderPrograms();
   }
+
+  // redraw only when the row's shape changes, so keyboard focus stays on a checkbox or select
+  function editPrograms(change, redraw = true) {
+    change();
+    programsDirty = true;
+    $('saved').textContent = '';
+    if (redraw) renderPrograms();
+  }
+
+  function option(value, key, selected) {
+    const o = document.createElement('option');
+    o.value = value;
+    o.textContent = t(key);
+    o.selected = value === selected;
+    return o;
+  }
+
+  function renderPrograms() {
+    const list = $('programs');
+    list.replaceChildren();
+    for (const name of Object.keys(programs).sort((a, b) => a.localeCompare(b))) {
+      const p = programs[name];
+      const li = document.createElement('li');
+      li.className = 'program';
+      const row = document.createElement('div');
+      row.className = 'row';
+      const label = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = p.enabled;
+      cb.addEventListener('change', () => editPrograms(() => { p.enabled = cb.checked; }, false));
+      const title = document.createElement('span');
+      title.textContent = name;
+      label.append(cb, title);
+
+      const controls = document.createElement('div');
+      controls.className = 'controls';
+      const mode = document.createElement('select');
+      mode.setAttribute('aria-label', name);
+      mode.append(option('windows', 'settings.modeWindows', p.mode), option('title', 'settings.modeTitle', p.mode));
+      mode.addEventListener('change', () => {
+        editPrograms(() => { p.mode = mode.value; });
+        $('programs').querySelector(`select[aria-label="${CSS.escape(name)}"]`)?.focus();
+      });
+      controls.append(mode);
+      if (p.mode === 'title') {
+        const order = document.createElement('select');
+        order.setAttribute('aria-label', name);
+        order.append(option('title-artist', 'settings.orderTitleArtist', p.order),
+          option('artist-title', 'settings.orderArtistTitle', p.order));
+        order.addEventListener('change', () => editPrograms(() => { p.order = order.value; }, false));
+        controls.append(order);
+      }
+      const remove = document.createElement('button');
+      remove.type = 'button';
+      remove.className = 'remove';
+      remove.textContent = t('settings.removeProgram');
+      remove.addEventListener('click', () => editPrograms(() => { delete programs[name]; }));
+      controls.append(remove);
+      row.append(label, controls);
+
+      const hint = document.createElement('p');
+      hint.className = 'hint program-hint';
+      hint.textContent = t(p.mode === 'title' ? 'settings.titleModeHint' : 'settings.windowsModeHint');
+      li.append(row, hint);
+      list.append(li);
+    }
+  }
+
+  async function togglePicker() {
+    const picker = $('programPicker');
+    const btn = $('addProgram');
+    if (!picker.hidden) { picker.hidden = true; btn.setAttribute('aria-expanded', 'false'); return; }
+    let names = [];
+    try { names = await (await fetch('/api/programs')).json(); } catch { /* shown as "none" below */ }
+    const taken = new Set(Object.keys(programs).map(n => n.toLowerCase()));
+    names = names.filter(n => !taken.has(n.toLowerCase()));
+    picker.replaceChildren();
+    if (!names.length) {
+      const none = document.createElement('p');
+      none.className = 'hint';
+      none.textContent = t('settings.programsNone');
+      picker.append(none);
+    }
+    for (const name of names) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = name;
+      b.addEventListener('click', () => {
+        editPrograms(() => { programs[name] = { enabled: true, mode: 'windows', order: 'title-artist' }; });
+        picker.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        btn.focus();
+      });
+      picker.append(b);
+    }
+    picker.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  $('addProgram').addEventListener('click', togglePicker);
 
   function renderApps(apps, unsaved) {
     const list = $('apps');
@@ -202,6 +308,8 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
     const unsaved = readForm().apps;
     saved = next;
     renderApps(next.apps, unsaved);
+    // A picked row may have joined the app list on the server; only redraw when nothing here is unsaved.
+    if (!programsDirty) { programs = structuredClone(next.programs || {}); renderPrograms(); }
   });
   events.addEventListener('nowplaying', e => {
     anyPlaying = JSON.parse(e.data).playing;

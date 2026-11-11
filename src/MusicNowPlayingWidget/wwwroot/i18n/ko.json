@@ -40,5 +40,14 @@
   "settings.ytmStep4": "이 목록에 \"YouTube Music (Chrome 앱)\"이 생기면 켜고, \"Chrome\"은 끈 채로 저장해요.",
   "settings.program": "프로그램",
   "settings.startWithWindows": "Windows 시작 시 자동 실행",
-  "settings.startWithWindowsHint": "프로그램 폴더를 옮기면 자동 실행이 안 될 수 있어요. 옮긴 뒤에는 새 위치에서 한 번 직접 실행해 주세요."
+  "settings.startWithWindowsHint": "프로그램 폴더를 옮기면 자동 실행이 안 될 수 있어요. 옮긴 뒤에는 새 위치에서 한 번 직접 실행해 주세요.",
+  "settings.addProgram": "실행 중인 프로그램 추가",
+  "settings.programsNone": "창이 열린 프로그램이 없어요.",
+  "settings.modeWindows": "Windows 곡 정보",
+  "settings.modeTitle": "창 제목",
+  "settings.orderTitleArtist": "제목 - 아티스트",
+  "settings.orderArtistTitle": "아티스트 - 제목",
+  "settings.windowsModeHint": "이 프로그램에서 곡을 틀면 위 목록으로 합쳐져요.",
+  "settings.titleModeHint": "앨범 사진과 재생 시간은 표시되지 않아요.",
+  "settings.removeProgram": "삭제"
 }

@@ -118,6 +118,19 @@ input[type=checkbox] { width: 18px; height: 18px; accent-color: var(--accent); m
 .apps label:hover { background: var(--page); }
 .apps .id { color: var(--muted); font-size: 12px; margin-left: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 50%; }
 
+/* Programs the user picked from the running ones */
+.programs { margin-top: 2px; }
+.program .row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; }
+.program .row label { flex: 1 1 160px; min-width: 0; }
+.program .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-left: 10px; }
+.program select { padding: 4px 8px; font-size: 14px; }
+.program-hint { margin: 0 0 6px 38px; font-size: 13px; }
+button.secondary, .program .remove, .picker button { padding: 6px 12px; font-size: 13px; background: var(--page); color: var(--ink); }
+#addProgram { margin-top: 10px; }
+.picker { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; }
+.picker button { font-weight: 500; }
+.picker .hint { margin: 0; }
+
 .savebar { display: flex; align-items: center; gap: 14px; padding: 16px 22px; position: sticky; bottom: 0; background: var(--surface); border-radius: 0 0 var(--radius) var(--radius); }
 button {
   font: inherit;
