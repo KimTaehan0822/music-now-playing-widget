@@ -67,6 +67,17 @@ If you **install YouTube Music as a Chrome app**, Windows reports it separately 
 
 Songs you play in the YouTube Music window then show up, even ones without album info such as covers, while streams and videos in regular Chrome tabs don't.
 
+### Add a program that isn't listed
+
+Click **Add a running program** under Apps to show to see the programs that have a window open. Pick the one that plays your music, choose how to read it, and **Save**.
+
+- **Windows media info**: decide on or off before it plays anything. Once it plays a song, the row joins the list above.
+- **Window title**: for programs that don't report to Windows. The song is read from the window title, as **Title - Artist** or **Artist - Title**.
+  - Album art and play time don't show.
+  - Only works for programs that put the song in their window title.
+  - The song shows while the program makes sound, and hides about 3 seconds after the sound stops.
+  - A song Windows reports is shown first.
+
 ## Player status
 
 | Player | Status |
