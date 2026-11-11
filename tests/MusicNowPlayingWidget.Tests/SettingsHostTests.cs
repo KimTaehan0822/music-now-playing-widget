@@ -17,4 +17,27 @@ public class SettingsHostTests : IDisposable
         Assert.Empty(published.Apps);
         Assert.True(host.Get().Apps.ContainsKey("Spotify.exe"));
     }
+
+    [Fact]
+    public void Programs_RoundTripThroughStore()
+    {
+        var path = Path.Combine(_dir, "settings.json");
+        var store = new SettingsStore(path);
+        var host = new SettingsHost(store, store.Load());
+        host.Merge("{\"programs\":{\"foobar2000\":{\"enabled\":true,\"mode\":\"title\",\"order\":\"artist-title\"}}}");
+        var loaded = new SettingsStore(path).Load().Programs["foobar2000"];
+        Assert.Equal("artist-title", loaded.Order);
+        Assert.Equal("title", loaded.Mode);
+    }
+
+    [Fact]
+    public void OldSettingsFile_LoadsEmptyPrograms()
+    {
+        var path = Path.Combine(_dir, "settings.json");
+        Directory.CreateDirectory(_dir);
+        File.WriteAllText(path, "{\"port\":8976}");
+        var programs = new SettingsStore(path).Load().Programs;
+        Assert.NotNull(programs);
+        Assert.Empty(programs);
+    }
 }

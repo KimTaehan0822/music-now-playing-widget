@@ -48,4 +48,52 @@ public class AppSettingsTests
         Assert.Null(s.Language);
         Assert.Equal(8976, s.Port);
     }
+
+    const string MelonId = "com.kakaoent.melon.player";
+
+    [Fact]
+    public void ProgramName_Matches_IgnoresCaseSpacesAndDots()
+    {
+        Assert.True(ProgramName.Matches("Melon Player", MelonId));
+        Assert.True(ProgramName.Matches("Spotify", "Spotify.exe"));
+        Assert.False(ProgramName.Matches("foobar2000", "Spotify.exe"));
+        Assert.False(ProgramName.Matches("...", "anything"));
+    }
+
+    [Fact]
+    public void Sanitize_FixesBadProgramValues()
+    {
+        var s = new AppSettings { Programs = new() { ["foobar2000"] = new ProgramEntry { Mode = "x", Order = "y" } } }.Sanitize();
+        Assert.Equal(ProgramEntry.Windows, s.Programs["FOOBAR2000"].Mode);
+        Assert.Equal(ProgramEntry.TitleArtist, s.Programs["foobar2000"].Order);
+        Assert.Empty(new AppSettings { Programs = null! }.Sanitize().Programs);
+    }
+
+    [Fact]
+    public void RememberApp_MergesPreselectedWindowsRow()
+    {
+        var s = new AppSettings();
+        s.Programs["Melon Player"] = new ProgramEntry { Enabled = false, Mode = ProgramEntry.Windows };
+        Assert.True(s.RememberApp(MelonId));
+        Assert.False(s.Apps[MelonId]);
+        Assert.False(s.Programs.ContainsKey("Melon Player"));
+    }
+
+    [Fact]
+    public void RememberApp_KeepsTitleRows()
+    {
+        var s = new AppSettings();
+        s.Programs["Melon Player"] = new ProgramEntry { Enabled = false, Mode = ProgramEntry.Title };
+        s.RememberApp(MelonId);
+        Assert.True(s.Apps[MelonId]);
+        Assert.True(s.Programs.ContainsKey("Melon Player"));
+    }
+
+    [Fact]
+    public void IsAppEnabled_UsesPreselectedRowBeforeSeen()
+    {
+        var s = new AppSettings();
+        s.Programs["Melon Player"] = new ProgramEntry { Enabled = false, Mode = ProgramEntry.Windows };
+        Assert.False(s.IsAppEnabled(MelonId));
+    }
 }
