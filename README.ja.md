@@ -59,6 +59,8 @@ Windowsは「どのブラウザで再生中か」だけを伝え、どのサイ�
 
 YouTube Musicを**Chromeアプリとしてインストール**すると、Windowsは通常のChromeとは別に伝えます。これでYouTube Musicだけをオンにし、Chromeはオフにしておけます。
 
+> **Windows 11 でのみ使えます。** Windows 10 では YouTube Music アプリのウィンドウで再生しても通常の Chrome と同じ名前で伝えるため、別々にオンにできません。
+
 1. Chromeで `music.youtube.com` を開きます。
 2. アドレスバー右端の**インストールアイコン**（モニターに下向き矢印）を押し、**インストール**を押します。
    見当たらない場合は、右上の **⋮ メニュー → キャスト、保存、共有 → ページをアプリとしてインストール** を押します。
@@ -83,7 +85,7 @@ YouTube Musicを**Chromeアプリとしてインストール**すると、Window
 | プレイヤー | 状況 |
 |---|---|
 | Spotify（デスクトップアプリ） | ✅ 確認済み |
-| YouTube Music（Chromeアプリとしてインストール） | ✅ 確認済み |
+| YouTube Music（Chromeアプリとしてインストール） | ✅ 確認済み（Windows 11） |
 | Melon（デスクトップアプリ） | ✅ 確認済み |
 | Apple Music（Windowsアプリ） | ⏳ 確認中 |
 | TIDAL（デスクトップアプリ） | ✅ 確認済み |

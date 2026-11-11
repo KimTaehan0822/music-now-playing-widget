@@ -59,6 +59,8 @@ Windows only reports which browser is playing, not which site. So if you turn Ch
 
 If you **install YouTube Music as a Chrome app**, Windows reports it separately from regular Chrome. Then you can turn on YouTube Music and leave Chrome off.
 
+> **This only works on Windows 11.** Windows 10 reports the YouTube Music app window under the same name as regular Chrome, so it can't be turned on separately.
+
 1. Open `music.youtube.com` in Chrome.
 2. Click the **install icon** at the right end of the address bar (a monitor with a down arrow), then **Install**.
    If you don't see it, open the **⋮ menu at the top right → Cast, save, and share → Install page as app**.
@@ -83,7 +85,7 @@ Click **Add a running program** under Apps to show to see the programs that have
 | Player | Status |
 |---|---|
 | Spotify (desktop app) | ✅ Confirmed |
-| YouTube Music (installed as a Chrome app) | ✅ Confirmed |
+| YouTube Music (installed as a Chrome app) | ✅ Confirmed (Windows 11) |
 | Melon (desktop app) | ✅ Confirmed |
 | Apple Music (Windows app) | ⏳ Checking |
 | TIDAL (desktop app) | ✅ Confirmed |
