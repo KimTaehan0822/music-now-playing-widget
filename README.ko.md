@@ -14,7 +14,7 @@ Windows가 알고 있는 "지금 재생 중" 정보를 그대로 읽어 오기 �
 
 ## 사용 방법
 
-1. `MusicNowPlayingWidget-v0.2.1.zip`을 받아 원하는 폴더에 압축을 풀어요.
+1. `MusicNowPlayingWidget-v0.3.0.zip`을 받아 원하는 폴더에 압축을 풀어요.
 2. `MusicNowPlayingWidget.exe`를 더블클릭해요.
    - **"Windows의 PC 보호" 파란 창이 뜨면**: `추가 정보` → `실행`을 눌러요.
      개인이 만든 무료 프로그램이라 마이크로소프트 인증서가 없어서 뜨는 경고예요.

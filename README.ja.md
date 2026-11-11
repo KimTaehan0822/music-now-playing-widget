@@ -14,7 +14,7 @@ Windowsが把握している「再生中」の情報（音量キーを押すと�
 
 ## 使い方
 
-1. `MusicNowPlayingWidget-v0.2.1.zip` をダウンロードし、好きなフォルダーに展開します。
+1. `MusicNowPlayingWidget-v0.3.0.zip` をダウンロードし、好きなフォルダーに展開します。
 2. `MusicNowPlayingWidget.exe` をダブルクリックします。
    - **青い「WindowsによってPCが保護されました」画面が出たら**：`詳細情報` → `実行` を押してください。
      個人が作った無料ソフトで、Microsoftの有料証明書がないため表示される警告です。
