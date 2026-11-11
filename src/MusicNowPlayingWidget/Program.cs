@@ -44,7 +44,9 @@ static class Program
 #endif
 
         var watcher = new MediaWatcher(app => settings.Get().IsAppEnabled(app));
-        using var server = new WebServer(port, () => watcher.Current, () => watcher.Art, settings, widgetUrl, startup);
+        using var titles = new TitleWatcher();
+        NowPlaying Combined() => SessionPicker.Prefer(watcher.Current, titles.Current);
+        using var server = new WebServer(port, Combined, () => watcher.Art, settings, widgetUrl, startup, RunningPrograms.List);
         try
         {
             server.Start();
@@ -58,14 +60,29 @@ static class Program
         }
 
         TrayApp? tray = null;
-        watcher.Changed += np => server.Broadcast("nowplaying", np);
+        var sentGate = new object();
+        var sent = NowPlaying.Empty;
+        void SendNowPlaying()
+        {
+            lock (sentGate)
+            {
+                var next = Combined();
+                if (next == sent) return;
+                sent = next;
+                server.Broadcast("nowplaying", next);
+            }
+        }
+        watcher.Changed += _ => SendNowPlaying();
+        titles.Changed += _ => SendNowPlaying();
         watcher.AppSeen += app => settings.Remember(app);
         settings.Changed += s =>
         {
             server.Broadcast("settings", s);
             tray?.SetLanguage(s.Language);
             watcher.Refresh();
+            titles.Update(s);
         };
+        titles.Update(settings.Get());
 
         // Before any WinForms control exists: blocking here with a WinForms sync context could deadlock.
         watcher.StartAsync().GetAwaiter().GetResult();

@@ -26,7 +26,8 @@ public class WebServerTests : IDisposable
         {
             _port = FreePort();
             _server = new WebServer(_port, () => _now, () => _art, _settings, "file:///C:/w/widget.html",
-                new StartupEntry(_runKey, "MusicNowPlayingWidget", @"C:\w\MusicNowPlayingWidget.exe", _runKey + @"\approved"));
+                new StartupEntry(_runKey, "MusicNowPlayingWidget", @"C:\w\MusicNowPlayingWidget.exe", _runKey + @"\approved"),
+                () => ["foobar2000", "Melon"]);
             try { _server.Start(); break; }
             catch (HttpListenerException) when (attempt < 10) { _server.Dispose(); }
         }
@@ -49,6 +50,10 @@ public class WebServerTests : IDisposable
         l.Stop();
         return p;
     }
+
+    [Fact]
+    public async Task Programs_ReturnsInjectedNames() =>
+        Assert.Equal("[\"foobar2000\",\"Melon\"]", await _http.GetStringAsync("api/programs"));
 
     [Fact]
     public async Task Widget_ServesHtml()

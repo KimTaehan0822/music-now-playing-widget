@@ -8,7 +8,7 @@ using MusicNowPlayingWidget.Settings;
 namespace MusicNowPlayingWidget.Web;
 
 public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?> art, SettingsHost settings, string widgetFileUrl,
-    StartupEntry? startup = null) : IDisposable
+    StartupEntry? startup = null, Func<IReadOnlyList<string>>? programs = null) : IDisposable
 {
     static readonly Dictionary<string, string> Types = new()
     {
@@ -90,6 +90,9 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?
                     break;
                 case ("GET", "/api/apps"):
                     Text(res, Json(settings.Apps()));
+                    break;
+                case ("GET", "/api/programs") when programs is not null:
+                    Text(res, Json(programs())); // names only: window titles may hold private text
                     break;
                 case ("POST", "/api/settings"):
                     if (!IsLocalOrigin(req.Headers["Origin"])) { res.StatusCode = 403; break; }
