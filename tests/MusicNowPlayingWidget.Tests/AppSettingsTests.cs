@@ -60,6 +60,16 @@ public class AppSettingsTests
         Assert.False(ProgramName.Matches("...", "anything"));
     }
 
+    [Theory]
+    [InlineData("chrome", "Chrome", true)]
+    [InlineData("chrome", "Chrome._crx_cinhimbnkkghhklpknlkffjgod", false)] // a site installed from Chrome is not Chrome
+    [InlineData("music", "AppleInc.AppleMusicWin_nzyj5cx40ttqa!App", false)] // only whole words count
+    [InlineData("foo", "foobar.exe", false)]
+    [InlineData("Spotify", "SpotifyAB.SpotifyMusic_zpdnekdrzrea0!Spotify", true)]
+    [InlineData("Melon Player", @"C:\Program Files\Kakao\Melon\Melon Player.exe", true)]
+    public void ProgramName_Matches_WholeWordsOnly(string name, string appId, bool expected) =>
+        Assert.Equal(expected, ProgramName.Matches(name, appId));
+
     [Fact]
     public void Sanitize_FixesBadProgramValues()
     {

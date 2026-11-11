@@ -24,6 +24,14 @@ public class WindowTitleTests
         Assert.Equal(("Song", "Artist"), WindowTitle.Parse("Song - Artist - foobar2000", "foobar2000", false));
 
     [Fact]
+    public void Parse_StripsShortProgramName() =>
+        Assert.Equal(("Song", "Artist"), WindowTitle.Parse("Song - Artist - Melon", "Melon Player", false));
+
+    [Fact]
+    public void Parse_ShortProgramNameOnly_IsNull() =>
+        Assert.Null(WindowTitle.Parse("Melon", "Melon Player", false));
+
+    [Fact]
     public void Parse_NoSeparator_IsWholeTitle() =>
         Assert.Equal(("Just a title", ""), WindowTitle.Parse("Just a title", "x", false));
 

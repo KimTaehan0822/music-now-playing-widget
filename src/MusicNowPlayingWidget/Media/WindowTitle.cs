@@ -14,13 +14,13 @@ public static class WindowTitle
         foreach (var dash in new[] { " - ", " — " })
         {
             var i = s.LastIndexOf(dash, StringComparison.Ordinal);
-            if (i >= 0 && ProgramName.Normalize(s[(i + dash.Length)..]) == ProgramName.Normalize(programName))
+            if (i >= 0 && ProgramName.SameProgram(s[(i + dash.Length)..], programName))
             {
                 s = s[..i].TrimEnd();
                 break;
             }
         }
-        if (s.Length == 0 || ProgramName.Normalize(s) == ProgramName.Normalize(programName)) return null; // idle player
+        if (s.Length == 0 || ProgramName.SameProgram(s, programName)) return null; // idle player
 
         // Song names contain " - " more often than artist names, so split next to the artist.
         var at = artistFirst ? s.IndexOf(Sep, StringComparison.Ordinal) : s.LastIndexOf(Sep, StringComparison.Ordinal);
