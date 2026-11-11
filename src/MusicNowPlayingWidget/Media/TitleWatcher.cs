@@ -45,13 +45,13 @@ public sealed class TitleWatcher : IDisposable
             List<(string Name, bool ArtistFirst)> programs;
             lock (_gate) programs = _programs;
             if (programs.Count == 0) return;
-            var audible = AudioActivity.AudiblePids();
+            var audio = AudioActivity.Read();
             var now = DateTimeOffset.UtcNow;
             var found = NowPlaying.Empty;
             foreach (var (name, artistFirst) in programs)
             {
                 var (song, pids) = Read(name, artistFirst);
-                bool? sound = audible is null ? null : pids.Any(audible.Contains);
+                var sound = audio?.SoundOf(pids); // null: audio unreadable, or played outside Windows sessions (ASIO)
                 if (!_silence.TryGetValue(name, out var timer)) _silence[name] = timer = new SilenceTimer(Grace);
                 if (!timer.IsPlaying(sound, song is not null, now) || song is null || found.Playing) continue;
                 found = new NowPlaying(true, song.Value.Title, song.Value.Artist, "", name, null, null, null, 0, null);

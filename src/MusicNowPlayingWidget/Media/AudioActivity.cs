@@ -8,9 +8,10 @@ public static class AudioActivity
 {
     const float Silence = 0.0001f;
 
-    /// Process IDs with sound in any output device's sessions; null when Windows audio can't be read.
-    public static HashSet<int>? AudiblePids()
+    /// The processes with a session on any output device, and those making sound; null when Windows audio can't be read.
+    public static AudioSnapshot? Read()
     {
+        var withSession = new HashSet<int>();
         var pids = new HashSet<int>();
         var com = new List<object>();
         try
@@ -35,10 +36,11 @@ public static class AudioActivity
                     if (sessions.GetSession(i, out var control) != 0) continue;
                     com.Add(control);
                     if (control.GetProcessId(out var pid) != 0 || pid == 0) continue; // 0: system sounds
+                    withSession.Add((int)pid);
                     if (((IAudioMeterInformation)control).GetPeakValue(out var peak) == 0 && peak > Silence) pids.Add((int)pid);
                 }
             }
-            return pids;
+            return new AudioSnapshot(withSession, pids);
         }
         catch { return null; } // no audio service, or a device vanished mid-read: caller falls back to titles
         finally

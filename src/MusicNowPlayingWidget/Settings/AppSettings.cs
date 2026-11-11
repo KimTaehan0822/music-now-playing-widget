@@ -63,6 +63,8 @@ public sealed class AppSettings
             if (p is null || string.IsNullOrWhiteSpace(name)) continue;
             if (p.Mode is not (ProgramEntry.Windows or ProgramEntry.Title)) p.Mode = ProgramEntry.Windows;
             if (p.Order is not (ProgramEntry.TitleArtist or ProgramEntry.ArtistTitle)) p.Order = ProgramEntry.TitleArtist;
+            // Its app is already in the list, which decides from now on: the row would never do anything.
+            if (p.Mode == ProgramEntry.Windows && Apps.Keys.Any(id => ProgramName.Matches(name, id))) continue;
             programs[name] = p;
         }
         Programs = programs;

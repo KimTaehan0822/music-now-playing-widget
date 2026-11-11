@@ -90,6 +90,29 @@ public class AppSettingsTests
     }
 
     [Fact]
+    public void Sanitize_DropsWindowsRowForAppAlreadyListed()
+    {
+        // Saved from a page that still showed the row after the server merged it, or picked for a listed app.
+        var s = new AppSettings();
+        s.Apps[MelonId] = false;
+        s.Programs["Melon Player"] = new ProgramEntry { Enabled = true, Mode = ProgramEntry.Windows };
+        s.Programs["foobar2000"] = new ProgramEntry { Mode = ProgramEntry.Windows };
+        s.Sanitize();
+        Assert.False(s.Programs.ContainsKey("Melon Player"));
+        Assert.True(s.Programs.ContainsKey("foobar2000"));
+        Assert.False(s.Apps[MelonId]);
+    }
+
+    [Fact]
+    public void Sanitize_KeepsTitleRowForAppAlreadyListed()
+    {
+        var s = new AppSettings();
+        s.Apps[MelonId] = true;
+        s.Programs["Melon Player"] = new ProgramEntry { Mode = ProgramEntry.Title };
+        Assert.True(s.Sanitize().Programs.ContainsKey("Melon Player"));
+    }
+
+    [Fact]
     public void IsAppEnabled_UsesPreselectedRowBeforeSeen()
     {
         var s = new AppSettings();
