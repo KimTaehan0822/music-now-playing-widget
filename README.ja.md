@@ -74,8 +74,8 @@ YouTube Musicを**Chromeアプリとしてインストール**すると、Window
 | Spotify（デスクトップアプリ） | ✅ 確認済み |
 | YouTube Music（Chromeアプリとしてインストール） | ✅ 確認済み |
 | Melon（デスクトップアプリ） | ✅ 確認済み |
-| Apple Music（Windowsアプリ） | ⏳ 未確認 |
-| TIDAL（デスクトップアプリ） | ⏳ 未確認 |
+| Apple Music（Windowsアプリ） | ⏳ 確認中 |
+| TIDAL（デスクトップアプリ） | ✅ 確認済み |
 
 Windowsの「再生中」情報に曲を出すプレイヤーなら動作します。音量キーを押したときに曲名が出れば、ほぼ確実に使えます。
 試した結果を教えていただければ表を更新します。

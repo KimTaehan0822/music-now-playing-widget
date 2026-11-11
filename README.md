@@ -74,8 +74,8 @@ Songs you play in the YouTube Music window then show up, even ones without album
 | Spotify (desktop app) | ✅ Confirmed |
 | YouTube Music (installed as a Chrome app) | ✅ Confirmed |
 | Melon (desktop app) | ✅ Confirmed |
-| Apple Music (Windows app) | ⏳ Not confirmed yet |
-| TIDAL (desktop app) | ⏳ Not confirmed yet |
+| Apple Music (Windows app) | ⏳ Checking |
+| TIDAL (desktop app) | ✅ Confirmed |
 
 Any player that publishes to Windows' "now playing" info should work. If the song shows up when you press a volume key, it will almost certainly work.
 Tell us how it went and we'll update this table.

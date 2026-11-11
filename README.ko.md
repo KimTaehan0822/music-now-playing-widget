@@ -74,8 +74,8 @@ Windows는 "어느 브라우저에서 재생 중인지"만 알려 주고, 어느
 | Spotify (PC 앱) | ✅ 확인됨 |
 | YouTube Music (Chrome 앱으로 설치) | ✅ 확인됨 |
 | 멜론 (PC 앱) | ✅ 확인됨 |
-| Apple Music (Windows 앱) | ⏳ 아직 확인 안 됨 |
-| TIDAL (PC 앱) | ⏳ 아직 확인 안 됨 |
+| Apple Music (Windows 앱) | ⏳ 확인 중 |
+| TIDAL (PC 앱) | ✅ 확인됨 |
 
 Windows의 "지금 재생 중" 정보에 곡을 올리는 플레이어라면 동작해요. 볼륨 키를 눌렀을 때 곡 정보가 보이면 거의 확실히 돼요.
 써 보신 결과를 알려 주시면 표를 고칠게요.
