@@ -52,5 +52,6 @@
   "settings.removeProgram": "削除",
   "settings.titleBrowserWarning": "ブラウザでは、音が出ているタブのタイトルがそのまま配信に出ます。音楽サイトだけを開いて使ってください。",
   "settings.programMode": "{name} の読み取り方",
-  "settings.programOrder": "{name} のタイトルの順番"
+  "settings.programOrder": "{name} のタイトルの順番",
+  "settings.ytmWindows11": "Windows 11 でのみ使えます。Windows 10 では YouTube Music アプリのウィンドウで再生しても通常の Chrome と同じ名前で伝えるため、別々にオンにできません。"
 }

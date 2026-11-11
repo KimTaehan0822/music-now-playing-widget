@@ -52,5 +52,6 @@
   "settings.removeProgram": "Remove",
   "settings.titleBrowserWarning": "For a browser, the title of the tab making sound goes on stream as is. Keep only your music site open.",
   "settings.programMode": "How to read {name}",
-  "settings.programOrder": "{name} title order"
+  "settings.programOrder": "{name} title order",
+  "settings.ytmWindows11": "This only works on Windows 11. Windows 10 reports the YouTube Music app window under the same name as regular Chrome, so it can't be turned on separately."
 }

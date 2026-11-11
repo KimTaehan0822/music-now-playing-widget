@@ -16,6 +16,7 @@ public class StringsTests
         "settings.addProgram", "settings.programsNone", "settings.modeWindows", "settings.modeTitle",
         "settings.orderTitleArtist", "settings.orderArtistTitle", "settings.windowsModeHint", "settings.titleModeHint",
         "settings.removeProgram", "settings.titleBrowserWarning", "settings.programMode", "settings.programOrder",
+        "settings.ytmWindows11",
     ];
 
     [Fact]
