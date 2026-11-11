@@ -7,7 +7,7 @@ $zip = Join-Path $root "dist\MusicNowPlayingWidget-v$Version.zip"
 
 if (Test-Path $out) { Remove-Item $out -Recurse -Force }
 dotnet publish (Join-Path $root "src\MusicNowPlayingWidget") -c Release -r win-x64 --self-contained true `
-  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true `
+  -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=false `
   -p:DebugType=none -p:Version=$Version -o $out
 if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed" }
 
