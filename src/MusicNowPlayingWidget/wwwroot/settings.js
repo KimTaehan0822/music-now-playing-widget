@@ -103,6 +103,9 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
     return o;
   }
 
+  // Process names of browsers (same list as the server's browser marks)
+  const BROWSERS = /^(chrome|msedge|whale|firefox|opera|brave|vivaldi)$/i;
+
   function renderPrograms() {
     const list = $('programs');
     list.replaceChildren();
@@ -110,6 +113,7 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
       const p = programs[name];
       const li = document.createElement('li');
       li.className = 'program';
+      li.dataset.name = name;
       const row = document.createElement('div');
       row.className = 'row';
       const label = document.createElement('label');
@@ -124,16 +128,17 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
       const controls = document.createElement('div');
       controls.className = 'controls';
       const mode = document.createElement('select');
-      mode.setAttribute('aria-label', name);
+      mode.dataset.role = 'mode';
+      mode.setAttribute('aria-label', t('settings.programMode').replace('{name}', name));
       mode.append(option('windows', 'settings.modeWindows', p.mode), option('title', 'settings.modeTitle', p.mode));
       mode.addEventListener('change', () => {
         editPrograms(() => { p.mode = mode.value; });
-        $('programs').querySelector(`select[aria-label="${CSS.escape(name)}"]`)?.focus();
+        $('programs').querySelector(`li[data-name="${CSS.escape(name)}"] select[data-role=mode]`)?.focus();
       });
       controls.append(mode);
       if (p.mode === 'title') {
         const order = document.createElement('select');
-        order.setAttribute('aria-label', name);
+        order.setAttribute('aria-label', t('settings.programOrder').replace('{name}', name));
         order.append(option('title-artist', 'settings.orderTitleArtist', p.order),
           option('artist-title', 'settings.orderArtistTitle', p.order));
         order.addEventListener('change', () => editPrograms(() => { p.order = order.value; }, false));
@@ -151,6 +156,12 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
       hint.className = 'hint program-hint';
       hint.textContent = t(p.mode === 'title' ? 'settings.titleModeHint' : 'settings.windowsModeHint');
       li.append(row, hint);
+      if (p.mode === 'title' && BROWSERS.test(name)) {
+        const warn = document.createElement('p');
+        warn.className = 'hint program-hint warn';
+        warn.textContent = t('settings.titleBrowserWarning');
+        li.append(warn);
+      }
       list.append(li);
     }
   }

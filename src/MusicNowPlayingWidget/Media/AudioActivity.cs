@@ -45,7 +45,11 @@ public static class AudioActivity
         catch { return null; } // no audio service, or a device vanished mid-read: caller falls back to titles
         finally
         {
-            foreach (var o in com) Marshal.ReleaseComObject(o);
+            foreach (var o in com)
+            {
+                try { Marshal.ReleaseComObject(o); }
+                catch { } // one stuck object must not cost the reading or the others' release
+            }
         }
     }
 

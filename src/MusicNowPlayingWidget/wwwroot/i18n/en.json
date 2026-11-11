@@ -49,5 +49,8 @@
   "settings.orderArtistTitle": "Artist - Title",
   "settings.windowsModeHint": "Once this program plays a song, it joins the list above.",
   "settings.titleModeHint": "Album art and playback time won't show.",
-  "settings.removeProgram": "Remove"
+  "settings.removeProgram": "Remove",
+  "settings.titleBrowserWarning": "For a browser, the title of the tab making sound goes on stream as is. Keep only your music site open.",
+  "settings.programMode": "How to read {name}",
+  "settings.programOrder": "{name} title order"
 }

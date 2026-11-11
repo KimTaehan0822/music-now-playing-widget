@@ -49,5 +49,8 @@
   "settings.orderArtistTitle": "아티스트 - 제목",
   "settings.windowsModeHint": "이 프로그램에서 곡을 틀면 위 목록으로 합쳐져요.",
   "settings.titleModeHint": "앨범 사진과 재생 시간은 표시되지 않아요.",
-  "settings.removeProgram": "삭제"
+  "settings.removeProgram": "삭제",
+  "settings.titleBrowserWarning": "브라우저는 소리가 나는 탭의 제목이 그대로 방송에 나와요. 음악 사이트만 열어 두고 쓰세요.",
+  "settings.programMode": "{name} 읽는 방식",
+  "settings.programOrder": "{name} 제목 순서"
 }

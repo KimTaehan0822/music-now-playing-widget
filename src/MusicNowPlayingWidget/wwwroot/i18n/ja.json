@@ -49,5 +49,8 @@
   "settings.orderArtistTitle": "アーティスト - 曲名",
   "settings.windowsModeHint": "このプログラムで曲を再生すると、上のリストにまとめられます。",
   "settings.titleModeHint": "アルバム写真と再生時間は表示されません。",
-  "settings.removeProgram": "削除"
+  "settings.removeProgram": "削除",
+  "settings.titleBrowserWarning": "ブラウザでは、音が出ているタブのタイトルがそのまま配信に出ます。音楽サイトだけを開いて使ってください。",
+  "settings.programMode": "{name} の読み取り方",
+  "settings.programOrder": "{name} のタイトルの順番"
 }

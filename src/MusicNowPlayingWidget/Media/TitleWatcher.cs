@@ -48,45 +48,50 @@ public sealed class TitleWatcher : IDisposable
             var audio = AudioActivity.Read();
             var now = DateTimeOffset.UtcNow;
             var found = NowPlaying.Empty;
-            foreach (var (name, artistFirst) in programs)
+            var all = Process.GetProcesses(); // one snapshot per tick, however many programs are picked
+            try
             {
-                var (song, pids) = Read(name, artistFirst);
-                var sound = audio?.SoundOf(pids); // null: audio unreadable, or played outside Windows sessions (ASIO)
-                if (!_silence.TryGetValue(name, out var timer)) _silence[name] = timer = new SilenceTimer(Grace);
-                if (!timer.IsPlaying(sound, song is not null, now) || song is null || found.Playing) continue;
-                found = new NowPlaying(true, song.Value.Title, song.Value.Artist, "", name, null, null, null, 0, null);
+                var byName = all.ToLookup(p => p.ProcessName, StringComparer.OrdinalIgnoreCase);
+                foreach (var (name, artistFirst) in programs)
+                {
+                    var (song, pids) = Read(byName[name], name, artistFirst);
+                    var sound = audio?.SoundOf(pids); // null: audio unreadable, or played outside Windows sessions (ASIO)
+                    if (!_silence.TryGetValue(name, out var timer)) _silence[name] = timer = new SilenceTimer(Grace);
+                    if (!timer.IsPlaying(sound, song is not null, now) || song is null || found.Playing) continue;
+                    found = new NowPlaying(true, song.Value.Title, song.Value.Artist, "", name, null, null, null, 0, null);
+                }
             }
-            lock (_gate) if (_programs.Count == 0) return; // turned off while reading
-            Publish(found);
+            finally { foreach (var p in all) p.Dispose(); }
+            Publish(found, programs);
         }
         catch { } // one bad read must not stop the timer
         finally { _ticking = 0; }
     }
 
     /// The first parsable window title among the program's processes, and all their IDs (helpers play the sound too).
-    static ((string Title, string Artist)? Song, List<int> Pids) Read(string name, bool artistFirst)
+    static ((string Title, string Artist)? Song, List<int> Pids) Read(IEnumerable<Process> processes, string name, bool artistFirst)
     {
         (string, string)? song = null;
         var pids = new List<int>();
-        foreach (var p in Process.GetProcessesByName(name))
+        foreach (var p in processes)
         {
-            using (p)
+            try
             {
-                try
-                {
-                    pids.Add(p.Id);
-                    song ??= WindowTitle.Parse(p.MainWindowTitle, name, artistFirst);
-                }
-                catch { } // exited meanwhile
+                pids.Add(p.Id);
+                song ??= WindowTitle.Parse(p.MainWindowTitle, name, artistFirst); // stops reading titles once one parses
             }
+            catch { } // exited meanwhile
         }
         return (song, pids);
     }
 
-    void Publish(NowPlaying next)
+    /// readFrom: the program list the tick read; a result from a list Update has since replaced is dropped,
+    /// so a removed row can't bring its song back after Update cleared it.
+    void Publish(NowPlaying next, List<(string Name, bool ArtistFirst)>? readFrom = null)
     {
         lock (_gate)
         {
+            if (readFrom is not null && !ReferenceEquals(readFrom, _programs)) return;
             if (next == Current) return;
             Current = next;
         }
