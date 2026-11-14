@@ -14,7 +14,7 @@ It reads the "now playing" info that Windows already knows. That is the same inf
 
 ## How to use
 
-1. Download `MusicNowPlayingWidget-v0.3.1.zip` and unzip it anywhere.
+1. Download `MusicNowPlayingWidget-v0.3.2.zip` and unzip it anywhere.
 2. Double-click `MusicNowPlayingWidget.exe`.
    - **If a blue "Windows protected your PC" window appears**, click `More info` → `Run anyway`.
      The warning appears because this free, personal project has no paid Microsoft certificate.

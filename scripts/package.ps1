@@ -1,5 +1,5 @@
 # Builds dist/MusicNowPlayingWidget-v<version>.zip: a single self-contained exe plus docs and licenses.
-param([string]$Version = "0.3.1")
+param([string]$Version = "0.3.2")
 $ErrorActionPreference = "Stop"
 $root = Split-Path $PSScriptRoot -Parent
 $out = Join-Path $root "dist\MusicNowPlayingWidget"

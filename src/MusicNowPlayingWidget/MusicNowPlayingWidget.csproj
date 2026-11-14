@@ -9,7 +9,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <AssemblyName>MusicNowPlayingWidget</AssemblyName>
     <RootNamespace>MusicNowPlayingWidget</RootNamespace>
-    <Version>0.3.1</Version>
+    <Version>0.3.2</Version>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
