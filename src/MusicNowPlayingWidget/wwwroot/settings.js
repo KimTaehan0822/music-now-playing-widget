@@ -303,7 +303,30 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
     startupOn = s.enabled;
     $('startWithWindows').checked = s.enabled;
   }).catch(() => { $('startWithWindows').disabled = true; }); // unknown state: don't let Save guess
-  fetch('/api/info').then(r => r.json()).then(info => { widgetUrl = info.widgetUrl; renderUrls(); });
+  const infoReady = fetch('/api/info').then(r => r.json());
+  infoReady.then(info => { widgetUrl = info.widgetUrl; renderUrls(); });
+
+  // New release on GitHub: a line under the header, and a confirm popup once per release.
+  async function showUpdate() {
+    try {
+      const { version } = await infoReady;
+      const r = await UpdateCheck.latest('music-now-playing-widget');
+      if (!r || !UpdateCheck.isNewer(r.tag, version)) return;
+      const link = document.createElement('a');
+      link.href = r.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = t('settings.openRelease');
+      $('update').textContent = t('settings.updateAvailable').replace('{version}', r.tag) + ' ';
+      $('update').append(link);
+      $('update').hidden = false;
+      let seen = null;
+      try { seen = localStorage.getItem('update-seen'); } catch { /* blocked storage: ask every time */ }
+      if (seen === r.tag) return;
+      try { localStorage.setItem('update-seen', r.tag); } catch { }
+      if (confirm(t('settings.updateConfirm').replace('{version}', r.tag))) window.open(r.url, '_blank', 'noopener');
+    } catch { /* no notice */ }
+  }
 
   const events = new EventSource('/events');
   events.addEventListener('settings', async e => {
@@ -313,6 +336,7 @@ let startupOn = null;  // last "start with Windows" state the server confirmed; 
       await applyLanguage(next.language);
       fillForm(next);
       updatePreview();
+      showUpdate();
       return;
     }
     // A new app was seen (or another tab saved): refresh the list, keep unsaved ticks.

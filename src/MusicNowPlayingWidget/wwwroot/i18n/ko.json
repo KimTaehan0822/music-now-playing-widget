@@ -53,5 +53,8 @@
   "settings.titleBrowserWarning": "브라우저는 소리가 나는 탭의 제목이 그대로 방송에 나와요. 음악 사이트만 열어 두고 쓰세요.",
   "settings.programMode": "{name} 읽는 방식",
   "settings.programOrder": "{name} 제목 순서",
-  "settings.ytmWindows11": "Windows 11에서만 돼요. Windows 10은 유튜브 뮤직 앱 창에서 틀어도 일반 크롬과 같은 이름으로 알려 줘서 따로 켤 수 없어요."
+  "settings.ytmWindows11": "Windows 11에서만 돼요. Windows 10은 유튜브 뮤직 앱 창에서 틀어도 일반 크롬과 같은 이름으로 알려 줘서 따로 켤 수 없어요.",
+  "settings.updateAvailable": "새 버전 {version}이 나왔어요.",
+  "settings.openRelease": "릴리즈 페이지 열기",
+  "settings.updateConfirm": "새 버전 {version}이 나왔어요.\n릴리즈 페이지를 열까요?"
 }

@@ -75,7 +75,7 @@ public sealed class WebServer(int port, Func<NowPlaying> current, Func<AlbumArt?
                     res.OutputStream.Write(Encoding.UTF8.GetBytes(WidgetFiles.ConfigJs(port)));
                     break;
                 case ("GET", "/api/info"):
-                    Text(res, Json(new { widgetUrl = widgetFileUrl }));
+                    Text(res, Json(new { widgetUrl = widgetFileUrl, version = typeof(WebServer).Assembly.GetName().Version!.ToString(3) }));
                     break;
                 case ("GET", "/art"):
                     var a = art();

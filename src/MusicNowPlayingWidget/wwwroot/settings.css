@@ -33,6 +33,12 @@ body {
   margin: 0 auto;
   padding: 28px 24px 8px;
 }
+
+.update {
+  max-width: 1080px;
+  margin: 8px auto 0;
+  padding: 0 24px;
+}
 h1 { font-size: 24px; font-weight: 750; letter-spacing: -.015em; margin: 0; }
 h2 { font-size: 15px; font-weight: 650; margin: 0 0 10px; }
 

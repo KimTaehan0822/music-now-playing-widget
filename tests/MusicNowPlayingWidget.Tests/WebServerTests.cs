@@ -228,6 +228,10 @@ public class WebServerTests : IDisposable
     public async Task Info_GivesWidgetFileUrl() =>
         Assert.Contains("file:///C:/w/widget.html", await _http.GetStringAsync("api/info"));
 
+    [Fact]
+    public async Task Info_GivesAppVersion() =>
+        Assert.Matches("\"version\":\"\\d+\\.\\d+\\.\\d+\"",await _http.GetStringAsync("api/info"));
+
     [Theory]
     [InlineData("null", "null")]               // a widget opened as file:///
     [InlineData("http://absolute", "http://absolute")] // OBS "Local file" mode
